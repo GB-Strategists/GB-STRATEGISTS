@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUAL VAULT | Proyecto: Arquitectura Sostenible 2026</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&family=Fira+Code&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="gb-elite.css">
+
+    <style>
+        body {
+            background-attachment: fixed;
+            background-image: radial-gradient(circle at 0% 0%, rgba(36, 168, 225, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(228, 168, 55, 0.03) 0%, transparent 50%);
+        }
+
+        /* VAULT HEADER */
+        .vault-header {
+            padding: 80px 10% 40px;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--cyan);
+            border: 1px solid var(--cyan);
+            padding: 4px 12px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .vault-header h1 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            margin-bottom: 10px;
+        }
+
+        .client-info {
+            font-family: var(--font-subheading);
+            color: var(--gold);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        /* METRICS BAR */
+        .metrics-bar {
+            display: flex;
+            gap: 40px;
+            padding: 20px 10%;
+            background: rgba(10, 25, 47, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 50px;
+        }
+
+        .metric-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-label {
+            font-size: 10px;
+            color: rgba(240, 244, 248, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .metric-value {
+            font-family: var(--font-subheading);
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        /* DYNAMIC GALLERY */
+        .vault-gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 20px;
+            padding: 0 10%;
+            margin-bottom: 100px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.8s;
+            filter: grayscale(0.5);
+        }
+
+        .gallery-item:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 30px rgba(36, 168, 225, 0.1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0);
+        }
+
+        /* Layout Variado */
+        .grid-wide {
+            grid-column: span 8;
+            height: 500px;
+        }
+
+        .grid-tall {
+            grid-column: span 4;
+            height: 500px;
+        }
+
+        .grid-normal {
+            grid-column: span 4;
+            height: 350px;
+        }
+
+        .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(5, 11, 22, 0.9), transparent);
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .gallery-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        /* CEO SIGNATURE ANIMATION */
+        .signature-container {
+            padding: 100px 10%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: radial-gradient(circle at center, rgba(36, 168, 225, 0.05) 0%, transparent 70%);
+        }
+
+        .sig-svg {
+            width: 300px;
+            margin: 20px auto;
+        }
+
+        .sig-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            stroke: var(--gold);
+            stroke-width: 2;
+            fill: none;
+            transition: stroke-dashoffset 2s ease-in-out;
+        }
+
+        .sig-visible .sig-path {
+            stroke-dashoffset: 0;
+        }
+
+        /* KINETIC CURSOR (REUTILIZADO) */
+        #kinetic-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--cyan);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease-out;
+            mix-blend-mode: screen;
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="kinetic-cursor"></div>
+
+    <header class="vault-header">
+        <div class="project-tag">VAULT-AUTH: 77-AX99</div>
+        <h1>VISUAL EVOLUTION: ARCHITECTURE</h1>
+        <div class="client-info">PREPARADO PARA: CONSORCIO EDIFICACIÓN GLOBAL</div>
+    </header>
+
+    <div class="metrics-bar">
+        <div class="metric-item">
+            <span class="metric-label">Activos Visuales</span>
+            <span class="metric-value">12 Entregables</span>
+        </div>
+        <div class="metric-item">
+            <span class="metric-label">Protocolo DNA</span>
+            <span class="metric-value">V2.4 Elite Mundial</span>
+        </div>
+        <div class="metric-item">
+            <span class="metric-label">Status</span>
+            <span class="metric-value" style="color: var(--cyan);">✔ Confidencial & Poderoso</span>
+        </div>
+        <div class="metric-item">
+            <span class="metric-label">Fecha de Auditoría</span>
+            <span class="metric-value">17 Feb 2026</span>
+        </div>
+    </div>
+
+    <section class="vault-gallery">
+        <!-- Hero del Proyecto -->
+        <div class="gallery-item grid-wide reveal">
+            <img src="originales/jpeg/Whisk_bbf2c24cab9a751892243dbb6c054972dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp"
+                alt="Arquitectura Hero">
+            <div class="item-overlay">
+                <span class="gold-text">RENDER MAESTRO 01</span><br>
+                <small>Proyección de Fachada Inteligente</small>
+            </div>
+        </div>
+
+        <div class="gallery-item grid-tall reveal" style="animation-delay: 0.1s;">
+            <img src="originales/jpeg/Whisk_4ae4ffa1e29e026a2894702eb2f49ba4dr-1920x1080-hero-desktop-internal-photo-gb-optimized.webp"
+                alt="Detalle Vertical">
+            <div class="item-overlay">
+                <span class="gold-text">DETALLE ESTRUCTURAL</span><br>
+                <small>Integración Bio-Digital</small>
+            </div>
+        </div>
+
+        <div class="gallery-item grid-normal reveal" style="animation-delay: 0.2s;">
+            <img src="originales/jpeg/Whisk_51a0d82f891a22a9492479a6d0903ab2dr-1920x1080-hero-desktop-internal-photo-gb-optimized.webp"
+                alt="Interior">
+            <div class="item-overlay">
+                <span class="gold-text">ESPACIOS DE LUJO</span><br>
+                <small>Optimización de Iluminación Natural</small>
+            </div>
+        </div>
+
+        <div class="gallery-item grid-normal reveal" style="animation-delay: 0.3s;">
+            <img src="originales/jpeg/Whisk_70985514318b206beec451c3201b9bd1dr-1920x1080-hero-desktop-internal-photo-gb-optimized.webp"
+                alt="Noche">
+            <div class="item-overlay">
+                <span class="gold-text">ATMÓSFERA NOCTURNA</span><br>
+                <small>Sostenibilidad Lumínica</small>
+            </div>
+        </div>
+
+        <div class="gallery-item grid-normal reveal" style="animation-delay: 0.4s;">
+            <img src="originales/jpeg/Whisk_fc50015eb2b3c2ea0a449205de465241dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp"
+                alt="Concepto">
+            <div class="item-overlay">
+                <span class="gold-text">CONCEPTO AGÉNTICO</span><br>
+                <small>Diseño Generativo Assistido</small>
+            </div>
+        </div>
+    </section>
+
+    <footer class="signature-container" id="signature-trigger">
+        <div style="font-family: var(--font-subheading); color: var(--gold); margin-bottom: 30px;">
+            ESTE PROYECTO HA SIDO AUDITADO BAJO EL PROTOCOLO GB-DNA 2.4 (ELITE MUNDIAL)
+        </div>
+
+        <svg class="sig-svg" viewBox="0 0 400 150">
+            <!-- Firma estilizada simulada en SVG -->
+            <path class="sig-path" d="M50,100 C80,20 120,150 150,80 C180,30 220,130 250,70 C280,30 350,100 380,80" />
+            <path class="sig-path" style="stroke-width: 1; opacity: 0.5;" d="M60,110 C90,30 130,160 160,90" />
+        </svg>
+
+        <div style="font-family: var(--font-heading); margin-top: 20px;">MBA. GUIDO R. BONILLA</div>
+        <div style="color: var(--cyan); font-size: 0.8rem; letter-spacing: 2px;">CHIEF EXECUTIVE OFFICER</div>
+
+        <div style="margin-top: 50px;">
+            <a href="https://wa.me/593995173861?text=He+revisado+el+Vault+de+Arquitectura+Sostenible" class="vault-btn"
+                style="padding: 12px 25px; font-size: 12px;">Contactar al Estratega</a>
+        </div>
+    </footer>
+
+    <script>
+        // CURSOR
+        const cursor = document.getElementById('kinetic-cursor');
+        let cursorX = 0, cursorY = 0;
+        document.addEventListener('mousemove', (e) => {
+            cursorX = e.clientX; cursorY = e.clientY;
+            cursor.style.left = (cursorX - 10) + 'px';
+            cursor.style.top = (cursorY - 10) + 'px';
+        });
+
+        // INTERSECTION OBSERVER PARA FIRMA
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('sig-visible');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(document.getElementById('signature-trigger'));
+
+        // REVEAL ANIMATION ON SCROLL
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+
+</html>

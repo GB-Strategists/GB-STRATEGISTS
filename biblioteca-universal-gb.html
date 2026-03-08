@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GB Strategists | Biblioteca Universal de Activos</title>
+    <!-- FUENTES PREMIUM -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============ GB-DNA 2.3 CORE STYLES ============ */
+        :root {
+            --gb-gold: #E4A837;
+            --gb-cyan: #24A8E1;
+            --gb-midnight: #0A192F;
+            --gb-void: #050B16;
+            --gb-white: #F0F4F8;
+            --gb-glass: rgba(10, 25, 47, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--gb-void);
+            color: var(--gb-white);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(180deg, rgba(5, 11, 22, 0.95) 0%, rgba(5, 11, 22, 0.8) 100%);
+            padding: 2rem 5%;
+            border-bottom: 2px solid var(--gb-gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gb-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-badge {
+            background: rgba(36, 168, 225, 0.1);
+            border: 1px solid var(--gb-cyan);
+            color: var(--gb-cyan);
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* SECTIONS */
+        .library-section {
+            padding: 4rem 5%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(228, 168, 55, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gb-white);
+            font-size: 1.8rem;
+        }
+
+        .section-count {
+            background: var(--gb-gold);
+            color: var(--gb-void);
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* GRIDS TYPE-SPECIFIC */
+
+        /* 1. HERO GRID (16:9) */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 30px;
+        }
+
+        /* 2. BANNER GRID (3:1) */
+        .banner-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* 3. ASSET GRID (Square/Vertical) */
+        .asset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARDS UNIVERSAL */
+        .asset-card {
+            background: rgba(15, 40, 71, 0.4);
+            border: 1px solid rgba(36, 168, 225, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            group: hover;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gb-gold);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(228, 168, 55, 0.2);
+        }
+
+        /* IMAGE CONTAINER */
+        .card-image-wrapper {
+            width: 100%;
+            overflow: hidden;
+            background: repeating-conic-gradient(#0F2847 0% 25%, #0A192F 0% 50%) 50% / 20px 20px;
+            position: relative;
+        }
+
+        /* Aspect Ratios classes */
+        .ratio-16-9 {
+            aspect-ratio: 16/9;
+        }
+
+        .ratio-3-1 {
+            aspect-ratio: 3/1;
+        }
+
+        .ratio-1-1 {
+            aspect-ratio: 1/1;
+        }
+
+        .ratio-auto {
+            aspect-ratio: auto;
+        }
+
+        .card-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .asset-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* CARD META */
+        .card-meta {
+            padding: 1.2rem;
+            background: linear-gradient(180deg, rgba(10, 25, 47, 0.9) 0%, rgba(5, 11, 22, 1) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .meta-name {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gb-white);
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .meta-role {
+            font-size: 0.85rem;
+            color: var(--gb-cyan);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .meta-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tag.gold {
+            border-color: var(--gb-gold);
+            color: var(--gb-gold);
+            background: rgba(228, 168, 55, 0.1);
+        }
+
+        .tag.cyan {
+            border-color: var(--gb-cyan);
+            color: var(--gb-cyan);
+            background: rgba(36, 168, 225, 0.1);
+        }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(36, 168, 225, 0.2);
+            margin-top: 4rem;
+            background: #020408;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="brand-title">
+            🧬 GB STRATEGISTS
+            <span class="brand-badge">VISUAL VAULT V3.0</span>
+        </div>
+        <div>
+            <!-- Status Indicator -->
+            <span style="color: var(--gb-cyan); font-size: 0.9rem;">● Sistema Activo</span>
+        </div>
+    </header>
+
+    <!-- SECTION: HEROES (16:9, Fullscreen) -->
+    <section class="library-section">
+        <div class="section-header">
+            <h2 class="section-title">Imágenes Hero & Pantalla Completa</h2>
+            <span class="section-count">16:9</span>
+        </div>
+        <div class="hero-grid" id="container-heroes">
+
+            <!-- AQUI INSERTO HEROES -->
+            
+            <!-- ARQUITECTO PRINCIPAL -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/convertir6-1920x1080-hero-desktop-client-stock-gb-optimized.webp" 
+                         alt="Arquitecto Principal - Diseño Sostenible" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Arquitecto Principal</span>
+                    <span class="meta-role">Diseño Sostenible</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- INGENIERO EN JEFE -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/convertir7-1920x1080-hero-desktop-client-stock-gb-optimized.webp" 
+                         alt="Ingeniero en Jefe - Infraestructura Verde" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Ingeniero en Jefe</span>
+                    <span class="meta-role">Infraestructura Verde</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE DEL EXPERTO -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/jpeg/Whisk_bbf2c24cab9a751892243dbb6c054972dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp" 
+                         alt="Nombre del Experto - Su Especialidad" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Nombre del Experto</span>
+                    <span class="meta-role">Su Especialidad</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GB ASSET -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/jpeg/Whisk_4ae4ffa1e29e026a2894702eb2f49ba4dr-1920x1080-hero-desktop-internal-photo-gb-optimized.webp" 
+                         alt="GB Asset - Visual Element" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">GB Asset</span>
+                    <span class="meta-role">Visual Element</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">internal-photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GB ASSET -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/jpeg/Whisk_51a0d82f891a22a9492479a6d0903ab2dr-1920x1080-hero-desktop-internal-photo-gb-optimized.webp" 
+                         alt="GB Asset - Visual Element" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">GB Asset</span>
+                    <span class="meta-role">Visual Element</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">internal-photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GB ASSET -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/jpeg/Whisk_70985514318b206beec451c3201b9bd1dr-1920x1080-hero-desktop-internal-photo-gb-optimized.webp" 
+                         alt="GB Asset - Visual Element" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">GB Asset</span>
+                    <span class="meta-role">Visual Element</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">internal-photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE DEL EXPERTO -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/jpeg/Whisk_d11a8f73cb1d201aff9413f7e6bdfec7dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp" 
+                         alt="Nombre del Experto - Su Especialidad" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Nombre del Experto</span>
+                    <span class="meta-role">Su Especialidad</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE DEL EXPERTO -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-16-9">
+                    <img src="originales/jpeg/Whisk_fc50015eb2b3c2ea0a449205de465241dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp" 
+                         alt="Nombre del Experto - Su Especialidad" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Nombre del Experto</span>
+                    <span class="meta-role">Su Especialidad</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1920x1080px</span>
+                        <span class="tag cyan">hero-desktop</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            <!-- MARKER-HEROES -->
+
+        </div>
+    </section>
+
+    <!-- SECTION: BANNERS (3:1, Ads) -->
+    <section class="library-section">
+        <div class="section-header">
+            <h2 class="section-title">Banners & Publicidad</h2>
+            <span class="section-count">Panorámico</span>
+        </div>
+        <div class="banner-grid" id="container-banners">
+
+            <!-- AQUI INSERTO BANNERS -->
+            <!-- MARKER-BANNERS -->
+
+        </div>
+    </section>
+
+    <!-- SECTION: ASSETS (Thumbnails, Blogs, Vertical) -->
+    <section class="library-section">
+        <div class="section-header">
+            <h2 class="section-title">Thumbnails & Activos Generales</h2>
+            <span class="section-count">Varios</span>
+        </div>
+        <div class="asset-grid" id="container-assets">
+
+            <!-- AQUI INSERTO ASSETS -->
+            
+            <!-- ARQUITECTO (MINI) -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-1-1">
+                    <img src="originales/convertir6-800x800-thumbnail-client-stock-gb-optimized.webp" 
+                         alt="Arquitecto (Mini) - Perfil" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Arquitecto (Mini)</span>
+                    <span class="meta-role">Perfil</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">800x800px</span>
+                        <span class="tag cyan">thumbnail</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GB ASSET -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-1-1">
+                    <img src="originales/jpeg/Whisk_4ae4ffa1e29e026a2894702eb2f49ba4dr-800x800-thumbnail-internal-photo-gb-optimized.webp" 
+                         alt="GB Asset - Visual Element" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">GB Asset</span>
+                    <span class="meta-role">Visual Element</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">800x800px</span>
+                        <span class="tag cyan">thumbnail</span>
+                        <span class="tag">internal-photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GB ASSET -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-1-1">
+                    <img src="originales/jpeg/Whisk_51a0d82f891a22a9492479a6d0903ab2dr-800x800-thumbnail-internal-photo-gb-optimized.webp" 
+                         alt="GB Asset - Visual Element" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">GB Asset</span>
+                    <span class="meta-role">Visual Element</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">800x800px</span>
+                        <span class="tag cyan">thumbnail</span>
+                        <span class="tag">internal-photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GB ASSET -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-1-1">
+                    <img src="originales/jpeg/Whisk_70985514318b206beec451c3201b9bd1dr-800x800-thumbnail-internal-photo-gb-optimized.webp" 
+                         alt="GB Asset - Visual Element" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">GB Asset</span>
+                    <span class="meta-role">Visual Element</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">800x800px</span>
+                        <span class="tag cyan">thumbnail</span>
+                        <span class="tag">internal-photo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE DEL EXPERTO -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-auto">
+                    <img src="originales/jpeg/Logo Def GB-12257x3379-client-stock-gb-optimized.webp" 
+                         alt="Nombre del Experto - Su Especi
+alidad" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Nombre del Experto</span>
+                    <span class="meta-role">Su Especi
+alidad</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">12257x3379px</span>
+                        <span class="tag cyan">original</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE DEL EXPERTO -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-auto">
+                    <img src="originales/jpeg/Logo Def GB-400x100-logo-rect-client-stock-gb-optimized.webp" 
+                         alt="Nombre del Experto - Su Especi 
+>> alidad" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Nombre del Experto</span>
+                    <span class="meta-role">Su Especi 
+>> alidad</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">400x100px</span>
+                        <span class="tag cyan">logo-rect</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOMBRE DEL EXPERTO -->
+            <div class="asset-card">
+                <div class="card-image-wrapper ratio-auto">
+                    <img src="GuidoRicardo-1536x2752-client-stock-gb-optimized.webp" 
+                         alt="Nombre del Experto - Su Especialidad" 
+                         loading="lazy">
+                </div>
+                <div class="card-meta">
+                    <span class="meta-name">Nombre del Experto</span>
+                    <span class="meta-role">Su Especialidad</span>
+                    <div class="meta-tags">
+                        <span class="tag gold">1536x2752px</span>
+                        <span class="tag cyan">original</span>
+                        <span class="tag">client-stock</span>
+                    </div>
+                </div>
+            </div>
+            <!-- MARKER-ASSETS -->
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>GB STRATEGISTS | Protocolo GB-DNA 2.3 | Visual Vault</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">Generated with Universal GB Converter V3.0</p>
+    </footer>
+
+</body>
+
+</html>

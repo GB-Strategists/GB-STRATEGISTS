@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*~
+*.bak
+*.tmp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Node (if any)
+node_modules/
+package-lock.json
+
+# Private/Local files
+desktop.ini
