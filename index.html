@@ -5089,14 +5089,18 @@
             });
         });
 
-        // SHIELD LOGIC
+        // SHIELD LOGIC - Fixed to find elements each time
         function activateShield() {
-            dot.classList.add('verified');
-            cursor.style.borderColor = 'var(--gold)';
+            const dot = document.getElementById('k-dot');
+            const cursor = document.getElementById('k-cursor');
+            if (dot) dot.classList.add('verified');
+            if (cursor) cursor.style.borderColor = 'var(--gold)';
         }
         function deactivateShield() {
-            dot.classList.remove('verified');
-            cursor.style.borderColor = 'var(--cyan)';
+            const dot = document.getElementById('k-dot');
+            const cursor = document.getElementById('k-cursor');
+            if (dot) dot.classList.remove('verified');
+            if (cursor) cursor.style.borderColor = 'var(--cyan)';
         }
 
         // BILINGUAL ENGINE
