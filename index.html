@@ -246,18 +246,18 @@
 
     <!-- HERO CINEMÁTICO PROGRAMÁTICO (DIGITAL VOID) -->
     <header class="hero-wrapper">
-        <div id="digital-void-canvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;">
+        <!-- Imagen de fondo estática -->
+        <img src="originales/jpeg/Whisk_bbf2c24cab9a751892243dbb6c054972dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp" 
+             alt="GB Strategists Hero" 
+             class="hero-bg-img"
+             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.25) saturate(1.3); z-index: 0;">
+        
+        <!-- Three.js Canvas (opcional, como capa superior) -->
+        <div id="digital-void-canvas" style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events: none;">
         </div>
-        <div class="overlay-grid" style="opacity: 0.3;"></div>
+        <div class="overlay-grid" style="opacity: 0.3; z-index: 2;"></div>
 
-        <!-- HERO-REEL SILENCIOSO v4.0 (Mandato ADN 15.4) -->
-        <video class="hero-bg" autoplay loop muted playsinline
-            poster="originales/jpeg/Whisk_bbf2c24cab9a751892243dbb6c054972dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp"
-            style="display:none; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.3) saturate(1.2);">
-            <source src="assets/video/Hero Reel GB Elite.mp4" type="video/mp4">
-        </video>
-
-        <div class="hero-content reveal active">
+        <div class="hero-content reveal active" style="position: relative; z-index: 3;">
             <span class="brand-badge">PTRE-2026 // ORQUESTACIÓN AGÉNTICA // AUTORIDAD ALGORÍTMICA VALIDADA</span>
             <h1 class="mega-title">ORQUESTACIÓN<br>DE LA SOBERANÍA<br>ALGORÍTMICA</h1>
             <p class="hero-lead">

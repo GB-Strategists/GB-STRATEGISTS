@@ -81,6 +81,19 @@ body {
     justify-content: center;
 }
 
+.hero-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.25) saturate(1.3);
+    transform: scale(1.05);
+    animation: slowZoom 25s ease-in-out infinite alternate;
+}
+
 .hero-bg {
     position: absolute;
     top: 0;
