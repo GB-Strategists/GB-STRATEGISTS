@@ -1,0 +1,12 @@
+# Robots.txt para GB STRATEGISTS
+# https://gbstrategists-ai.vercel.app
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://gbstrategists-ai.vercel.app/sitemap.xml
+
+# Disallow sensitive paths
+Disallow: /vault/
+Disallow: /admin/
