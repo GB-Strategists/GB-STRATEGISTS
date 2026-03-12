@@ -375,8 +375,11 @@
 
         <div class="nexus-grid">
             <!-- TARJETA 1: SIMBIOSIS AGÉNTICA -->
-            <div class="nexus-card reveal" data-key="nexus_agentica">
-                <div id="canvas-agentica" class="icon-neural"></div>
+            <div class="nexus-card reveal cinematic-nexus" data-key="nexus_agentica">
+                <div class="icon-neural cinematic-container">
+                    <img src="assets/video/simbiosis-agentica-cinematic.png" alt="Simbiosis Agéntica Cinematic" class="cinematic-asset">
+                    <div class="cinematic-overlay"></div>
+                </div>
                 <span class="gold header-primary">SIMBIOSIS</span>
                 <span class="cyan header-secondary">AGÉNTICA</span>
                 <p>
@@ -409,8 +412,11 @@
             </div>
 
             <!-- TARJETA 4: GOBERNANZA ÉTICA (TRUST VAULT) -->
-            <div class="nexus-card reveal" data-key="nexus_gobernanza">
-                <div id="canvas-gobernanza" class="icon-neural"></div>
+            <div class="nexus-card reveal cinematic-nexus" data-key="nexus_gobernanza">
+                <div class="icon-neural cinematic-container">
+                    <img src="assets/video/gobernanza-etica-cinematic.png" alt="Gobernanza Ética Cinematic" class="cinematic-asset">
+                    <div class="cinematic-overlay"></div>
+                </div>
                 <span class="gold header-primary">GOBERNANZA</span>
                 <span class="cyan header-secondary">ÉTICA (TRUST VAULT)</span>
                 <p>
@@ -450,6 +456,7 @@
                     <div class="modal-visual-col">
                         <div id="modal-diadema">
                             <canvas id="modal-canvas"></canvas>
+                            <img id="modal-cinematic" src="" style="display:none; width:100%; height:100%; object-fit:cover; border-radius:12px; box-shadow: 0 0 40px rgba(36, 168, 225, 0.2);">
                             <div class="nitidez-taktil">NITIDEZ TÁCTIL ABSOLUTA [60 FPS]</div>
                         </div>
                     </div>
@@ -2833,64 +2840,8 @@
 
         // --- ICONOS NEXUS (TARJETAS SUPERIORES) ---
 
-        createIconEngine('canvas-agentica', (scene, camera, renderer) => {
-            const centralPillar = new THREE.Mesh(
-                new THREE.CylinderGeometry(0.5, 0.5, 3, 32),
-                new THREE.MeshPhysicalMaterial({
-                    color: 0x000814, // Midnight Blue
-                    transmission: 0.7, // Glassmorphism extremo
-                    transparent: true,
-                    opacity: 0.3, // 70% transparency
-                    roughness: 0.1,
-                    emissive: 0x000814,
-                    emissiveIntensity: 0.2
-                })
-            );
-            const pillarEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(centralPillar.geometry),
-                new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 }) // Ocre dorado
-            );
-            centralPillar.add(pillarEdges);
-            scene.add(centralPillar);
+        // SIMBIOSIS AGÉNTICA: Now using Cinematic Visual Asset (High Fidelity)
 
-            const agents = [];
-            const agentGeometry = new THREE.SphereGeometry(0.04, 8, 8);
-            const agentMaterial = new THREE.MeshStandardMaterial({
-                color: 0x24A8E1,
-                emissive: 0x24A8E1, // Neon glow cian
-                emissiveIntensity: 1.5,
-                transparent: true,
-                opacity: 0.8
-            });
-            for (let i = 0; i < 200; i++) {
-                const agent = new THREE.Mesh(agentGeometry, agentMaterial);
-                agent.userData = {
-                    angle: Math.random() * Math.PI * 2,
-                    radius: 1 + Math.random() * 1.5,
-                    speed: 0.05 + Math.random() * 0.1,
-                    yPos: (Math.random() - 0.5) * 3,
-                    yVar: Math.random() * 0.1
-                };
-                scene.add(agent);
-                agents.push(agent);
-            }
-
-            const light = new THREE.PointLight(0x24A8E1, 2, 10);
-            scene.add(light);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-            function animate() {
-                requestAnimationFrame(animate);
-                agents.forEach(a => {
-                    a.userData.angle += a.userData.speed;
-                    a.position.x = Math.cos(a.userData.angle) * a.userData.radius;
-                    a.position.z = Math.sin(a.userData.angle) * a.userData.radius;
-                    a.position.y = a.userData.yPos + Math.sin(a.userData.angle * 2) * a.userData.yVar;
-                });
-                centralPillar.rotation.y += 0.002;
-                renderer.render(scene, camera);
-            }
-            animate();
-        });
 
         createIconEngine('canvas-impacto', (scene, camera, renderer) => {
             const prismaGeometry = new THREE.OctahedronGeometry(1.2, 0);
@@ -3031,101 +2982,8 @@
             animate();
         });
 
-        createIconEngine('canvas-gobernanza', (scene, camera, renderer) => {
-            // TRUST VAULT: CRYPTEX DE ÉLITE
-            const vaultGroup = new THREE.Group();
-            scene.add(vaultGroup);
+        // GOBERNANZA ÉTICA: Now using Cinematic Visual Asset (Absolute Trust)
 
-            // Núcleo Intocable (Oro Puro)
-            const core = new THREE.Mesh(
-                new THREE.DodecahedronGeometry(0.5, 0),
-                new THREE.MeshStandardMaterial({ color: 0xE4A837, emissive: 0xE4A837, emissiveIntensity: 0.6, metalness: 1, roughness: 0.2 })
-            );
-            const coreEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(core.geometry),
-                new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.8 })
-            );
-            core.add(coreEdges);
-            vaultGroup.add(core);
-
-            // Escudos Concéntricos Holográficos
-            const cylinders = [];
-            for (let i = 0; i < 4; i++) {
-                const cyl = new THREE.Mesh(
-                    new THREE.CylinderGeometry(0.8 + i * 0.3, 0.8 + i * 0.3, 0.5 + i * 0.1, 8),
-                    new THREE.MeshPhysicalMaterial({
-                        color: 0x0A192F,
-                        transmission: 0.8,
-                        transparent: true,
-                        opacity: 0.4,
-                        roughness: 0.1,
-                        ior: 1.5,
-                        side: THREE.DoubleSide
-                    })
-                );
-                const edges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(cyl.geometry),
-                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.3 + (i * 0.1) })
-                );
-                cyl.add(edges);
-
-                // Marcas criptográficas (pequeños nodos en el borde)
-                const nodeMarker = new THREE.Mesh(new THREE.SphereGeometry(0.06), new THREE.MeshBasicMaterial({ color: 0x24A8E1 }));
-                nodeMarker.position.set(0.8 + i * 0.3, 0, 0);
-                cyl.add(nodeMarker);
-
-                cyl.userData = {
-                    baseSpeed: (Math.random() > 0.5 ? 1 : -1) * (0.01 + Math.random() * 0.02),
-                    phase: Math.random() * Math.PI * 2
-                };
-                cylinders.push(cyl);
-                vaultGroup.add(cyl);
-            }
-
-            vaultGroup.rotation.x = Math.PI * 0.2;
-            vaultGroup.rotation.z = Math.PI * 0.1;
-
-            // Iluminación táctica de bóveda
-            const blueLight = new THREE.PointLight(0x24A8E1, 2, 8);
-            blueLight.position.set(3, 3, 3);
-            const goldLight = new THREE.PointLight(0xE4A837, 2, 8);
-            goldLight.position.set(-3, -3, -3);
-            scene.add(blueLight, goldLight);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.2));
-
-            let mouseOver = false;
-            renderer.domElement.addEventListener('mouseenter', () => mouseOver = true);
-            renderer.domElement.addEventListener('mouseleave', () => mouseOver = false);
-
-            const clock = new THREE.Clock();
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-
-                // Latido del núcleo
-                core.scale.setScalar(1 + Math.sin(t * 3) * 0.05);
-                core.rotation.y += 0.01;
-
-                // Rotación de encriptación
-                cylinders.forEach((cyl, idx) => {
-                    if (mouseOver) {
-                        // Alineación perfecta (Alineación de seguridad)
-                        cyl.rotation.y = THREE.MathUtils.lerp(cyl.rotation.y, 0, 0.05);
-                        cyl.children[0].material.color.setHex(0xE4A837); // Gold lock
-                        cyl.children[1].material.color.setHex(0xE4A837);
-                    } else {
-                        cyl.rotation.y += cyl.userData.baseSpeed;
-                        // Respiración en Z
-                        cyl.position.y = Math.sin(t * 2 + cyl.userData.phase) * 0.1;
-                        cyl.children[0].material.color.setHex(0x24A8E1); // Cyan active
-                        cyl.children[1].material.color.setHex(0x24A8E1);
-                    }
-                });
-
-                renderer.render(scene, camera);
-            }
-            animate();
-        });
 
         // --- ICONO NEXUS 5: GEMINI PRO HIGH (Diamante Cristal OctahedronGeometry) ---
         createIconEngine('canvas-gemini-pro', (scene, camera, renderer) => {
@@ -3805,12 +3663,28 @@
             const dot = document.getElementById('k-dot');
             if (dot) dot.classList.add('verified');
 
-            // Initialize Modal 3D Header
-            if (isThreeActive) {
-                try {
-                    initModal3D(data.diadema);
-                } catch (e) {
-                    console.error("[GB-DNA] Error initializing 3D modal:", e);
+            // Initialize Modal Visual Asset (3D vs Cinematic)
+            const modalCanvas = document.getElementById('modal-canvas');
+            const modalImg = document.getElementById('modal-cinematic');
+            
+            if (key === 'nexus_agentica' || key === 'nexus_gobernanza') {
+                if (modalCanvas) modalCanvas.style.display = 'none';
+                if (modalImg) {
+                    modalImg.src = key === 'nexus_agentica' 
+                        ? 'assets/video/simbiosis-agentica-cinematic.png' 
+                        : 'assets/video/gobernanza-etica-cinematic.png';
+                    modalImg.style.display = 'block';
+                    modalImg.style.animation = 'smoothCamera 40s ease-in-out infinite alternate';
+                }
+            } else {
+                if (modalImg) modalImg.style.display = 'none';
+                if (modalCanvas) modalCanvas.style.display = 'block';
+                if (isThreeActive) {
+                    try {
+                        initModal3D(data.diadema);
+                    } catch (e) {
+                        console.error("[GB-DNA] Error initializing 3D modal:", e);
+                    }
                 }
             }
         }
