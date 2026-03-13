@@ -3629,6 +3629,11 @@
             const container = document.getElementById('modalData');
             if (!container) return;
 
+            const isEn = window.gbI18n && window.gbI18n.currentLang === 'en';
+            const problemTitle = isEn ? "THE MARKET PROBLEM" : "EL PROBLEMA DE MERCADO";
+            const weaponTitle = isEn ? "OUR STRATEGIC WEAPON" : "NUESTRA ARMA ESTRATÉGICA";
+            const certaintyTitle = isEn ? "THE INVESTMENT CERTAINTY" : "LA CERTEZA DE INVERSIÓN";
+
             container.innerHTML = `
                 <div class="header-autoridad" style="margin-bottom: 30px; border-left: 4px solid var(--gold); padding-left: 20px;">
                     <h2 class="formula-poder" style="font-family: var(--font-head); font-size: 2.2rem; letter-spacing: 2px; text-transform: uppercase; line-height: 1.2;">
@@ -3639,15 +3644,15 @@
                 
                 <div class="contenido-valor">
                     <div class="modal-point" style="margin-bottom: 25px; background: rgba(36, 168, 225, 0.05); padding: 20px; border: 1px solid rgba(36, 168, 225, 0.1);">
-                        <strong style="color: var(--cyan); font-family: var(--font-mono); display: block; margin-bottom: 10px;">EL PROBLEMA DE MERCADO</strong>
+                        <strong style="color: var(--cyan); font-family: var(--font-mono); display: block; margin-bottom: 10px;">${problemTitle}</strong>
                         <p style="font-size: 1.1rem; color: #acc2ef; line-height: 1.6;">${data.problem}</p>
                     </div>
                     <div class="modal-point" style="margin-bottom: 25px; border-left: 4px solid var(--gold); padding-left: 20px;">
-                        <strong style="color: var(--gold); font-family: var(--font-mono); display: block; margin-bottom: 10px;">NUESTRA ARMA ESTRATÉGICA</strong>
+                        <strong style="color: var(--gold); font-family: var(--font-mono); display: block; margin-bottom: 10px;">${weaponTitle}</strong>
                         <p style="font-size: 1.1rem; color: var(--white);">${data.weapon}</p>
                     </div>
                     <div class="modal-point" style="background: linear-gradient(90deg, rgba(228, 168, 55, 0.1), transparent); padding: 20px; border: 1px solid rgba(228, 168, 55, 0.2);">
-                        <strong style="color: var(--gold); font-family: var(--font-mono); display: block; margin-bottom: 10px;">LA CERTEZA DE INVERSIÓN</strong>
+                        <strong style="color: var(--gold); font-family: var(--font-mono); display: block; margin-bottom: 10px;">${certaintyTitle}</strong>
                         <p style="font-size: 1.1rem; color: var(--white); font-weight: 700;">${data.certainty}</p>
                     </div>
                 </div>
@@ -5094,6 +5099,9 @@
         <div class="rescue-icon"></div>
         <span>ORQUESTACIÓN AGÉNTICA: ACTIVAR PROTOCOLO</span>
     </a>
+
+    <!-- BILINGUAL CONTEXT API -->
+    <script src="i18n.js"></script>
 
     <!-- GOOGLE ANALYTICS 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TVN2ZBN4WZ"></script>
