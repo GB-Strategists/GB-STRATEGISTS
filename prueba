@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GB Strategists OS</title>
+
+<!-- TIPOGRAFÍA -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --void: #050B16;
+  --gold: #E4A837;
+  --cyan: #24A8E1;
+}
+
+body {
+  margin: 0;
+  background: var(--void);
+  font-family: 'Inter', sans-serif;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(228,168,55,0.2);
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  font-family: 'Orbitron';
+  letter-spacing: 2px;
+}
+
+.gold { color: var(--gold); }
+.cyan { color: var(--cyan); }
+
+/* HERO */
+.hero {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+}
+
+.glass {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(228,168,55,0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  padding: 30px;
+}
+
+/* FORM */
+form {
+  display: grid;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+input, select {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+}
+
+button {
+  padding: 15px;
+  background: linear-gradient(90deg, var(--gold), var(--cyan));
+  border: none;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* RESULTADO */
+#result {
+  margin-top: 30px;
+}
+
+/* TRUST VAULT (SIMULACIÓN) */
+.vault {
+  width: 200px;
+  height: 200px;
+  margin: 60px auto;
+  border-radius: 50%;
+  border: 2px solid var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spin 10s linear infinite;
+}
+
+.vault-core {
+  width: 80px;
+  height: 80px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+@keyframes pulse {
+  0% { transform: scale(1);}
+  50% { transform: scale(1.2);}
+  100% { transform: scale(1);}
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1><span class="gold">GB</span> <span class="cyan">STRATEGISTS OS</span></h1>
+</header>
+
+<section class="hero">
+
+  <h2>
+    Diagnóstico <span class="gold">Estratégico</span> 
+    <span class="cyan">Agéntico</span>
+  </h2>
+
+  <div class="glass">
+
+    <form id="diagnosisForm">
+
+      <input type="text" id="sector" placeholder="Sector del negocio" required>
+
+      <select id="revenue">
+        <option value="">Ingresos mensuales</option>
+        <option>0-1K</option>
+        <option>1K-10K</option>
+        <option>10K-50K</option>
+        <option>50K+</option>
+      </select>
+
+      <input type="text" id="channel" placeholder="Canal principal (ej: Instagram, Web)">
+
+      <input type="text" id="problem" placeholder="Principal problema">
+
+      <button type="submit">Ejecutar Diagnóstico</button>
+
+    </form>
+
+    <div id="result"></div>
+
+  </div>
+
+</section>
+
+<!-- TRUST VAULT -->
+<div class="vault">
+  <div class="vault-core"></div>
+</div>
+
+<script>
+
+document.getElementById("diagnosisForm").addEventListener("submit", async function(e) {
+  e.preventDefault()
+
+  const data = {
+    sector: document.getElementById("sector").value,
+    revenue: document.getElementById("revenue").value,
+    channel: document.getElementById("channel").value,
+    problem: document.getElementById("problem").value
+  }
+
+  // SIMULACIÓN IA (reemplazar con API real)
+  const response = {
+    score: Math.floor(Math.random() * 40) + 60,
+    diagnosis: "Procesos manuales detectados. Baja automatización.",
+    opportunities: "Implementar IA + Funnel optimizado"
+  }
+
+  document.getElementById("result").innerHTML = `
+    <h3>Score: ${response.score}</h3>
+    <p>${response.diagnosis}</p>
+    <p><b>Oportunidad:</b> ${response.opportunities}</p>
+  `
+})
+
+</script>
+
+</body>
+</html>

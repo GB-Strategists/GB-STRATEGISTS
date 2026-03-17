@@ -1435,7 +1435,8 @@ footer {
     max-width: 1200px;
     width: 90%;
     max-height: 85vh;
-    border: 1px solid rgba(228, 168, 55, 0.3);
+    border: 0.5px solid rgba(228, 168, 55, 0.25);
+    border-image: linear-gradient(135deg, rgba(228, 168, 55, 0.4), rgba(36, 168, 225, 0.3)) 1;
     /* High contrast box shadow compliant with GB-DNA Authority */
     box-shadow: 0 50px 100px rgba(0, 0, 0, 0.95), 0 0 60px rgba(36, 168, 225, 0.15);
     position: relative;

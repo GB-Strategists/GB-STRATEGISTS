@@ -4580,106 +4580,159 @@
 
                 // ═══════════════════════════════════════════════
             } else if (type === 'nexus_agentico_disruptivo') {
-                // EL ARMA ESTRATÉGICA (Neural Swarm) - GB Elite Edition v5.0
+                // EL ARMA ESTRATÉGICA (The Neural Swarm) - GB Elite Edition v5.0
                 const disruptionGroup = new THREE.Group();
                 disruptionGroup.name = "disruptionGroup";
 
-                // 1. NÚCLEO ORQUESTADOR: DODECAEDRO DE SOBERANÍA (Oro Vívido)
-                const coreGeom = new THREE.DodecahedronGeometry(1.2, 0);
-                const coreMat = new THREE.MeshStandardMaterial({
+                // 1. EL GIROSCOPIO DE ORO (Núcleo Orquestador)
+                const gyroGroup = new THREE.Group();
+                gyroGroup.name = "gyroGroup";
+                
+                const goldMat = new THREE.MeshPhysicalMaterial({
                     color: 0xE4A837,
                     metalness: 1.0,
-                    roughness: 0.05,
+                    roughness: 0.1,
                     emissive: 0xE4A837,
-                    emissiveIntensity: 1.2
+                    emissiveIntensity: 0.4,
+                    clearcoat: 1.0,
+                    reflectivity: 1.0
                 });
-                const dodecCore = new THREE.Mesh(coreGeom, coreMat);
-                dodecCore.name = "dodecCore";
-                
-                // Aristas de Disrupción (Cian Glow)
-                const coreEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(coreGeom),
-                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 1.0 })
-                );
-                dodecCore.add(coreEdges);
-                disruptionGroup.add(dodecCore);
 
-                // 2. ENJAMBRE AGÉNTICO RADICAL: 60 Octaedros Cristalinoss
-                const swarmGroup = new THREE.Group();
-                swarmGroup.name = "swarmGroup";
-                const agentCount = 60;
-                for (let i = 0; i < agentCount; i++) {
-                    const agentGeom = new THREE.OctahedronGeometry(0.18, 0);
-                    const agentMat = new THREE.MeshStandardMaterial({
-                        color: 0x24A8E1,
-                        emissive: 0x24A8E1,
-                        emissiveIntensity: 2.5
-                    });
-                    const agent = new THREE.Mesh(agentGeom, agentMat);
-                    
-                    const phi = Math.random() * Math.PI * 2;
-                    const theta = Math.acos(2 * Math.random() - 1);
-                    const radius = 2.0 + Math.random() * 3.0;
-                    agent.position.setFromSphericalCoords(radius, theta, phi);
-                    
-                    agent.userData = {
-                        originalColor: new THREE.Color(0x24A8E1),
-                        orbitAxis: new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize(),
-                        orbitSpeed: 0.03 + Math.random() * 0.05,
-                        pulsePhase: Math.random() * Math.PI * 2,
-                        radius: radius,
-                        vibration: Math.random() * 0.15
-                    };
-                    swarmGroup.add(agent);
+                // 3 Anillos concéntricos en diferentes ejes
+                for(let i=0; i<3; i++) {
+                    const ringGeom = new THREE.TorusGeometry(1.0 + (i*0.25), 0.04 - (i*0.01), 32, 100);
+                    const ring = new THREE.Mesh(ringGeom, goldMat);
+                    ring.rotation.x = Math.random() * Math.PI;
+                    ring.rotation.y = Math.random() * Math.PI;
+                    ring.userData = { axis: new THREE.Vector3(Math.random(), Math.random(), Math.random()).normalize(), speed: 0.01 + (i*0.005) };
+                    gyroGroup.add(ring);
                 }
-                disruptionGroup.add(swarmGroup);
+                
+                // Orbe Central
+                const centralOrbe = new THREE.Mesh(new THREE.IcosahedronGeometry(0.6, 2), goldMat);
+                centralOrbe.name = "centralOrbe";
+                gyroGroup.add(centralOrbe);
+                disruptionGroup.add(gyroGroup);
 
-                // 3. FUEGO FRÍO ALGORÍTMICO (Luz Pulsante de Alta Densidad)
-                const coldFire = new THREE.PointLight(0x24A8E1, 15, 12);
-                coldFire.name = "coldFire";
-                disruptionGroup.add(coldFire);
+                // 2. ENJAMBRE DE DATOS (Shader System) - 2000 Agentes
+                const agentCount = 2000;
+                const posArray = new Float32Array(agentCount * 3);
+                const colorArray = new Float32Array(agentCount * 3);
+                const dataArray = new Float32Array(agentCount * 4); // [speed, phase, radius, id]
 
-                // 4. BARRERA DE REALIDAD (Esfera Wireframe Hexagonal)
-                const barrierGeom = new THREE.IcosahedronGeometry(1.6, 2);
-                const barrierMat = new THREE.MeshBasicMaterial({
-                    color: 0x24A8E1,
+                const palette = [
+                    new THREE.Color(0x24A8E1), // Cian
+                    new THREE.Color(0xFFD700), // Oro
+                    new THREE.Color(0xFF00FF), // Fucsia
+                    new THREE.Color(0x008080), // Teal
+                    new THREE.Color(0x00FF00)  // Verde
+                ];
+
+                for(let i=0; i<agentCount; i++) {
+                    const r = 2.0 + Math.random() * 2.5;
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    
+                    posArray[i*3] = r * Math.sin(phi) * Math.cos(theta);
+                    posArray[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+                    posArray[i*3+2] = r * Math.cos(phi);
+
+                    const color = palette[Math.floor(Math.random() * palette.length)];
+                    colorArray[i*3] = color.r;
+                    colorArray[i*3+1] = color.g;
+                    colorArray[i*3+2] = color.b;
+
+                    dataArray[i*4] = 0.01 + Math.random() * 0.02; // speed
+                    dataArray[i*4+1] = Math.random() * Math.PI * 2; // phase
+                    dataArray[i*4+2] = r; // base radius
+                    dataArray[i*4+3] = Math.random(); // variation
+                }
+
+                const swarmGeom = new THREE.BufferGeometry();
+                swarmGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+                swarmGeom.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+                swarmGeom.setAttribute('aData', new THREE.BufferAttribute(dataArray, 4));
+
+                const swarmMat = new THREE.ShaderMaterial({
+                    uniforms: {
+                        uTime: { value: 0 },
+                        uPulse: { value: 0 },
+                        uPulseOrigin: { value: new THREE.Vector3(0,0,0) }
+                    },
+                    vertexShader: `
+                        uniform float uTime;
+                        uniform float uPulse;
+                        attribute vec3 color;
+                        attribute vec4 aData;
+                        varying vec3 vColor;
+                        varying float vAlpha;
+                        
+                        void main() {
+                            float speed = aData.x;
+                            float phase = aData.y;
+                            float baseR = aData.z;
+                            float variation = aData.w;
+                            
+                            // Movimiento Agéntico: Caos orquestado
+                            float dynamicR = baseR + sin(uTime * 1.5 + phase) * 0.8;
+                            
+                            // Rotación Enjambre (Antihorario)
+                            float angle = uTime * -0.5 + phase;
+                            vec3 pos = position;
+                            float x = cos(angle) * dynamicR;
+                            float z = sin(angle) * dynamicR;
+                            pos.x = x;
+                            pos.z = z;
+                            pos.y += sin(uTime * 2.0 + variation * 10.0) * 0.3;
+                            
+                            // Inyección de Autoridad: Flash Ocre
+                            float dist = length(pos);
+                            float pulseEffect = smoothstep(0.5, 0.0, abs(dist - uPulse));
+                            vColor = mix(color, vec3(0.89, 0.66, 0.22), pulseEffect * 0.9);
+                            vAlpha = 0.6 + pulseEffect * 0.4;
+                            
+                            vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+                            gl_PointSize = (variation * 8.0 + 4.0) * (20.0 / -mvPosition.z);
+                            gl_Position = projectionMatrix * mvPosition;
+                        }
+                    `,
+                    fragmentShader: `
+                        varying vec3 vColor;
+                        varying float vAlpha;
+                        void main() {
+                            float dist = length(gl_PointCoord - vec2(0.5));
+                            if (dist > 0.5) discard;
+                            float glow = pow(1.0 - dist * 2.0, 2.0);
+                            gl_FragColor = vec4(vColor, vAlpha * glow);
+                        }
+                    `,
                     transparent: true,
-                    opacity: 0.1,
-                    wireframe: true
+                    blending: THREE.AdditiveBlending,
+                    depthWrite: false
                 });
-                const lightBarrier = new THREE.Mesh(barrierGeom, barrierMat);
-                lightBarrier.name = "lightBarrier";
-                disruptionGroup.add(lightBarrier);
+
+                const swarmPoints = new THREE.Points(swarmGeom, swarmMat);
+                swarmPoints.name = "swarmPoints";
+                disruptionGroup.add(swarmPoints);
+
+                // 3. PULSE TIMER
+                disruptionGroup.userData.pulseTimer = 0;
 
                 modalObject.add(disruptionGroup);
 
-                // ATMÓSFERA DISRUPTIVA
-                const grid = new THREE.GridHelper(10, 25, 0x24A8E1, 0x24A8E1);
+                // AMBIENTE
+                const grid = new THREE.GridHelper(10, 30, 0x24A8E1, 0x24A8E1);
                 grid.position.y = -3.5;
-                grid.material.opacity = 0.03;
+                grid.material.opacity = 0.05;
                 grid.material.transparent = true;
                 modalObject.add(grid);
 
-                const dustGroup = new THREE.Group();
-                dustGroup.name = "dust";
-                for(let i=0; i<120; i++){
-                    const dust = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.01, 4, 4), 
-                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.5 })
-                    );
-                    const r = 2 + Math.random() * 4;
-                    const p = Math.random() * Math.PI * 2;
-                    const t = Math.random() * Math.PI;
-                    dust.position.setFromSphericalCoords(r, t, p);
-                    dust.userData = { 
-                        spiralSpeed: 0.02 + Math.random()*0.03,
-                        upSpeed: 0.005 + Math.random()*0.01,
-                        r: r
-                    };
-                    dustGroup.add(dust);
-                }
-                modalObject.add(dustGroup);
                 modalRenderer.setClearColor(0x050B16, 1);
+                
+                const modalVisualCol = document.querySelector('.modal-visual-col');
+                if (modalVisualCol) {
+                    modalVisualCol.classList.add('modal-disruption-active');
+                }
 
                 // Activación de Efecto CSS
                 const modalVisualCol = document.querySelector('.modal-visual-col');
@@ -5353,65 +5406,35 @@
                     }
 
                 } else if (type === 'nexus_agentico_disruptivo') {
-                    const dodecCore = modalObject.getObjectByName("dodecCore");
-                    const swarmGroup = modalObject.getObjectByName("swarmGroup");
-                    const coldFire = modalObject.getObjectByName("coldFire");
-                    const barrier = modalObject.getObjectByName("lightBarrier");
-                    const dust = modalObject.getObjectByName("dust");
+                    const gyroGroup = modalObject.getObjectByName("gyroGroup");
+                    const swarmPoints = modalObject.getObjectByName("swarmPoints");
+                    const centralOrbe = modalObject.getObjectByName("centralOrbe");
 
-                    if (dodecCore) {
-                        dodecCore.rotation.y += 0.02;
-                        dodecCore.rotation.x += 0.01;
-                        // Pulso cromático sutil
-                        dodecCore.material.emissiveIntensity = 0.5 + Math.sin(t * 4) * 0.3;
-                    }
-
-                    if (swarmGroup) {
-                        swarmGroup.children.forEach((agent, i) => {
-                            // Caos Gestionado: Movimiento autónomo (alejar/acercar)
-                            agent.userData.targetRadius = 2.0 + Math.sin(t * 0.5 + agent.userData.pulsePhase) * 1.5;
-                            const currentPos = agent.position.clone();
-                            const dir = currentPos.normalize();
-                            agent.position.copy(dir.multiplyScalar(THREE.MathUtils.lerp(agent.userData.radius, agent.userData.targetRadius, 0.05)));
-                            agent.userData.radius = agent.position.length();
-
-                            // Orbitar
-                            agent.position.applyAxisAngle(agent.userData.orbitAxis, agent.userData.orbitSpeed);
-                            
-                            // Spin individual
-                            agent.rotation.y += 0.02;
-                            agent.rotation.z += 0.01;
-
-                            // Inyección de Autoridad (Flashes Oro al alejarse)
-                            const isMovingOut = Math.cos(t * 0.5 + agent.userData.pulsePhase) > 0.8;
-                            if (isMovingOut) {
-                                agent.material.color.lerp(new THREE.Color(0xE4A837), 0.1);
-                                agent.material.emissiveIntensity = 3.0;
-                            } else {
-                                agent.material.color.lerp(agent.userData.originalColor, 0.05);
-                                agent.material.emissiveIntensity = 1.5;
+                    if (gyroGroup) {
+                        gyroGroup.children.forEach(ring => {
+                            if (ring.userData.axis) {
+                                ring.position.applyAxisAngle(ring.userData.axis, ring.userData.speed * (1.0 + renderMouseOver * 2));
+                                ring.rotation.x += ring.userData.speed * 0.5;
+                                ring.rotation.y += ring.userData.speed;
                             }
                         });
                     }
-
-                    if (coldFire) {
-                        coldFire.intensity = 5 + Math.sin(t * 4) * 2;
-                    }
-                    if (barrier) {
-                        barrier.material.opacity = 0.05 + Math.sin(t * 2) * 0.03;
+                    if (centralOrbe) {
+                        centralOrbe.rotation.y += 0.02;
+                        centralOrbe.scale.setScalar(1.0 + Math.sin(t * 5.0) * 0.05);
                     }
 
-                    if (dust) {
-                        dust.children.forEach(p => {
-                            // Movimiento en espiral
-                            const ud = p.userData;
-                            const pos = p.position;
-                            const angle = Math.atan2(pos.z, pos.x) + ud.spiralSpeed;
-                            pos.x = Math.cos(angle) * ud.r;
-                            pos.z = Math.sin(angle) * ud.r;
-                            pos.y += ud.upSpeed;
-                            if (pos.y > 5) pos.y = -5;
-                        });
+                    if (swarmPoints) {
+                        swarmPoints.material.uniforms.uTime.value = t;
+                        
+                        // Lógica de Pulso de Autoridad (cada 3 segundos)
+                        let pTimer = disruptionGroup.userData.pulseTimer || 0;
+                        pTimer += 0.016;
+                        if (pTimer > 3.0) pTimer = 0;
+                        disruptionGroup.userData.pulseTimer = pTimer;
+
+                        // El pulso viaja del centro (0) hacia afuera (5.0)
+                        swarmPoints.material.uniforms.uPulse.value = pTimer * 1.8; 
                     }
 
                     // Dinámica de Interfaz (CSS toggle de intensidad)
