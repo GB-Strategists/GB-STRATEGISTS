@@ -4263,106 +4263,105 @@
                 modalObject.add(dustGroup);
                 modalRenderer.setClearColor(0x050B16, 1);
 
-                // ═══════════════════════════════════════════════
-                // 4. GOBERNANZA ÉTICA (TRUST VAULT) 🛡️🔐
-                //    Triple Torus rings (Cryptex) + gold diamond core
-                // ═══════════════════════════════════════════════
             } else if (type === 'nexus_gobernanza') {
-                // LA BÓVEDA DE CONFIANZA (Trust Vault)
+                // LA BÓVEDA DE CONFIANZA (Trust Vault) - GB Elite Edition
                 const vaultGroup = new THREE.Group();
                 vaultGroup.name = "vaultGroup";
 
-                // 1. NÚCLEO: Legado y Capital Intelectual (Cubo Oro Pulido)
-                const coreGeom = new THREE.BoxGeometry(1.2, 1.2, 1.2);
-                const coreMat = new THREE.MeshStandardMaterial({
+                // 1. EL NÚCLEO: SOBERANÍA DE DATOS (Icosaedro de Oro Cristalino)
+                const coreGeom = new THREE.IcosahedronGeometry(0.8, 0);
+                const coreMat = new THREE.MeshPhysicalMaterial({
                     color: 0xE4A837,
-                    metalness: 0.9,
+                    metalness: 1.0,
                     roughness: 0.1,
+                    transmission: 0.2,
+                    thickness: 1.0,
                     emissive: 0xE4A837,
-                    emissiveIntensity: 0.3
+                    emissiveIntensity: 0.5,
+                    clearcoat: 1.0
                 });
                 const goldCore = new THREE.Mesh(coreGeom, coreMat);
                 goldCore.name = "goldCore";
                 
-                // Filigrana de Escudo (Edges sobre el núcleo)
+                // Aristas de Oro Puro
                 const coreEdges = new THREE.LineSegments(
                     new THREE.EdgesGeometry(coreGeom),
-                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.5 })
+                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.8 })
                 );
                 goldCore.add(coreEdges);
                 vaultGroup.add(goldCore);
 
-                // 2. ESCUDO EXTERIOR: Glassmorphism Cúbico (Azul Medianoche)
-                const shieldGeom = new THREE.BoxGeometry(2.8, 2.8, 2.8);
+                // 2. ESCUDO SECUNDARIO: CRYPTEX ORBITAL (Torus Knot Cian)
+                const cryptoGeom = new THREE.TorusKnotGeometry(1.4, 0.05, 100, 16);
+                const cryptoMat = new THREE.MeshStandardMaterial({
+                    color: 0x24A8E1,
+                    emissive: 0x24A8E1,
+                    emissiveIntensity: 2.0,
+                    transparent: true,
+                    opacity: 0.6
+                });
+                const cryptoRing = new THREE.Mesh(cryptoGeom, cryptoMat);
+                cryptoRing.name = "cryptoRing";
+                vaultGroup.add(cryptoRing);
+
+                // 3. CAPA DE SEGURIDAD RLS (Nube de cubos de datos)
+                const rlsGroup = new THREE.Group();
+                rlsGroup.name = "rlsShield";
+                const cubeCount = 40;
+                for(let i=0; i<cubeCount; i++) {
+                    const cubeSize = 0.05 + Math.random() * 0.1;
+                    const cube = new THREE.Mesh(
+                        new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize),
+                        new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x24A8E1 : 0xE4A837, emissive: i % 2 === 0 ? 0x24A8E1 : 0xE4A837, emissiveIntensity: 0.5 })
+                    );
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    const dist = 2.2 + Math.random() * 0.4;
+                    cube.position.setFromSphericalCoords(dist, phi, theta);
+                    cube.userData = {
+                        orbitAxis: new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize(),
+                        orbitSpeed: 0.005 + Math.random() * 0.01
+                    };
+                    rlsGroup.add(cube);
+                }
+                vaultGroup.add(rlsGroup);
+
+                // 4. CAMPO DE FUERZA EXTERIOR (Esfera de Vidrio Diamante)
+                const shieldGeom = new THREE.SphereGeometry(2.8, 32, 32);
                 const shieldMat = new THREE.MeshPhysicalMaterial({
                     color: 0x0A192F,
-                    transmission: 0.9,
+                    transmission: 0.95,
                     transparent: true,
-                    opacity: 0.4,
-                    roughness: 0.05,
-                    metalness: 0.2,
-                    thickness: 1.5,
+                    opacity: 0.2,
+                    roughness: 0.0,
+                    metalness: 0.0,
+                    thickness: 2.0,
+                    ior: 1.5,
                     clearcoat: 1.0
                 });
                 const outerShield = new THREE.Mesh(shieldGeom, shieldMat);
                 outerShield.name = "outerShield";
-                
-                // Borde Degradado (LineSegments con color cian/oro sutil)
-                const shieldEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(shieldGeom),
-                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.6 })
-                );
-                outerShield.add(shieldEdges);
                 vaultGroup.add(outerShield);
 
-                // 3. CAMPO DE FUERZA (Luz Pulsante intermedia)
-                const forceField = new THREE.Mesh(
-                    new THREE.SphereGeometry(1.8, 32, 32),
-                    new THREE.MeshBasicMaterial({
-                        color: 0x24A8E1,
-                        transparent: true,
-                        opacity: 0.05,
-                        side: THREE.BackSide
-                    })
-                );
-                forceField.name = "forceField";
-                vaultGroup.add(forceField);
-
-                // 4. HUMAN-IN-THE-LOOP (Glifo base)
-                const glifoGroup = new THREE.Group();
-                glifoGroup.name = "glifo";
-                glifoGroup.position.y = -3.2;
-                
-                const handSwitchGeom = new THREE.PlaneGeometry(0.5, 0.5);
-                const handSwitchMat = new THREE.MeshBasicMaterial({
-                    color: 0x24A8E1,
-                    transparent: true,
-                    opacity: 0.8,
-                    side: THREE.DoubleSide
-                });
-                const handSwitch = new THREE.Mesh(handSwitchGeom, handSwitchMat);
-                handSwitch.rotation.x = -Math.PI / 2;
-                
-                // Representación abstracta del glifo (mano/interruptor)
-                const ring = new THREE.Mesh(
-                    new THREE.RingGeometry(0.3, 0.35, 32),
-                    new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.4 })
-                );
-                ring.rotation.x = -Math.PI/2;
-                glifoGroup.add(handSwitch, ring);
-                vaultGroup.add(glifoGroup);
+                // 5. BARRIDO DE VALIDACIÓN (Anillo Laser)
+                const laserGeom = new THREE.TorusGeometry(2.82, 0.02, 16, 100);
+                const laserMat = new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.8 });
+                const laserRing = new THREE.Mesh(laserGeom, laserMat);
+                laserRing.rotation.x = Math.PI / 2;
+                laserRing.name = "laserRing";
+                vaultGroup.add(laserRing);
 
                 modalObject.add(vaultGroup);
 
-                // ATMÓSFERA COMÚN GB-DNA
-                const grid = new THREE.GridHelper(10, 20, 0x24A8E1, 0x24A8E1);
-                grid.position.y = -3.5;
-                grid.material.opacity = 0.04;
-                grid.material.transparent = true;
-                modalObject.add(grid);
+                // ATMÓSFERA TRUST VAULT
+                const grid2 = new THREE.GridHelper(10, 20, 0x24A8E1, 0x24A8E1);
+                grid2.position.y = -3.5;
+                grid2.material.opacity = 0.04;
+                grid2.material.transparent = true;
+                modalObject.add(grid2);
 
-                const dustGroup = new THREE.Group();
-                dustGroup.name = "dust";
+                const dustGroup2 = new THREE.Group();
+                dustGroup2.name = "dust";
                 for(let i=0; i<60; i++){
                     const dust = new THREE.Mesh(
                         new THREE.SphereGeometry(0.015, 4, 4), 
@@ -4371,9 +4370,9 @@
                     const dist = 3 + Math.random() * 5;
                     dust.position.setFromSphericalCoords(dist, Math.random()*Math.PI, Math.random()*Math.PI*2);
                     dust.userData = { orbitSpeed: 0.001 + Math.random()*0.0015, axis: new THREE.Vector3(1,Math.random(),Math.random()).normalize() };
-                    dustGroup.add(dust);
+                    dustGroup2.add(dust);
                 }
-                modalObject.add(dustGroup);
+                modalObject.add(dustGroup2);
                 modalRenderer.setClearColor(0x050B16, 1);
 
                 // ═══════════════════════════════════════════════
@@ -4484,75 +4483,73 @@
                 modalRenderer.setClearColor(0x050B16, 1);
 
                 // ═══════════════════════════════════════════════
-                // 6. AGÉNTICO Y DISRUPTIVO 🧬🚀
-                //    Wireframe sphere (Status Quo) + tetrahedron swarm
-                // ═══════════════════════════════════════════════
             } else if (type === 'nexus_agentico_disruptivo') {
-                // EL ARMA ESTRATÉGICA (Neural Swarm)
+                // EL ARMA ESTRATÉGICA (Neural Swarm) - GB Elite Edition
                 const disruptionGroup = new THREE.Group();
                 disruptionGroup.name = "disruptionGroup";
 
-                // 1. NÚCLEO ORQUESTADOR: Dodecaedro (Metal Dorado Inteligente)
+                // 1. NÚCLEO ORQUESTADOR: DODECAEDRO DE SOBERANÍA (Oro Espejo)
                 const coreGeom = new THREE.DodecahedronGeometry(1.0, 0);
                 const coreMat = new THREE.MeshStandardMaterial({
                     color: 0xE4A837,
                     metalness: 1.0,
-                    roughness: 0.1, // Mirror finish approximation
+                    roughness: 0.05,
                     emissive: 0xE4A837,
-                    emissiveIntensity: 0.5
+                    emissiveIntensity: 0.8
                 });
                 const dodecCore = new THREE.Mesh(coreGeom, coreMat);
                 dodecCore.name = "dodecCore";
                 
-                // Aristas de refuerzo sutil
+                // Aristas de Disrupción (Cian)
                 const coreEdges = new THREE.LineSegments(
                     new THREE.EdgesGeometry(coreGeom),
-                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.3 })
+                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.8 })
                 );
                 dodecCore.add(coreEdges);
                 disruptionGroup.add(dodecCore);
 
-                // 2. ENJAMBRE SUB-UNITARIO: 35 Icosaedros Autónomos
+                // 2. ENJAMBRE AGÉNTICO RADICAL: 50 Cristales Autónomos
                 const swarmGroup = new THREE.Group();
                 swarmGroup.name = "swarmGroup";
-                const agentCount = 35;
+                const agentCount = 50;
                 for (let i = 0; i < agentCount; i++) {
-                    const agentGeom = new THREE.IcosahedronGeometry(0.18, 0);
+                    const agentGeom = new THREE.OctahedronGeometry(0.15, 0);
                     const agentMat = new THREE.MeshStandardMaterial({
                         color: 0x24A8E1,
                         emissive: 0x24A8E1,
-                        emissiveIntensity: 1.5
+                        emissiveIntensity: 2.0
                     });
                     const agent = new THREE.Mesh(agentGeom, agentMat);
                     
                     const phi = Math.random() * Math.PI * 2;
                     const theta = Math.acos(2 * Math.random() - 1);
-                    const radius = 2.0 + Math.random() * 1.5;
+                    const radius = 1.8 + Math.random() * 2.5;
                     agent.position.setFromSphericalCoords(radius, theta, phi);
                     
                     agent.userData = {
                         originalColor: new THREE.Color(0x24A8E1),
-                        center: new THREE.Vector3(0,0,0),
                         orbitAxis: new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize(),
-                        orbitSpeed: 0.01 + Math.random() * 0.02,
+                        orbitSpeed: 0.02 + Math.random() * 0.04,
                         pulsePhase: Math.random() * Math.PI * 2,
-                        radius: radius
+                        radius: radius,
+                        vibration: Math.random() * 0.1
                     };
                     swarmGroup.add(agent);
                 }
                 disruptionGroup.add(swarmGroup);
 
-                // 3. FUEGO FRÍO Y BARRERA DE LUZ
-                const coldFire = new THREE.PointLight(0x24A8E1, 6, 8);
+                // 3. FUEGO FRÍO ALGORÍTMICO (Luz de punto alta densidad)
+                const coldFire = new THREE.PointLight(0x24A8E1, 10, 10);
                 coldFire.name = "coldFire";
                 disruptionGroup.add(coldFire);
 
-                const barrierGeom = new THREE.SphereGeometry(1.6, 32, 32);
+                // 4. BARRERA DE REALIDAD (Esfera Wireframe Hexagonal)
+                const barrierGeom = new THREE.IcosahedronGeometry(1.6, 2);
                 const barrierMat = new THREE.MeshBasicMaterial({
                     color: 0x24A8E1,
                     transparent: true,
-                    opacity: 0.08,
-                    side: THREE.BackSide
+                    opacity: 0.1,
+                    wireframe: true
                 });
                 const lightBarrier = new THREE.Mesh(barrierGeom, barrierMat);
                 lightBarrier.name = "lightBarrier";
@@ -4560,10 +4557,10 @@
 
                 modalObject.add(disruptionGroup);
 
-                // ATMÓSFERA DISRUPTIVA (Espiral y Contraste)
+                // ATMÓSFERA DISRUPTIVA
                 const grid = new THREE.GridHelper(10, 25, 0x24A8E1, 0x24A8E1);
                 grid.position.y = -3.5;
-                grid.material.opacity = 0.03; // Menor opacidad para disrupción
+                grid.material.opacity = 0.03;
                 grid.material.transparent = true;
                 modalObject.add(grid);
 
@@ -5236,29 +5233,36 @@
 
                 } else if (type === 'nexus_gobernanza') {
                     const goldCore = modalObject.getObjectByName("goldCore");
+                    const cryptoRing = modalObject.getObjectByName("cryptoRing");
+                    const rlsShield = modalObject.getObjectByName("rlsShield");
                     const outerShield = modalObject.getObjectByName("outerShield");
-                    const forceField = modalObject.getObjectByName("forceField");
-                    const glifo = modalObject.getObjectByName("glifo");
+                    const laserRing = modalObject.getObjectByName("laserRing");
                     const dust = modalObject.getObjectByName("dust");
 
                     if (goldCore) {
                         goldCore.rotation.y += 0.005;
                         goldCore.rotation.x += 0.002;
                     }
+                    if (cryptoRing) {
+                        cryptoRing.rotation.z += 0.01;
+                        cryptoRing.rotation.x += 0.005;
+                    }
+                    if (rlsShield) {
+                        rlsShield.children.forEach(cube => {
+                            cube.position.applyAxisAngle(cube.userData.orbitAxis, cube.userData.orbitSpeed);
+                            cube.rotation.x += 0.02;
+                        });
+                    }
                     if (outerShield) {
                         outerShield.rotation.y -= 0.003;
-                        outerShield.rotation.z += 0.001;
-
-                        // Ciclo de Expansión cada 5 segundos
-                        const pulseScale = 1.0 + Math.max(0, Math.sin(t * (Math.PI * 2 / 5))) * 0.1;
+                        // Respiración del Escudo
+                        const pulseScale = 1.0 + Math.sin(t * 2) * 0.05;
                         outerShield.scale.setScalar(pulseScale);
                     }
-                    if (forceField) {
-                        forceField.material.opacity = 0.03 + Math.sin(t * 3) * 0.02;
-                    }
-                    if (glifo) {
-                        // Parpadeo suave (Human-in-the-loop)
-                        glifo.children[0].material.opacity = 0.4 + Math.sin(t * 4) * 0.4;
+                    if (laserRing) {
+                        // Movimiento de escaneo vertical
+                        laserRing.position.y = Math.sin(t * 1.5) * 2.5;
+                        laserRing.material.opacity = 0.3 + Math.abs(Math.cos(t * 1.5)) * 0.5;
                     }
 
                     if (dust) {
@@ -5309,8 +5313,10 @@
                     const dust = modalObject.getObjectByName("dust");
 
                     if (dodecCore) {
-                        dodecCore.rotation.y += 0.01;
-                        dodecCore.rotation.x += 0.005;
+                        dodecCore.rotation.y += 0.02;
+                        dodecCore.rotation.x += 0.01;
+                        // Pulso cromático sutil
+                        dodecCore.material.emissiveIntensity = 0.5 + Math.sin(t * 4) * 0.3;
                     }
 
                     if (swarmGroup) {
