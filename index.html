@@ -2835,44 +2835,68 @@
         // --- ICONOS NEXUS (TARJETAS SUPERIORES) ---
 
         createIconEngine('canvas-agentica', (scene, camera, renderer) => {
-            // EL NÚCLEO ESTRATÉGICO: Icosaedro Dorado (Legado Humano)
-            const coreGeom = new THREE.IcosahedronGeometry(1.0, 0);
-            const coreMat = new THREE.MeshPhysicalMaterial({
-                color: 0xE4A837,
-                metalness: 0.9,
-                roughness: 0.1,
-                emissive: 0xE4A837,
-                emissiveIntensity: 0.4
+            // EL MONOLITO ROI (Visual del Impacto Estratégico en Simbiosis)
+            const prismGeom = new THREE.CylinderGeometry(0.8, 0.8, 2.5, 6);
+            const prismMat = new THREE.MeshPhysicalMaterial({
+                color: 0x0A192F,
+                transmission: 0.85,
+                transparent: true,
+                opacity: 0.4,
+                roughness: 0.05,
+                metalness: 0.1,
+                thickness: 2.0,
+                clearcoat: 0.8,
+                clearcoatRoughness: 0.1,
+                emissive: 0x0A192F,
+                emissiveIntensity: 0.1
             });
-            const core = new THREE.Mesh(coreGeom, coreMat);
-            const coreEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(coreGeom),
-                new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.4 })
+            const prism = new THREE.Mesh(prismGeom, prismMat);
+            const prismEdges = new THREE.LineSegments(
+                new THREE.EdgesGeometry(prismGeom),
+                new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 })
             );
-            core.add(coreEdges);
-            scene.add(core);
+            prism.add(prismEdges);
+            scene.add(prism);
 
-            // LA IA ORQUESTADORA: TorusKnot wireframe (Fluidez Agéntica)
-            const knotGeom = new THREE.TorusKnotGeometry(2.2, 0.4, 100, 16);
-            const knotMat = new THREE.MeshBasicMaterial({ 
-                color: 0x24A8E1, 
-                wireframe: true, 
-                transparent: true, 
-                opacity: 0.4 
-            });
-            const knot = new THREE.Mesh(knotGeom, knotMat);
-            scene.add(knot);
+            const baseLight = new THREE.PointLight(0xF0F4F8, 2, 6);
+            baseLight.position.set(0, -1.5, 0);
+            scene.add(baseLight);
 
-            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-            const pLight = new THREE.PointLight(0x24A8E1, 2, 10);
-            pLight.position.set(2, 2, 2);
-            scene.add(pLight);
+            const topLight = new THREE.PointLight(0xE4A837, 2.5, 6);
+            topLight.position.set(0, 1.5, 0);
+            scene.add(topLight);
 
+            const dataParts = new THREE.Group();
+            for (let i = 0; i < 20; i++) {
+                const isCyan = Math.random() > 0.4;
+                const p = new THREE.Mesh(
+                    new THREE.SphereGeometry(0.02, 6, 6),
+                    new THREE.MeshBasicMaterial({ color: isCyan ? 0x24A8E1 : 0xF0F4F8, transparent: true, opacity: 0.8 })
+                );
+                p.userData = {
+                    startY: -2 - Math.random() * 1.5,
+                    x: (Math.random() - 0.5) * 1.2,
+                    z: (Math.random() - 0.5) * 1.2,
+                    speed: 0.005 + Math.random() * 0.01
+                };
+                p.position.set(p.userData.x, p.userData.startY, p.userData.z);
+                dataParts.add(p);
+            }
+            scene.add(dataParts);
+
+            const clock = new THREE.Clock();
             function animate() {
                 requestAnimationFrame(animate);
-                core.rotation.y += 0.005;
-                knot.rotation.y -= 0.015;
-                knot.rotation.z += 0.01;
+                const t = clock.getElapsedTime();
+                prism.rotation.y += 0.005;
+                baseLight.intensity = 2 + Math.sin(t * 3) * 0.5;
+                topLight.intensity = 2.5 + Math.sin(t * 2) * 0.8;
+                dataParts.children.forEach(p => {
+                    p.position.y += p.userData.speed;
+                    if (p.position.y > 1.8) {
+                        p.position.y = p.userData.startY;
+                    }
+                });
                 renderer.render(scene, camera);
             }
             animate();
