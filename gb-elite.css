@@ -1949,3 +1949,7 @@ body.no-three .video-as-code::after {
     margin-top: 25px;
 }
 
+
+/* Efecto de Barrido de Luz Perimetral para Gemini Pro */
+.modal-sweep-active #modal-diadema::after { content: ''; position: absolute; top: 0; left: -150%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(36,168,225,0.1), rgba(36,168,225,0.3), rgba(36,168,225,0.1), transparent); transform: skewX(-30deg); animation: lightSweep 4s infinite ease-in-out; }
+@keyframes lightSweep { 0% { left: -150%; } 100% { left: 250%; } }
