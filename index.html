@@ -4488,62 +4488,112 @@
                 //    Wireframe sphere (Status Quo) + tetrahedron swarm
                 // ═══════════════════════════════════════════════
             } else if (type === 'nexus_agentico_disruptivo') {
-                // STATUS QUO: Esfera wireframe Azul Medianoche (mercado tradicional)
-                const statusQuo = new THREE.Mesh(
-                    new THREE.SphereGeometry(2, 24, 24),
-                    new THREE.MeshBasicMaterial({
-                        color: 0x0A192F,
-                        wireframe: true,
-                        transparent: true,
-                        opacity: 0.4
-                    })
-                );
-                statusQuo.name = "statusQuo";
+                // EL ARMA ESTRATÉGICA (Neural Swarm)
+                const disruptionGroup = new THREE.Group();
+                disruptionGroup.name = "disruptionGroup";
 
-                // ENJAMBRE DISRUPTOR: Tetraedros agentes autónomos
+                // 1. NÚCLEO ORQUESTADOR: Dodecaedro (Metal Dorado Inteligente)
+                const coreGeom = new THREE.DodecahedronGeometry(1.0, 0);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0xE4A837,
+                    metalness: 1.0,
+                    roughness: 0.1, // Mirror finish approximation
+                    emissive: 0xE4A837,
+                    emissiveIntensity: 0.5
+                });
+                const dodecCore = new THREE.Mesh(coreGeom, coreMat);
+                dodecCore.name = "dodecCore";
+                
+                // Aristas de refuerzo sutil
+                const coreEdges = new THREE.LineSegments(
+                    new THREE.EdgesGeometry(coreGeom),
+                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.3 })
+                );
+                dodecCore.add(coreEdges);
+                disruptionGroup.add(dodecCore);
+
+                // 2. ENJAMBRE SUB-UNITARIO: 35 Icosaedros Autónomos
                 const swarmGroup = new THREE.Group();
-                swarmGroup.name = "swarm";
-                for (let i = 0; i < 30; i++) {
-                    const tetra = new THREE.Mesh(
-                        new THREE.TetrahedronGeometry(0.2 + Math.random() * 0.15, 0),
-                        new THREE.MeshStandardMaterial({
-                            color: 0x24A8E1,
-                            emissive: 0x24A8E1,
-                            emissiveIntensity: 1.2,
-                            metalness: 0.3,
-                            roughness: 0.2
-                        })
-                    );
-                    const phi = Math.acos(2 * Math.random() - 1);
-                    const theta = Math.random() * Math.PI * 2;
-                    const radius = 1.5 + Math.random() * 2;
-                    tetra.position.setFromSphericalCoords(radius, phi, theta);
-                    tetra.userData = {
-                        orbitSpeed: 0.005 + Math.random() * 0.02,
-                        orbitAxis: new THREE.Vector3(
-                            Math.random() - 0.5,
-                            Math.random() - 0.5,
-                            Math.random() - 0.5
-                        ).normalize(),
-                        spinSpeed: 0.02 + Math.random() * 0.05,
-                        baseRadius: radius,
-                        pulsePhase: Math.random() * Math.PI * 2
+                swarmGroup.name = "swarmGroup";
+                const agentCount = 35;
+                for (let i = 0; i < agentCount; i++) {
+                    const agentGeom = new THREE.IcosahedronGeometry(0.18, 0);
+                    const agentMat = new THREE.MeshStandardMaterial({
+                        color: 0x24A8E1,
+                        emissive: 0x24A8E1,
+                        emissiveIntensity: 1.5
+                    });
+                    const agent = new THREE.Mesh(agentGeom, agentMat);
+                    
+                    const phi = Math.random() * Math.PI * 2;
+                    const theta = Math.acos(2 * Math.random() - 1);
+                    const radius = 2.0 + Math.random() * 1.5;
+                    agent.position.setFromSphericalCoords(radius, theta, phi);
+                    
+                    agent.userData = {
+                        originalColor: new THREE.Color(0x24A8E1),
+                        center: new THREE.Vector3(0,0,0),
+                        orbitAxis: new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize(),
+                        orbitSpeed: 0.01 + Math.random() * 0.02,
+                        pulsePhase: Math.random() * Math.PI * 2,
+                        radius: radius
                     };
-                    swarmGroup.add(tetra);
+                    swarmGroup.add(agent);
                 }
+                disruptionGroup.add(swarmGroup);
 
-                // DESTELLO CENTRAL: Luz dorada donde convergen los agentes
-                const coreLight = new THREE.PointLight(0xE4A837, 4, 6);
-                coreLight.position.set(0, 0, 0);
-                coreLight.name = "coreLight";
+                // 3. FUEGO FRÍO Y BARRERA DE LUZ
+                const coldFire = new THREE.PointLight(0x24A8E1, 6, 8);
+                coldFire.name = "coldFire";
+                disruptionGroup.add(coldFire);
 
-                const coreStar = new THREE.Mesh(
-                    new THREE.OctahedronGeometry(0.3, 0),
-                    new THREE.MeshBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.9 })
-                );
-                coreStar.name = "coreStar";
+                const barrierGeom = new THREE.SphereGeometry(1.6, 32, 32);
+                const barrierMat = new THREE.MeshBasicMaterial({
+                    color: 0x24A8E1,
+                    transparent: true,
+                    opacity: 0.08,
+                    side: THREE.BackSide
+                });
+                const lightBarrier = new THREE.Mesh(barrierGeom, barrierMat);
+                lightBarrier.name = "lightBarrier";
+                disruptionGroup.add(lightBarrier);
 
-                modalObject.add(statusQuo, swarmGroup, coreLight, coreStar);
+                modalObject.add(disruptionGroup);
+
+                // ATMÓSFERA DISRUPTIVA (Espiral y Contraste)
+                const grid = new THREE.GridHelper(10, 25, 0x24A8E1, 0x24A8E1);
+                grid.position.y = -3.5;
+                grid.material.opacity = 0.03; // Menor opacidad para disrupción
+                grid.material.transparent = true;
+                modalObject.add(grid);
+
+                const dustGroup = new THREE.Group();
+                dustGroup.name = "dust";
+                for(let i=0; i<120; i++){
+                    const dust = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.01, 4, 4), 
+                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.5 })
+                    );
+                    const r = 2 + Math.random() * 4;
+                    const p = Math.random() * Math.PI * 2;
+                    const t = Math.random() * Math.PI;
+                    dust.position.setFromSphericalCoords(r, t, p);
+                    dust.userData = { 
+                        spiralSpeed: 0.02 + Math.random()*0.03,
+                        upSpeed: 0.005 + Math.random()*0.01,
+                        r: r
+                    };
+                    dustGroup.add(dust);
+                }
+                modalObject.add(dustGroup);
+                modalRenderer.setClearColor(0x050B16, 1);
+
+                // Activación de Efecto CSS
+                const modalVisualCol = document.querySelector('.modal-visual-col');
+                if (modalVisualCol) {
+                    modalVisualCol.classList.remove('modal-sweep-active');
+                    modalVisualCol.classList.add('modal-disruption-active');
+                }
 
             } else if (type === 'brand_dna_visual') {
                 const dnaGroup = new THREE.Group();
@@ -5252,36 +5302,70 @@
                     }
 
                 } else if (type === 'nexus_agentico_disruptivo') {
-                    const statusQuo = modalObject.getObjectByName("statusQuo");
-                    const swarm = modalObject.getObjectByName("swarm");
-                    const coreStar = modalObject.getObjectByName("coreStar");
-                    const coreLight = modalObject.getObjectByName("coreLight");
-                    // Esfera del status quo respira
-                    if (statusQuo) {
-                        statusQuo.rotation.y += 0.002;
-                        statusQuo.material.opacity = 0.3 + Math.sin(t) * 0.1;
+                    const dodecCore = modalObject.getObjectByName("dodecCore");
+                    const swarmGroup = modalObject.getObjectByName("swarmGroup");
+                    const coldFire = modalObject.getObjectByName("coldFire");
+                    const barrier = modalObject.getObjectByName("lightBarrier");
+                    const dust = modalObject.getObjectByName("dust");
+
+                    if (dodecCore) {
+                        dodecCore.rotation.y += 0.01;
+                        dodecCore.rotation.x += 0.005;
                     }
-                    // Enjambre de tetraedros orbitando agresivamente
-                    if (swarm) {
-                        swarm.children.forEach(tetra => {
-                            // Orbitar alrededor del centro
-                            const axis = tetra.userData.orbitAxis;
-                            tetra.position.applyAxisAngle(axis, tetra.userData.orbitSpeed);
-                            // Spin individual agresivo
-                            tetra.rotation.x += tetra.userData.spinSpeed;
-                            tetra.rotation.z += tetra.userData.spinSpeed * 0.7;
-                            // Pulso de tamaño
-                            const pulse = 1 + Math.sin(t * 3 + tetra.userData.pulsePhase) * 0.15;
-                            tetra.scale.setScalar(pulse);
+
+                    if (swarmGroup) {
+                        swarmGroup.children.forEach((agent, i) => {
+                            // Caos Gestionado: Movimiento autónomo (alejar/acercar)
+                            agent.userData.targetRadius = 2.0 + Math.sin(t * 0.5 + agent.userData.pulsePhase) * 1.5;
+                            const currentPos = agent.position.clone();
+                            const dir = currentPos.normalize();
+                            agent.position.copy(dir.multiplyScalar(THREE.MathUtils.lerp(agent.userData.radius, agent.userData.targetRadius, 0.05)));
+                            agent.userData.radius = agent.position.length();
+
+                            // Orbitar
+                            agent.position.applyAxisAngle(agent.userData.orbitAxis, agent.userData.orbitSpeed);
+                            
+                            // Spin individual
+                            agent.rotation.y += 0.02;
+                            agent.rotation.z += 0.01;
+
+                            // Inyección de Autoridad (Flashes Oro al alejarse)
+                            const isMovingOut = Math.cos(t * 0.5 + agent.userData.pulsePhase) > 0.8;
+                            if (isMovingOut) {
+                                agent.material.color.lerp(new THREE.Color(0xE4A837), 0.1);
+                                agent.material.emissiveIntensity = 3.0;
+                            } else {
+                                agent.material.color.lerp(agent.userData.originalColor, 0.05);
+                                agent.material.emissiveIntensity = 1.5;
+                            }
                         });
                     }
-                    // Destello dorado central convergente
-                    if (coreStar) {
-                        coreStar.rotation.y += 0.02;
-                        coreStar.scale.setScalar(1 + Math.sin(t * 5) * 0.3);
+
+                    if (coldFire) {
+                        coldFire.intensity = 5 + Math.sin(t * 4) * 2;
                     }
-                    if (coreLight) {
-                        coreLight.intensity = 4 + Math.sin(t * 4) * 2;
+                    if (barrier) {
+                        barrier.material.opacity = 0.05 + Math.sin(t * 2) * 0.03;
+                    }
+
+                    if (dust) {
+                        dust.children.forEach(p => {
+                            // Movimiento en espiral
+                            const ud = p.userData;
+                            const pos = p.position;
+                            const angle = Math.atan2(pos.z, pos.x) + ud.spiralSpeed;
+                            pos.x = Math.cos(angle) * ud.r;
+                            pos.z = Math.sin(angle) * ud.r;
+                            pos.y += ud.upSpeed;
+                            if (pos.y > 5) pos.y = -5;
+                        });
+                    }
+
+                    // Dinámica de Interfaz (CSS toggle de intensidad)
+                    const modalVisualCol = document.querySelector('.modal-visual-col');
+                    if (modalVisualCol) {
+                        const intensity = 0.4 + Math.sin(t * 3) * 0.2;
+                        modalVisualCol.style.setProperty('--refraction-intensity', intensity);
                     }
 
                 } else if (type === 'brand_dna_visual') {
