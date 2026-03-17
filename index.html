@@ -216,6 +216,58 @@
             margin-top: -18px;
             /* Offset to center relative to name row */
         }
+
+        /* ── GB NEXUS CINEMATIC VISUALS v5.0 ── */
+        .nexus-section-unified {
+            position: relative;
+            background: url('assets/foto/nexus_unified.png') no-repeat center center;
+            background-size: cover;
+            padding: 80px 0;
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+            margin-top: 60px;
+            overflow: hidden;
+        }
+
+        .nexus-section-unified::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(5, 11, 22, 0.3) 0%, var(--void) 95%);
+            z-index: 1;
+        }
+
+        .nexus-grid {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .modal-cinematic-header {
+            width: 100%;
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            border-bottom: 2px solid var(--gold);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+            display: none; /* Hidden by default, shown via JS */
+        }
+
+        .modal-cinematic-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 50%, var(--void) 100%);
+        }
+
+        .modal-visual-col {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 
@@ -379,7 +431,8 @@
             </h2>
         </div>
 
-        <div class="nexus-grid">
+        <div class="nexus-section-unified">
+            <div class="nexus-grid">
             <!-- TARJETA 1: SIMBIOSIS AGÉNTICA -->
             <div class="nexus-card reveal" data-key="nexus_agentica">
                 <div id="canvas-agentica" class="icon-neural"></div>
@@ -454,6 +507,7 @@
                 <button class="close-modal" onclick="closeEliteModal()">&times;</button>
                 <div class="modal-split">
                     <div class="modal-visual-col">
+                        <div id="modal-cinematic-header" class="modal-cinematic-header"></div>
                         <div id="modal-diadema">
                             <canvas id="modal-canvas"></canvas>
                             <div class="nitidez-taktil">NITIDEZ TÁCTIL ABSOLUTA [60 FPS]</div>
@@ -3841,6 +3895,21 @@
                 return;
             }
 
+            // Cinematic Header Setup v5.0
+            const cinematicHeader = document.getElementById('modal-cinematic-header');
+            if (cinematicHeader) {
+                if (key === 'nexus_gobernanza') {
+                    cinematicHeader.style.backgroundImage = "url('assets/foto/nexus_gobernanza.png')";
+                    cinematicHeader.style.display = 'block';
+                } else if (key.startsWith('nexus_') || key === 'brand_dna' || key === 'nexus_gemini_pro' || key === 'nexus_agentico_disruptivo') {
+                    // Use unified for others until individual are ready
+                    cinematicHeader.style.backgroundImage = "url('assets/foto/nexus_unified.png')";
+                    cinematicHeader.style.display = 'block';
+                } else {
+                    cinematicHeader.style.display = 'none';
+                }
+            }
+
             const container = document.getElementById('modalData');
             if (!container) return;
 
@@ -4264,88 +4333,102 @@
                 modalRenderer.setClearColor(0x050B16, 1);
 
             } else if (type === 'nexus_gobernanza') {
-                // LA BÓVEDA DE CONFIANZA (Trust Vault) - GB Elite Edition
+                // LA BÓVEDA DE CONFIANZA (Trust Vault) - GB Elite Edition v5.0
                 const vaultGroup = new THREE.Group();
                 vaultGroup.name = "vaultGroup";
 
-                // 1. EL NÚCLEO: SOBERANÍA DE DATOS (Icosaedro de Oro Cristalino)
-                const coreGeom = new THREE.IcosahedronGeometry(0.8, 0);
+                // 1. EL NÚCLEO: SOBERANÍA DE DATOS (Icosaedro de Oro Cristalino Multifacetado)
+                const coreGeom = new THREE.IcosahedronGeometry(1.0, 1);
                 const coreMat = new THREE.MeshPhysicalMaterial({
                     color: 0xE4A837,
                     metalness: 1.0,
-                    roughness: 0.1,
-                    transmission: 0.2,
-                    thickness: 1.0,
+                    roughness: 0.05,
+                    transmission: 0.1,
+                    thickness: 2.0,
                     emissive: 0xE4A837,
-                    emissiveIntensity: 0.5,
-                    clearcoat: 1.0
+                    emissiveIntensity: 0.6,
+                    clearcoat: 1.0,
+                    reflectivity: 1.0
                 });
                 const goldCore = new THREE.Mesh(coreGeom, coreMat);
                 goldCore.name = "goldCore";
                 
-                // Aristas de Oro Puro
+                // Aristas de Oro Puro Reforzadas
                 const coreEdges = new THREE.LineSegments(
                     new THREE.EdgesGeometry(coreGeom),
-                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.8 })
+                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.9 })
                 );
                 goldCore.add(coreEdges);
                 vaultGroup.add(goldCore);
 
-                // 2. ESCUDO SECUNDARIO: CRYPTEX ORBITAL (Torus Knot Cian)
-                const cryptoGeom = new THREE.TorusKnotGeometry(1.4, 0.05, 100, 16);
+                // 2. ESCUDO SECUNDARIO: CRYPTEX ORBITAL (Torus Knot Gold/Cyan)
+                const cryptoGeom = new THREE.TorusKnotGeometry(1.6, 0.06, 120, 20);
                 const cryptoMat = new THREE.MeshStandardMaterial({
-                    color: 0x24A8E1,
+                    color: 0xE4A837,
+                    metalness: 0.9,
+                    roughness: 0.1,
                     emissive: 0x24A8E1,
-                    emissiveIntensity: 2.0,
+                    emissiveIntensity: 0.4,
                     transparent: true,
-                    opacity: 0.6
+                    opacity: 0.7
                 });
                 const cryptoRing = new THREE.Mesh(cryptoGeom, cryptoMat);
                 cryptoRing.name = "cryptoRing";
                 vaultGroup.add(cryptoRing);
 
-                // 3. CAPA DE SEGURIDAD RLS (Nube de cubos de datos)
+                // 3. CAPA DE SEGURIDAD RLS (Nube de cubos de datos de alta densidad)
                 const rlsGroup = new THREE.Group();
                 rlsGroup.name = "rlsShield";
-                const cubeCount = 40;
+                const cubeCount = 60;
                 for(let i=0; i<cubeCount; i++) {
-                    const cubeSize = 0.05 + Math.random() * 0.1;
+                    const cubeSize = 0.04 + Math.random() * 0.12;
                     const cube = new THREE.Mesh(
                         new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize),
-                        new THREE.MeshStandardMaterial({ color: i % 2 === 0 ? 0x24A8E1 : 0xE4A837, emissive: i % 2 === 0 ? 0x24A8E1 : 0xE4A837, emissiveIntensity: 0.5 })
+                        new THREE.MeshStandardMaterial({ 
+                            color: i % 3 === 0 ? 0xE4A837 : 0x24A8E1, 
+                            emissive: i % 3 === 0 ? 0xE4A837 : 0x24A8E1, 
+                            emissiveIntensity: 0.8 
+                        })
                     );
                     const theta = Math.random() * Math.PI * 2;
                     const phi = Math.acos(2 * Math.random() - 1);
-                    const dist = 2.2 + Math.random() * 0.4;
+                    const dist = 2.4 + Math.random() * 0.6;
                     cube.position.setFromSphericalCoords(dist, phi, theta);
                     cube.userData = {
                         orbitAxis: new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize(),
-                        orbitSpeed: 0.005 + Math.random() * 0.01
+                        orbitSpeed: 0.008 + Math.random() * 0.015
                     };
                     rlsGroup.add(cube);
                 }
                 vaultGroup.add(rlsGroup);
 
-                // 4. CAMPO DE FUERZA EXTERIOR (Esfera de Vidrio Diamante)
-                const shieldGeom = new THREE.SphereGeometry(2.8, 32, 32);
+                // 4. CAMPO DE FUERZA EXTERIOR (Esfera de Vidrio Diamante AAA)
+                const shieldGeom = new THREE.SphereGeometry(3.0, 48, 48);
                 const shieldMat = new THREE.MeshPhysicalMaterial({
-                    color: 0x0A192F,
+                    color: 0x24A8E1,
+                    metalness: 0.2,
+                    roughness: 0.0,
                     transmission: 0.95,
                     transparent: true,
-                    opacity: 0.2,
-                    roughness: 0.0,
-                    metalness: 0.0,
-                    thickness: 2.0,
-                    ior: 1.5,
-                    clearcoat: 1.0
+                    opacity: 0.15,
+                    ior: 2.4,
+                    thickness: 0.5,
+                    specularIntensity: 1.0,
+                    specularColor: 0xffffff
                 });
                 const outerShield = new THREE.Mesh(shieldGeom, shieldMat);
                 outerShield.name = "outerShield";
+                
+                const shieldWire = new THREE.Mesh(
+                    shieldGeom,
+                    new THREE.MeshBasicMaterial({ color: 0x24A8E1, wireframe: true, transparent: true, opacity: 0.05 })
+                );
+                outerShield.add(shieldWire);
                 vaultGroup.add(outerShield);
 
-                // 5. BARRIDO DE VALIDACIÓN (Anillo Laser)
-                const laserGeom = new THREE.TorusGeometry(2.82, 0.02, 16, 100);
-                const laserMat = new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.8 });
+                // 5. BARRIDO DE VALIDACIÓN (Anillo Laser de Alta Intensidad)
+                const laserGeom = new THREE.TorusGeometry(3.1, 0.03, 16, 100);
+                const laserMat = new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 1.0 });
                 const laserRing = new THREE.Mesh(laserGeom, laserMat);
                 laserRing.rotation.x = Math.PI / 2;
                 laserRing.name = "laserRing";
@@ -4484,62 +4567,62 @@
 
                 // ═══════════════════════════════════════════════
             } else if (type === 'nexus_agentico_disruptivo') {
-                // EL ARMA ESTRATÉGICA (Neural Swarm) - GB Elite Edition
+                // EL ARMA ESTRATÉGICA (Neural Swarm) - GB Elite Edition v5.0
                 const disruptionGroup = new THREE.Group();
                 disruptionGroup.name = "disruptionGroup";
 
-                // 1. NÚCLEO ORQUESTADOR: DODECAEDRO DE SOBERANÍA (Oro Espejo)
-                const coreGeom = new THREE.DodecahedronGeometry(1.0, 0);
+                // 1. NÚCLEO ORQUESTADOR: DODECAEDRO DE SOBERANÍA (Oro Vívido)
+                const coreGeom = new THREE.DodecahedronGeometry(1.2, 0);
                 const coreMat = new THREE.MeshStandardMaterial({
                     color: 0xE4A837,
                     metalness: 1.0,
                     roughness: 0.05,
                     emissive: 0xE4A837,
-                    emissiveIntensity: 0.8
+                    emissiveIntensity: 1.2
                 });
                 const dodecCore = new THREE.Mesh(coreGeom, coreMat);
                 dodecCore.name = "dodecCore";
                 
-                // Aristas de Disrupción (Cian)
+                // Aristas de Disrupción (Cian Glow)
                 const coreEdges = new THREE.LineSegments(
                     new THREE.EdgesGeometry(coreGeom),
-                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.8 })
+                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 1.0 })
                 );
                 dodecCore.add(coreEdges);
                 disruptionGroup.add(dodecCore);
 
-                // 2. ENJAMBRE AGÉNTICO RADICAL: 50 Cristales Autónomos
+                // 2. ENJAMBRE AGÉNTICO RADICAL: 60 Octaedros Cristalinoss
                 const swarmGroup = new THREE.Group();
                 swarmGroup.name = "swarmGroup";
-                const agentCount = 50;
+                const agentCount = 60;
                 for (let i = 0; i < agentCount; i++) {
-                    const agentGeom = new THREE.OctahedronGeometry(0.15, 0);
+                    const agentGeom = new THREE.OctahedronGeometry(0.18, 0);
                     const agentMat = new THREE.MeshStandardMaterial({
                         color: 0x24A8E1,
                         emissive: 0x24A8E1,
-                        emissiveIntensity: 2.0
+                        emissiveIntensity: 2.5
                     });
                     const agent = new THREE.Mesh(agentGeom, agentMat);
                     
                     const phi = Math.random() * Math.PI * 2;
                     const theta = Math.acos(2 * Math.random() - 1);
-                    const radius = 1.8 + Math.random() * 2.5;
+                    const radius = 2.0 + Math.random() * 3.0;
                     agent.position.setFromSphericalCoords(radius, theta, phi);
                     
                     agent.userData = {
                         originalColor: new THREE.Color(0x24A8E1),
                         orbitAxis: new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize(),
-                        orbitSpeed: 0.02 + Math.random() * 0.04,
+                        orbitSpeed: 0.03 + Math.random() * 0.05,
                         pulsePhase: Math.random() * Math.PI * 2,
                         radius: radius,
-                        vibration: Math.random() * 0.1
+                        vibration: Math.random() * 0.15
                     };
                     swarmGroup.add(agent);
                 }
                 disruptionGroup.add(swarmGroup);
 
-                // 3. FUEGO FRÍO ALGORÍTMICO (Luz de punto alta densidad)
-                const coldFire = new THREE.PointLight(0x24A8E1, 10, 10);
+                // 3. FUEGO FRÍO ALGORÍTMICO (Luz Pulsante de Alta Densidad)
+                const coldFire = new THREE.PointLight(0x24A8E1, 15, 12);
                 coldFire.name = "coldFire";
                 disruptionGroup.add(coldFire);
 
