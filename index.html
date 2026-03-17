@@ -4258,61 +4258,113 @@
                 //    Triple Torus rings (Cryptex) + gold diamond core
                 // ═══════════════════════════════════════════════
             } else if (type === 'nexus_gobernanza') {
-                const ringsGroup = new THREE.Group();
-                ringsGroup.name = "rings";
-                const ringRadii = [2.2, 1.7, 1.2];
-                const ringTubeR = [0.25, 0.2, 0.15];
-                const directions = [1, -1, 1];
+                // LA BÓVEDA DE CONFIANZA (Trust Vault)
+                const vaultGroup = new THREE.Group();
+                vaultGroup.name = "vaultGroup";
 
-                ringRadii.forEach((r, i) => {
-                    const ringGeom = new THREE.TorusGeometry(r, ringTubeR[i], 32, 64);
-                    const ring = new THREE.Mesh(
-                        ringGeom,
-                        new THREE.MeshStandardMaterial({
-                            color: 0x050B16,
-                            metalness: 1.0,
-                            roughness: 0.4,
-                            emissive: 0xF0F4F8,
-                            emissiveIntensity: 0.05
-                        })
-                    );
-                    const ringEdges = new THREE.LineSegments(
-                        new THREE.EdgesGeometry(ringGeom),
-                        new THREE.LineBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.15 })
-                    );
-                    ring.add(ringEdges);
-                    ring.rotation.x = Math.PI / 2 + (i * 0.3);
-                    ring.rotation.z = i * 0.5;
-                    ring.userData = { speed: 0.003 * directions[i] * (i + 1) };
-                    ring.name = 'ring_' + i;
-                    ringsGroup.add(ring);
+                // 1. NÚCLEO: Legado y Capital Intelectual (Cubo Oro Pulido)
+                const coreGeom = new THREE.BoxGeometry(1.2, 1.2, 1.2);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0xE4A837,
+                    metalness: 0.9,
+                    roughness: 0.1,
+                    emissive: 0xE4A837,
+                    emissiveIntensity: 0.3
                 });
+                const goldCore = new THREE.Mesh(coreGeom, coreMat);
+                goldCore.name = "goldCore";
+                
+                // Filigrana de Escudo (Edges sobre el núcleo)
+                const coreEdges = new THREE.LineSegments(
+                    new THREE.EdgesGeometry(coreGeom),
+                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.5 })
+                );
+                goldCore.add(coreEdges);
+                vaultGroup.add(goldCore);
 
-                // DIAMANTE DORADO central (legado protegido)
-                const diamondGeom = new THREE.OctahedronGeometry(0.5, 0);
-                const diamond = new THREE.Mesh(
-                    diamondGeom,
-                    new THREE.MeshStandardMaterial({
-                        color: 0xE4A837,
-                        emissive: 0xE4A837,
-                        emissiveIntensity: 1.0,
-                        metalness: 0.8,
-                        roughness: 0.1
+                // 2. ESCUDO EXTERIOR: Glassmorphism Cúbico (Azul Medianoche)
+                const shieldGeom = new THREE.BoxGeometry(2.8, 2.8, 2.8);
+                const shieldMat = new THREE.MeshPhysicalMaterial({
+                    color: 0x0A192F,
+                    transmission: 0.9,
+                    transparent: true,
+                    opacity: 0.4,
+                    roughness: 0.05,
+                    metalness: 0.2,
+                    thickness: 1.5,
+                    clearcoat: 1.0
+                });
+                const outerShield = new THREE.Mesh(shieldGeom, shieldMat);
+                outerShield.name = "outerShield";
+                
+                // Borde Degradado (LineSegments con color cian/oro sutil)
+                const shieldEdges = new THREE.LineSegments(
+                    new THREE.EdgesGeometry(shieldGeom),
+                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.6 })
+                );
+                outerShield.add(shieldEdges);
+                vaultGroup.add(outerShield);
+
+                // 3. CAMPO DE FUERZA (Luz Pulsante intermedia)
+                const forceField = new THREE.Mesh(
+                    new THREE.SphereGeometry(1.8, 32, 32),
+                    new THREE.MeshBasicMaterial({
+                        color: 0x24A8E1,
+                        transparent: true,
+                        opacity: 0.05,
+                        side: THREE.BackSide
                     })
                 );
-                const diamondEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(diamondGeom),
-                    new THREE.LineBasicMaterial({ color: 0xFFD700 })
+                forceField.name = "forceField";
+                vaultGroup.add(forceField);
+
+                // 4. HUMAN-IN-THE-LOOP (Glifo base)
+                const glifoGroup = new THREE.Group();
+                glifoGroup.name = "glifo";
+                glifoGroup.position.y = -3.2;
+                
+                const handSwitchGeom = new THREE.PlaneGeometry(0.5, 0.5);
+                const handSwitchMat = new THREE.MeshBasicMaterial({
+                    color: 0x24A8E1,
+                    transparent: true,
+                    opacity: 0.8,
+                    side: THREE.DoubleSide
+                });
+                const handSwitch = new THREE.Mesh(handSwitchGeom, handSwitchMat);
+                handSwitch.rotation.x = -Math.PI / 2;
+                
+                // Representación abstracta del glifo (mano/interruptor)
+                const ring = new THREE.Mesh(
+                    new THREE.RingGeometry(0.3, 0.35, 32),
+                    new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.4 })
                 );
-                diamond.add(diamondEdges);
-                diamond.name = "diamond";
+                ring.rotation.x = -Math.PI/2;
+                glifoGroup.add(handSwitch, ring);
+                vaultGroup.add(glifoGroup);
 
-                // Luz central Azul Cian (latido de protección)
-                const coreLight = new THREE.PointLight(0x24A8E1, 3, 5);
-                coreLight.position.set(0, 0, 0);
-                coreLight.name = "coreLight";
+                modalObject.add(vaultGroup);
 
-                modalObject.add(ringsGroup, diamond, coreLight);
+                // ATMÓSFERA COMÚN GB-DNA
+                const grid = new THREE.GridHelper(10, 20, 0x24A8E1, 0x24A8E1);
+                grid.position.y = -3.5;
+                grid.material.opacity = 0.04;
+                grid.material.transparent = true;
+                modalObject.add(grid);
+
+                const dustGroup = new THREE.Group();
+                dustGroup.name = "dust";
+                for(let i=0; i<60; i++){
+                    const dust = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.015, 4, 4), 
+                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.4 })
+                    );
+                    const dist = 3 + Math.random() * 5;
+                    dust.position.setFromSphericalCoords(dist, Math.random()*Math.PI, Math.random()*Math.PI*2);
+                    dust.userData = { orbitSpeed: 0.001 + Math.random()*0.0015, axis: new THREE.Vector3(1,Math.random(),Math.random()).normalize() };
+                    dustGroup.add(dust);
+                }
+                modalObject.add(dustGroup);
+                modalRenderer.setClearColor(0x050B16, 1);
 
                 // ═══════════════════════════════════════════════
                 // 5. NIVEL GEMINI PRO HIGH 💎⚡
@@ -5067,24 +5119,34 @@
                     }
 
                 } else if (type === 'nexus_gobernanza') {
-                    const rings = modalObject.getObjectByName("rings");
-                    const diamond = modalObject.getObjectByName("diamond");
-                    const coreLight = modalObject.getObjectByName("coreLight");
-                    // Anillos girando en direcciones opuestas
-                    if (rings) {
-                        rings.children.forEach(ring => {
-                            ring.rotation.z += ring.userData.speed;
-                        });
+                    const goldCore = modalObject.getObjectByName("goldCore");
+                    const outerShield = modalObject.getObjectByName("outerShield");
+                    const forceField = modalObject.getObjectByName("forceField");
+                    const glifo = modalObject.getObjectByName("glifo");
+                    const dust = modalObject.getObjectByName("dust");
+
+                    if (goldCore) {
+                        goldCore.rotation.y += 0.005;
+                        goldCore.rotation.x += 0.002;
                     }
-                    // Diamante dorado palpitando
-                    if (diamond) {
-                        diamond.rotation.y += 0.01;
-                        diamond.scale.setScalar(1 + Math.sin(t * 2) * 0.1);
-                        diamond.material.emissiveIntensity = 1.0 + Math.sin(t * 3) * 0.5;
+                    if (outerShield) {
+                        outerShield.rotation.y -= 0.003;
+                        outerShield.rotation.z += 0.001;
+
+                        // Ciclo de Expansión cada 5 segundos
+                        const pulseScale = 1.0 + Math.max(0, Math.sin(t * (Math.PI * 2 / 5))) * 0.1;
+                        outerShield.scale.setScalar(pulseScale);
                     }
-                    // Latido de luz Azul Cian central
-                    if (coreLight) {
-                        coreLight.intensity = 3 + Math.sin(t * 2.5) * 1.5;
+                    if (forceField) {
+                        forceField.material.opacity = 0.03 + Math.sin(t * 3) * 0.02;
+                    }
+                    if (glifo) {
+                        // Parpadeo suave (Human-in-the-loop)
+                        glifo.children[0].material.opacity = 0.4 + Math.sin(t * 4) * 0.4;
+                    }
+
+                    if (dust) {
+                        dust.children.forEach(p => p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed));
                     }
 
                 } else if (type === 'nexus_gemini_pro') {
