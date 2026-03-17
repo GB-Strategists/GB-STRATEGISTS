@@ -13,46 +13,45 @@
 
     <!-- OPEN GRAPH / FACEBOOK -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gbstrategists-ai.vercel.app/">
+    <meta property="og:url" content="https://gbstrategists-ia.vercel.app/">
     <meta property="og:title" content="GB STRATEGISTS | Global Authority in Agentic AI & GEO">
     <meta property="og:description"
         content="Agencia N°1 en IA Agéntica y GEO en LATAM. 30 años de trayectoria. ROI validado. Lighthouse &gt;95.">
     <meta property="og:image"
-        content="https://gbstrategists-ai.vercel.app/assets/foto/nexus_unified.png">
+        content="https://gbstrategists-ia.vercel.app/assets/foto/nexus_unified.png">
 
     <!-- TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://gbstrategists-ai.vercel.app/">
+    <meta name="twitter:url" content="https://gbstrategists-ia.vercel.app/">
     <meta name="twitter:title" content="GB STRATEGISTS | Global Authority in Agentic AI & GEO">
     <meta name="twitter:description"
         content="Agencia N°1 en IA Agéntica y GEO en LATAM. 30 años de trayectoria. ROI validado.">
     <meta name="twitter:image"
-        content="https://gbstrategists-ai.vercel.app/assets/foto/nexus_unified.png">
+        content="https://gbstrategists-ia.vercel.app/assets/foto/nexus_unified.png">
 
-    <!-- PRELOAD CRÍTICOS PARA LCP < 1s -->
+    <!-- PRELOAD CRÍTICOS & OPTIMIZACIÓN LCP -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <!-- Preload fuentes críticas -->
+    
+    <!-- Preload Fuentes con activación onload (Elimina doble carga) -->
     <link rel="preload" as="style"
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@300;400;600;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap">
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@300;400;600;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@300;400;600;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap">
+    </noscript>
+
     <!-- Preload imagen hero -->
-    <link rel="preload" as="image"
-        href="assets/foto/nexus_unified.png">
+    <link rel="preload" as="image" href="assets/foto/nexus_unified.png">
     <!-- Preload CSS crítico -->
     <link rel="preload" as="style" href="gb-elite.css">
-
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@300;400;600;900&family=Montserrat:wght@300;400;700&family=Fira+Code&display=swap"
-        rel="stylesheet">
 
     <!-- ICONS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- THREE.JS CORE FOR CINEMATIC VOID -->
+    <!-- THREE.JS CORE FOR CINEMATIC VOID (r134 FIXED THICKNESS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
         // GLOBAL THREE.JS CHECK v4.0
