@@ -1456,6 +1456,12 @@ footer {
     height: 100%;
     position: relative;
     overflow: hidden;
+    /* Glassmorphism Elite Layer */
+    background: rgba(5, 11, 22, 0.4);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 0.5px solid;
+    border-image: linear-gradient(135deg, var(--gold), var(--cyan)) 1;
 }
 
 .modal-info-col {

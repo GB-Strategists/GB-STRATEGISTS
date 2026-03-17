@@ -4074,62 +4074,88 @@
                 //    Prisma hexagonal monolítico con refracción
                 // ═══════════════════════════════════════════════
             } else if (type === 'nexus_impacto') {
-                // PRISMA HEXAGONAL (CylinderGeometry con 6 lados)
-                const prismGeom = new THREE.CylinderGeometry(1.2, 1.2, 4, 6);
-                const prism = new THREE.Mesh(
-                    prismGeom,
-                    new THREE.MeshPhysicalMaterial({
-                        color: 0x0A192F,
-                        transmission: 0.85,
-                        transparent: true,
-                        opacity: 0.4,
-                        roughness: 0.05,
-                        metalness: 0.1,
-                        thickness: 2.0,
-                        clearcoat: 0.8,
-                        clearcoatRoughness: 0.1,
-                        emissive: 0x0A192F,
-                        emissiveIntensity: 0.1
-                    })
-                );
-                const prismEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(prismGeom),
-                    new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 })
-                );
-                prism.add(prismEdges);
-                prism.name = "prism";
+                // EL OCTAEDRO DE PRECISIÓN (Decision Intelligence)
+                const octoGroup = new THREE.Group();
+                octoGroup.name = "octoCore";
 
-                // Luz BASE (datos puros): Blanco Nube en la base
-                const baseLight = new THREE.PointLight(0xF0F4F8, 2.5, 6);
-                baseLight.position.set(0, -2.5, 0);
-                baseLight.name = "baseLight";
-
-                // Luz CIMA (ROI): Ocre Dorado en la punta
-                const topLight = new THREE.PointLight(0xE4A837, 3, 6);
-                topLight.position.set(0, 2.5, 0);
-                topLight.name = "topLight";
-
-                // Partículas de datos ascendentes
-                const dataParts = new THREE.Group();
-                dataParts.name = "dataParts";
-                for (let i = 0; i < 40; i++) {
-                    const isCyan = Math.random() > 0.4;
-                    const pMat = new THREE.MeshBasicMaterial({
-                        color: isCyan ? 0x24A8E1 : 0xF0F4F8,
-                        transparent: true,
-                        opacity: 0.8
-                    });
-                    const p = new THREE.Mesh(new THREE.SphereGeometry(0.03, 6, 6), pMat);
-                    p.userData = {
-                        startY: -3 - Math.random() * 2,
-                        x: (Math.random() - 0.5) * 2,
-                        z: (Math.random() - 0.5) * 2,
-                        speed: 0.01 + Math.random() * 0.02
-                    };
-                    p.position.set(p.userData.x, p.userData.startY, p.userData.z);
-                    dataParts.add(p);
+                const octoGeom = new THREE.OctahedronGeometry(2, 0);
+                
+                // Estructura Wireframe Refinada (Ocre Dorado Metálico)
+                const edgesGeom = new THREE.EdgesGeometry(octoGeom);
+                const edgesMat = new THREE.LineBasicMaterial({ 
+                    color: 0xE4A837, 
+                    transparent: true, 
+                    opacity: 0.9,
+                    linewidth: 2 
+                });
+                const octoEdges = new THREE.LineSegments(edgesGeom, edgesMat);
+                octoEdges.name = "edges";
+                
+                // Brillo Interno Sutil
+                const glowGeom = new THREE.OctahedronGeometry(1.9, 0);
+                const glowMat = new THREE.MeshBasicMaterial({
+                    color: 0xE4A837,
+                    transparent: true,
+                    opacity: 0.15,
+                    side: THREE.BackSide
+                });
+                const internalGlow = new THREE.Mesh(glowGeom, glowMat);
+                
+                // Nodos de Luz en Vértices (Azul Cian)
+                const nodesGroup = new THREE.Group();
+                nodesGroup.name = "nodes";
+                const positions = octoGeom.getAttribute('position');
+                const uniqueVerts = [];
+                for(let i=0; i<positions.count; i++){
+                    const v = new THREE.Vector3(positions.getX(i), positions.getY(i), positions.getZ(i));
+                    let dupe = false;
+                    for(const uv of uniqueVerts) if(uv.distanceTo(v) < 0.1) dupe = true;
+                    if(!dupe) uniqueVerts.push(v);
                 }
-                modalObject.add(prism, baseLight, topLight, dataParts);
+                uniqueVerts.forEach(v => {
+                    const node = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.12, 16, 16),
+                        new THREE.MeshStandardMaterial({
+                            color: 0x24A8E1,
+                            emissive: 0x24A8E1,
+                            emissiveIntensity: 2
+                        })
+                    );
+                    node.position.copy(v);
+                    nodesGroup.add(node);
+                });
+
+                octoGroup.add(octoEdges, internalGlow, nodesGroup);
+
+                // REJILLA TÉCNICA (Azul Cian 4%)
+                const grid = new THREE.GridHelper(10, 20, 0x24A8E1, 0x24A8E1);
+                grid.position.y = -3.5;
+                grid.material.opacity = 0.04;
+                grid.material.transparent = true;
+                grid.name = "grid";
+
+                // POLVO DE DATOS (Orbitantes)
+                const dustGroup = new THREE.Group();
+                dustGroup.name = "dust";
+                const dustGeom = new THREE.SphereGeometry(0.015, 4, 4);
+                const dustMat = new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.6 });
+                for(let i=0; i<100; i++){
+                    const dust = new THREE.Mesh(dustGeom, dustMat);
+                    const dist = 3 + Math.random() * 4;
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.random() * Math.PI;
+                    dust.position.setFromSphericalCoords(dist, phi, theta);
+                    dust.userData = {
+                        orbitSpeed: 0.001 + Math.random() * 0.002,
+                        axis: new THREE.Vector3(Math.random(), Math.random(), Math.random()).normalize()
+                    };
+                    dustGroup.add(dust);
+                }
+
+                modalObject.add(octoGroup, grid, dustGroup);
+                
+                // Configuración de atmósfera
+                modalRenderer.setClearColor(0x050B16, 1);
 
                 // ═══════════════════════════════════════════════
                 // 3. SOBERANÍA DIGITAL (GEO) 🌐👑
@@ -4918,31 +4944,29 @@
                     }
 
                 } else if (type === 'nexus_impacto') {
-                    const prism = modalObject.getObjectByName("prism");
-                    const baseLight = modalObject.getObjectByName("baseLight");
-                    const topLight = modalObject.getObjectByName("topLight");
-                    const dataParts = modalObject.getObjectByName("dataParts");
-                    if (prism) {
-                        prism.rotation.y += 0.005;
+                    const core = modalObject.getObjectByName("octoCore");
+                    const nodes = modalObject.getObjectByName("nodes");
+                    const dust = modalObject.getObjectByName("dust");
+                    
+                    if (core) {
+                        core.rotation.y += 0.008; // Rotación calculada y sobria
+                        
+                        // Pulsación de Escala cada 5 segundos (0.95x a 1.05x)
+                        const pulseCycle = (t % 5) / 5; // 0 a 1 cada 5s
+                        const pulse = 1.0 + Math.sin(t * (Math.PI * 2 / 5)) * 0.05;
+                        core.scale.setScalar(pulse);
+                        
+                        // Destello de nodos sincronizado con la pulsación
+                        if (nodes) {
+                            nodes.children.forEach((node, i) => {
+                                node.material.emissiveIntensity = 1.0 + Math.max(0, Math.sin(t * (Math.PI * 2 / 5))) * 3.0;
+                            });
+                        }
                     }
-                    if (baseLight) {
-                        baseLight.intensity = 2.5 + Math.sin(t * 3) * 0.8;
-                    }
-                    if (topLight) {
-                        topLight.intensity = 3 + Math.sin(t * 2) * 1.0;
-                    }
-                    // Partículas ascendentes (datos → ROI)
-                    if (dataParts) {
-                        dataParts.children.forEach(p => {
-                            p.position.y += p.userData.speed;
-                            // Convergencia lateral al ascender dentro del prisma
-                            p.position.x *= 0.998;
-                            p.position.z *= 0.998;
-                            if (p.position.y > 3) {
-                                p.position.y = p.userData.startY;
-                                p.position.x = p.userData.x;
-                                p.position.z = p.userData.z;
-                            }
+                    
+                    if (dust) {
+                        dust.children.forEach(p => {
+                            p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed);
                         });
                     }
 
