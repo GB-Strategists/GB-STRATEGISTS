@@ -4158,66 +4158,100 @@
                 modalRenderer.setClearColor(0x050B16, 1);
 
                 // ═══════════════════════════════════════════════
-                // 3. SOBERANÍA DIGITAL (GEO) 🌐👑
-                //    DodecahedronGeometry edges + gold vertex nodes
-                // ═══════════════════════════════════════════════
             } else if (type === 'nexus_soberania') {
-                // LA RED NEURONAL: Dodecaedro solo bordes en Azul Cian
-                const dodecGeom = new THREE.DodecahedronGeometry(2.2, 0);
-                const networkEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(dodecGeom),
-                    new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.7 })
-                );
-                networkEdges.name = "network";
+                // EL ESCUDO GEO (Aegis Network)
+                const geoGroup = new THREE.Group();
+                geoGroup.name = "geoGroup";
 
-                // FUENTE DE VERDAD: Esferas doradas en cada vértice
+                // 1. NÚCLEO: Fuente de Verdad Primordial (Esfera Oro Pulido)
+                const coreGeom = new THREE.SphereGeometry(0.8, 32, 32);
+                const coreMat = new THREE.MeshStandardMaterial({
+                    color: 0xE4A837,
+                    metalness: 0.9,
+                    roughness: 0.1,
+                    emissive: 0xE4A837,
+                    emissiveIntensity: 0.2
+                });
+                const centralCore = new THREE.Mesh(coreGeom, coreMat);
+                centralCore.name = "centralCore";
+                geoGroup.add(centralCore);
+
+                // 2. AEGIS: Red Orbital Protectora
+                const aegisGroup = new THREE.Group();
+                aegisGroup.name = "aegisGroup";
+                
                 const nodesGroup = new THREE.Group();
-                nodesGroup.name = "nodes";
-                const vertexPositions = dodecGeom.getAttribute('position');
-                const uniqueVertices = [];
-                for (let i = 0; i < vertexPositions.count; i++) {
-                    const v = new THREE.Vector3(vertexPositions.getX(i), vertexPositions.getY(i), vertexPositions.getZ(i));
-                    let isDupe = false;
-                    for (const uv of uniqueVertices) {
-                        if (uv.distanceTo(v) < 0.01) { isDupe = true; break; }
-                    }
-                    if (!isDupe) uniqueVertices.push(v);
-                }
-                uniqueVertices.forEach((v, idx) => {
+                nodesGroup.name = "orbitalNodes";
+                const linksGroup = new THREE.Group();
+                linksGroup.name = "links";
+
+                const nodeCount = 60;
+                const orbitalRadius = 2.8;
+                const orbitalNodesArr = [];
+
+                for (let i = 0; i < nodeCount; i++) {
                     const node = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.12, 16, 16),
+                        new THREE.SphereGeometry(0.06, 12, 12),
                         new THREE.MeshStandardMaterial({
-                            color: 0xE4A837,
-                            emissive: 0xE4A837,
-                            emissiveIntensity: 1.5,
-                            metalness: 0.8,
-                            roughness: 0.1
+                            color: 0x24A8E1,
+                            emissive: 0x24A8E1,
+                            emissiveIntensity: 1.5
                         })
                     );
-                    node.position.copy(v);
-                    node.name = 'node_' + idx;
-                    nodesGroup.add(node);
-                });
-
-                // Pulsos de datos viajando por las aristas
-                const pulsesGroup = new THREE.Group();
-                pulsesGroup.name = "pulses";
-                for (let i = 0; i < 15; i++) {
-                    const pulse = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.05, 6, 6),
-                        new THREE.MeshBasicMaterial({ color: 0x24A8E1 })
-                    );
-                    const startIdx = Math.floor(Math.random() * uniqueVertices.length);
-                    let endIdx = Math.floor(Math.random() * uniqueVertices.length);
-                    if (endIdx === startIdx) endIdx = (startIdx + 1) % uniqueVertices.length;
-                    pulse.userData = {
-                        startPos: uniqueVertices[startIdx].clone(),
-                        endPos: uniqueVertices[endIdx].clone(),
-                        progress: Math.random()
+                    const theta = Math.random() * Math.PI * 2;
+                    const phi = Math.acos(2 * Math.random() - 1);
+                    node.position.setFromSphericalCoords(orbitalRadius, phi, theta);
+                    node.userData = { 
+                        originalColor: new THREE.Color(0x24A8E1),
+                        flashTimer: 0 
                     };
-                    pulsesGroup.add(pulse);
+                    nodesGroup.add(node);
+                    orbitalNodesArr.push(node);
+
+                    // Aristas Ultrafinas de Luz (Conexión al Núcleo)
+                    const lineGeom = new THREE.BufferGeometry().setFromPoints([
+                        new THREE.Vector3(0, 0, 0),
+                        node.position
+                    ]);
+                    const line = new THREE.Line(lineGeom, new THREE.LineBasicMaterial({ 
+                        color: 0x24A8E1, 
+                        transparent: true, 
+                        opacity: 0.15 
+                    }));
+                    linksGroup.add(line);
                 }
-                modalObject.add(networkEdges, nodesGroup, pulsesGroup);
+                aegisGroup.add(nodesGroup, linksGroup);
+                geoGroup.add(aegisGroup);
+
+                // 3. PULSOS DE INYECCIÓN
+                const pulses = new THREE.Group();
+                pulses.name = "authorityPulses";
+                geoGroup.add(pulses);
+
+                modalObject.add(geoGroup);
+                modalObject.userData.pulseTimer = 0;
+
+                // ATMÓSFERA COMÚN
+                const grid = new THREE.GridHelper(10, 20, 0x24A8E1, 0x24A8E1);
+                grid.position.y = -3.5;
+                grid.material.opacity = 0.04;
+                grid.material.transparent = true;
+                modalObject.add(grid);
+
+                const dustGroup = new THREE.Group();
+                dustGroup.name = "dust";
+                for(let i=0; i<80; i++){
+                    const dust = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.012, 4, 4), 
+                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.5 })
+                    );
+                    const dist = 3 + Math.random() * 5;
+                    dust.position.setFromSphericalCoords(dist, Math.random()*Math.PI, Math.random()*Math.PI*2);
+                    dust.userData = { orbitSpeed: 0.001 + Math.random()*0.002, axis: new THREE.Vector3(Math.random(),1,Math.random()).normalize() };
+                    dustGroup.add(dust);
+                }
+                modalObject.add(dustGroup);
+                modalRenderer.setClearColor(0x050B16, 1);
 
                 // ═══════════════════════════════════════════════
                 // 4. GOBERNANZA ÉTICA (TRUST VAULT) 🛡️🔐
@@ -4971,37 +5005,65 @@
                     }
 
                 } else if (type === 'nexus_soberania') {
-                    const network = modalObject.getObjectByName("network");
-                    const nodes = modalObject.getObjectByName("nodes");
-                    const pulses = modalObject.getObjectByName("pulses");
-                    if (network) {
-                        network.rotation.y += 0.003;
-                        network.rotation.x += 0.001;
+                    const centralCore = modalObject.getObjectByName("centralCore");
+                    const aegisGroup = modalObject.getObjectByName("aegisGroup");
+                    const nodesGroup = modalObject.getObjectByName("orbitalNodes");
+                    const pulsesGroup = modalObject.getObjectByName("authorityPulses");
+                    const dust = modalObject.getObjectByName("dust");
+
+                    if (centralCore) centralCore.rotation.y -= 0.005; // CCW lento
+                    if (aegisGroup) aegisGroup.rotation.y += 0.015; // CW rápido
+
+                    // Lógica de Pulso de Autoridad (cada 3 segundos)
+                    modalObject.userData.pulseTimer += 0.016;
+                    if (modalObject.userData.pulseTimer > 3.0) {
+                        modalObject.userData.pulseTimer = 0;
+                        // Crear 3 nuevos pulsos
+                        for(let i=0; i<3; i++){
+                            const targetNode = nodesGroup.children[Math.floor(Math.random() * nodesGroup.children.length)];
+                            const pulse = new THREE.Mesh(
+                                new THREE.SphereGeometry(0.1, 8, 8),
+                                new THREE.MeshBasicMaterial({ color: 0xE4A837 })
+                            );
+                            pulse.userData = {
+                                target: targetNode,
+                                progress: 0,
+                                speed: 0.02 + Math.random() * 0.01
+                            };
+                            pulsesGroup.add(pulse);
+                        }
                     }
-                    if (nodes) {
-                        nodes.rotation.y += 0.003;
-                        nodes.rotation.x += 0.001;
-                        // Nodos palpitantes
-                        nodes.children.forEach((n, i) => {
-                            n.material.emissiveIntensity = 1.5 + Math.sin(t * 3 + i * 0.5) * 0.8;
-                            n.scale.setScalar(1 + Math.sin(t * 4 + i * 0.7) * 0.15);
-                        });
-                    }
-                    // Pulsos de datos viajando por la red
-                    if (pulses) {
-                        pulses.rotation.y += 0.003;
-                        pulses.rotation.x += 0.001;
-                        pulses.children.forEach(p => {
-                            p.userData.progress += 0.008;
-                            if (p.userData.progress > 1) {
-                                p.userData.progress = 0;
-                                p.userData.startPos.copy(p.userData.endPos);
-                                const verts = modalObject.getObjectByName("nodes").children;
-                                const randNode = verts[Math.floor(Math.random() * verts.length)];
-                                p.userData.endPos.copy(randNode.position);
-                            }
-                            p.position.lerpVectors(p.userData.startPos, p.userData.endPos, p.userData.progress);
-                        });
+
+                    // Animar Pulsos y detectar contacto
+                    pulsesGroup.children.forEach((p, idx) => {
+                        p.userData.progress += p.userData.speed;
+                        const targetPos = p.userData.target.position.clone();
+                        // Ajustar por rotación del aegis (esto es complejo pero simplificamos con proximidad visual)
+                        p.position.lerp(targetPos, p.userData.progress);
+                        
+                        if (p.userData.progress >= 0.95) {
+                            // Contacto: Inyección de Autoridad
+                            const node = p.userData.target;
+                            node.userData.flashTimer = 1.0;
+                            node.material.color.set(0xE4A837); // Cambia a Oro
+                            node.material.emissiveIntensity = 5.0;
+                            pulsesGroup.remove(p);
+                        }
+                    });
+
+                    // Manejo de Destellos (Glow) en nodos
+                    nodesGroup.children.forEach(node => {
+                        if (node.userData.flashTimer > 0) {
+                            node.userData.flashTimer -= 0.01;
+                            const t = node.userData.flashTimer;
+                            // Lerp de vuelta al Azul Cian
+                            node.material.color.lerp(node.userData.originalColor, 0.02);
+                            node.material.emissiveIntensity = 1.5 + t * 3.5;
+                        }
+                    });
+
+                    if (dust) {
+                        dust.children.forEach(p => p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed));
                     }
 
                 } else if (type === 'nexus_gobernanza') {
