@@ -308,35 +308,6 @@
                 font-size: clamp(3rem, 6vw, 5rem) !important;
             }
         }
-
-        /* FIX RESPONSIVE HERO - Navbar overlap */
-        @media (max-width: 480px) {
-            #hero-sovereignty .hero-content {
-                padding-top: 85px !important;
-                padding-left: 20px !important;
-                padding-right: 20px !important;
-                padding-bottom: 30px !important;
-            }
-            #hero-sovereignty .prism-nav {
-                flex-direction: column !important;
-                align-items: center !important;
-                padding-bottom: 40px !important;
-            }
-            #hero-sovereignty .prism-btn {
-                width: 88% !important;
-                max-width: 300px !important;
-            }
-        }
-        @media (min-width: 481px) and (max-width: 1024px) {
-            #hero-sovereignty .hero-content {
-                padding-top: 95px !important;
-                padding-left: 30px !important;
-                padding-right: 30px !important;
-            }
-            #hero-sovereignty .prism-nav {
-                padding-bottom: 45px !important;
-            }
-        }
     </style>
 <script type="application/ld+json">
 {
@@ -468,17 +439,16 @@
         <!-- Three.js Canvas: Esfera Armilar + Red Neuronal -->
         <div id="digital-void-canvas" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
 
-        <div class="hero-content reveal active" style="position: relative; z-index: 10; 
-background: rgba(5, 11, 22, 0.4); 
-backdrop-filter: blur(20px); 
-border: 1px solid rgba(228, 168, 55, 0.1); 
-padding: 50px;
-padding-top: 100px;
-border-radius: 4px; 
-box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-max-width: 900px;
-margin-left: auto;
-margin-right: auto;">
+        <div class="hero-content reveal active" style="
+            position: relative; 
+            z-index: 10; 
+            text-align: center;
+            padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 60px);
+            margin-top: clamp(60px, 8vh, 100px);
+            background: transparent;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;">
 
             <span class="brand-badge" id="success-zone" style="
                 font-size: clamp(0.6rem, 1vw, 0.75rem);
@@ -503,22 +473,21 @@ margin-right: auto;">
 
             <p class="hero-lead" style="
                 font-family: 'Montserrat', sans-serif;
-                font-size: clamp(1.05rem, 1.6vw, 1.35rem);
-                line-height: 1.9; 
+                line-height: 1.8; 
                 font-weight: 400; 
                 color: #F0F4F8; 
-                max-width: 750px; 
+                max-width: 680px; 
                 margin: 0 auto 40px;
+                font-size: clamp(0.9rem, 1.3vw, 1.1rem);
                 text-align: center;
                 text-shadow: 0 2px 20px rgba(5,11,22,0.95);">
                 <strong style="color: #ffffff; font-weight: 700;">TRANSFORMAMOS</strong> 
                 su autoridad corporativa en un activo inexpugnable.<br><br>
                 Orquestamos la simbiosis entre 
-                <strong style="color: #24A8E1; font-weight: 600;">IA Agéntica Radical</strong> 
-                y 
-                <strong style="color: #24A8E1; font-weight: 600;">Decision Intelligence</strong>
-                <br>para transmutar la incertidumbre del mercado en una arquitectura de 
-                <strong style="color: #E4A837; font-weight: 700;">SOBERANÍA ESTRATÉGICA</strong>.
+                <strong style="color: #24A8E1;">IA Agéntica Radical</strong> y 
+                <strong style="color: #24A8E1;">Decision Intelligence</strong><br>
+                para transmutar la incertidumbre del mercado en una arquitectura de 
+                <strong style="color: #E4A837;">SOBERANÍA ESTRATÉGICA</strong>.
             </p>
 
             <div class="prism-nav" style="
@@ -527,21 +496,20 @@ margin-right: auto;">
                 justify-content: center; 
                 flex-wrap: wrap;
                 margin-top: 10px; 
-                padding-bottom: 50px;">
+                margin-bottom: 40px; 
+                padding-bottom: 10px;">
                 <a href="#hubs" class="prism-btn success-element" style="
-                    min-width: 220px; 
+                    min-width: 200px; 
                     text-align: center; 
-                    padding: 16px 36px; 
-                    display: inline-block;
-                    font-size: clamp(0.85rem, 1.2vw, 1rem);">
+                    padding: 14px 32px; 
+                    display: inline-block;">
                     Explorar Ecosistema
                 </a>
                 <a href="vault-project-template.html" class="prism-btn gold trust-zone" style="
-                    min-width: 220px; 
+                    min-width: 200px; 
                     text-align: center; 
-                    padding: 16px 36px; 
-                    display: inline-block;
-                    font-size: clamp(0.85rem, 1.2vw, 1rem);">
+                    padding: 14px 32px; 
+                    display: inline-block;">
                     Acceso Privado (Vault)
                 </a>
             </div>
