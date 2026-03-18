@@ -276,12 +276,24 @@
         }
     </style>
     <style>
-        /* ── HERO SOVEREIGN RESPONSIVE v2.0 ── */
+        /* ── HERO SOVEREIGN RESPONSIVE v2.1 ── */
+        #hero-sovereignty.hero-wrapper {
+            height: auto !important;
+            min-height: 100vh !important;
+            display: flex;
+            align-items: flex-start; /* Alignment to top to respect padding-top */
+            overflow: visible !important;
+            padding-bottom: 100px;
+        }
+
         @media (max-width: 768px) {
             #hero-sovereignty .hero-content {
                 padding: 30px 20px !important;
-                padding-top: 100px !important;
-                margin-top: 40px !important;
+                padding-top: 140px !important;
+                margin-top: 20px !important;
+            }
+            #hero-sovereignty.hero-wrapper {
+                padding-bottom: 80px;
             }
             #hero-sovereignty .mega-title {
                 font-size: clamp(2rem, 10vw, 3.5rem) !important;
@@ -303,8 +315,8 @@
         @media (min-width: 769px) and (max-width: 1024px) {
             #hero-sovereignty .hero-content {
                 padding: 40px 30px !important;
-                padding-top: 100px !important;
-                margin-top: 60px !important;
+                padding-top: 150px !important;
+                margin-top: 30px !important;
             }
             #hero-sovereignty .mega-title {
                 font-size: clamp(3rem, 6vw, 5rem) !important;
@@ -314,7 +326,7 @@
         /* FIX RESPONSIVE HERO - Navbar overlap */
         @media (max-width: 480px) {
             #hero-sovereignty .hero-content {
-                padding-top: 85px !important;
+                padding-top: 130px !important;
                 padding-left: 20px !important;
                 padding-right: 20px !important;
                 padding-bottom: 30px !important;
@@ -331,7 +343,7 @@
         }
         @media (min-width: 481px) and (max-width: 1024px) {
             #hero-sovereignty .hero-content {
-                padding-top: 95px !important;
+                padding-top: 150px !important;
                 padding-left: 30px !important;
                 padding-right: 30px !important;
             }
@@ -475,8 +487,8 @@
             z-index: 10; 
             text-align: center;
             padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 60px);
-            padding-top: 100px;
-            margin-top: clamp(60px, 8vh, 100px);
+            padding-top: 180px;
+            margin-top: clamp(20px, 4vh, 60px);
             background: transparent;
             max-width: 900px;
             margin-left: auto;
