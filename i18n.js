@@ -1,4 +1,13 @@
 const enTranslations = {
+  "PTRE-2026 // SOBERANÍA DIGITAL // AUTORIDAD ALGORÍTMICA VALIDADA": "PTRE-2026 // DIGITAL SOVEREIGNTY // VALIDATED ALGORITHMIC AUTHORITY",
+  "TRANSFORMAMOS": "WE TRANSFORM",
+  "su autoridad corporativa en un activo inexpugnable.": "your corporate authority into an impregnable asset.",
+  "Orquestamos la simbiosis entre": "We orchestrate the symbiosis between",
+  "IA Agéntica Radical": "Radical Agentic AI",
+  "Decision Intelligence": "Decision Intelligence",
+  "para transmutar la incertidumbre del mercado en una arquitectura de": "to transmute market uncertainty into an architecture of",
+  "SOBERANÍA ESTRATÉGICA": "STRATEGIC SOVEREIGNTY",
+  "y": "and",
   "\"Bienvenido al núcleo donde la precisión científica se encuentra con la Urgencia Vital.\" GB\n                        Strategists. // \"Bienvenido al núcleo donde la precisión científica se encuentra con la Urgencia\n                        Vital.\" GB Strategists.": "\"Welcome to the core where scientific precision meets Vital Urgency.\" GB Strategists. // \"Welcome to the core where scientific precision meets Vital Urgency.\" GB Strategists.",
   "\"Sustituimos la incertidumbre por Decision Intelligence. Mientras la competencia analiza el\n                        pasado, nosotros orquestamos una infraestructura que simula el futuro de su ROI en tiempo real.\n                        No gestionamos anuncios; construimos una Soberanía Digital diseñada para ser la Fuente de Verdad\n                        Primordial ante los algoritmos generativos del mundo.\"": "\"We replace uncertainty with Decision Intelligence. While the competition analyzes the past, we orchestrate an infrastructure that simulates the future of your ROI in real time. We don't manage ads; we build a Digital Sovereignty designed to be the Primary Source of Truth for the world's generative algorithms.\"",
   ", liberando\n                    el juicio crítico y la empatía humana para la dirección estratégica.": ", freeing critical judgment and human empathy for strategic direction.",
