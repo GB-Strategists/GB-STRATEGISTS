@@ -275,6 +275,40 @@
             flex-direction: column;
         }
     </style>
+    <style>
+        /* ── HERO SOVEREIGN RESPONSIVE v2.0 ── */
+        @media (max-width: 768px) {
+            #hero-sovereignty .hero-content {
+                margin-top: 70px !important;
+                padding: 30px 20px !important;
+            }
+            #hero-sovereignty .mega-title {
+                font-size: clamp(2rem, 10vw, 3.5rem) !important;
+            }
+            #hero-sovereignty .hero-lead {
+                font-size: 0.9rem !important;
+                line-height: 1.7 !important;
+            }
+            #hero-sovereignty .prism-nav {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+            #hero-sovereignty .prism-btn {
+                width: 85% !important;
+                max-width: 320px !important;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            #hero-sovereignty .hero-content {
+                margin-top: 80px !important;
+                padding: 40px 30px !important;
+            }
+            #hero-sovereignty .mega-title {
+                font-size: clamp(3rem, 6vw, 5rem) !important;
+            }
+        }
+    </style>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -396,34 +430,88 @@
 
     <!-- HERO CINEMÁTICO PROGRAMÁTICO (DIGITAL VOID) -->
     <header class="hero-wrapper" id="hero-sovereignty">
-        <img src="originales/jpeg/Whisk_bbf2c24cab9a751892243dbb6c054972dr-1920x1080-hero-desktop-client-stock-gb-optimized.webp"
-            alt="GB Strategists Hero" class="hero-bg-img"
-            fetchpriority="high"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.25) saturate(1.3); z-index: 0;">
-        <!-- Atmósfera Tecnológica: Negro Void a Azul Medianoche -->
-        <div class="hero-bg-atmosphere" style="position: absolute; inset: 0; background: radial-gradient(circle at center, #0A192F 0%, #050B16 100%); z-index: 0;"></div>
+        <!-- Atmósfera Pura: Negro Void con radial-gradient sutil -->
+        <div class="hero-bg-atmosphere" style="position: absolute; inset: 0; background: radial-gradient(ellipse at center, #0A192F 0%, #050B16 65%, #050B16 100%); z-index: 0;"></div>
         
         <!-- Rejilla Geométrica CSS (3% Opacidad) -->
         <div class="overlay-grid" style="opacity: 0.03; z-index: 1; background-size: 50px 50px; background-image: linear-gradient(rgba(36, 168, 225, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(36, 168, 225, 0.1) 1px, transparent 1px);"></div>
 
-        <!-- Three.js Canvas: Núcleo Dodecaedro + Red Neuronal -->
+        <!-- Three.js Canvas: Esfera Armilar + Red Neuronal -->
         <div id="digital-void-canvas" style="position: absolute; inset: 0; z-index: 2; pointer-events: none;"></div>
 
-        <div class="hero-content reveal active" style="position: relative; z-index: 10; background: rgba(5, 11, 22, 0.4); backdrop-filter: blur(20px); border: 1px solid rgba(228, 168, 55, 0.1); padding: 50px; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
-            <span class="brand-badge" id="success-zone">PTRE-2026 // SOBERANÍA DIGITAL // AUTORIDAD ALGORÍTMICA VALIDADA</span>
-            <h1 class="mega-title" style="font-family: 'Inter', sans-serif; font-weight: 900; line-height: 1.1; margin-bottom: 25px;">
-                <span style="color: #E4A837;">ORQUESTACIÓN</span><br>
-                <span style="color: #24A8E1;">DE LA SOBERANÍA<br>ALGORÍTMICA</span>
+        <div class="hero-content reveal active" style="
+            position: relative; 
+            z-index: 10; 
+            text-align: center;
+            padding: clamp(40px, 6vw, 80px) clamp(20px, 5vw, 60px);
+            margin-top: clamp(60px, 8vh, 100px);
+            background: transparent;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;">
+
+            <span class="brand-badge" id="success-zone" style="
+                font-size: clamp(0.6rem, 1vw, 0.75rem);
+                letter-spacing: 0.15em;
+                margin-bottom: 30px;
+                display: block;">
+                PTRE-2026 // SOBERANÍA DIGITAL // AUTORIDAD ALGORÍTMICA VALIDADA
+            </span>
+
+            <h1 class="mega-title" style="
+                font-family: 'Inter', sans-serif; 
+                font-weight: 900; 
+                line-height: 1.05;
+                margin-bottom: 30px;
+                font-size: clamp(2.8rem, 7vw, 6.5rem);
+                text-align: center;
+                text-shadow: 0 0 40px rgba(5,11,22,0.9), 0 0 80px rgba(5,11,22,0.7);">
+                <span style="color: #E4A837; display: block;">ORQUESTACIÓN</span>
+                <span style="color: #24A8E1; display: block;">DE LA SOBERANÍA</span>
+                <span style="color: #24A8E1; display: block;">ALGORÍTMICA</span>
             </h1>
-            <p class="hero-lead" style="line-height: 1.6; font-weight: 400; color: #F0F4F8; max-width: 650px; margin: 0 auto 40px;">
-                TRANSFORMAMOS su autoridad corporativa en un activo inexpugnable. Orquestamos la simbiosis entre IA
-                Agéntica Radical y Decision Intelligence para transmutar la incertidumbre del mercado en una
-                arquitectura de SOBERANÍA ESTRATÉGICA.
+
+            <p class="hero-lead" style="
+                font-family: 'Montserrat', sans-serif;
+                line-height: 1.8; 
+                font-weight: 400; 
+                color: #F0F4F8; 
+                max-width: 680px; 
+                margin: 0 auto 40px;
+                font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+                text-align: center;
+                text-shadow: 0 2px 20px rgba(5,11,22,0.95);">
+                <strong style="color: #ffffff; font-weight: 700;">TRANSFORMAMOS</strong> 
+                su autoridad corporativa en un activo inexpugnable.<br><br>
+                Orquestamos la simbiosis entre 
+                <strong style="color: #24A8E1;">IA Agéntica Radical</strong> y 
+                <strong style="color: #24A8E1;">Decision Intelligence</strong><br>
+                para transmutar la incertidumbre del mercado en una arquitectura de 
+                <strong style="color: #E4A837;">SOBERANÍA ESTRATÉGICA</strong>.
             </p>
 
-            <div class="prism-nav">
-                <a href="#hubs" class="prism-btn success-element">Explorar Ecosistema</a>
-                <a href="vault-project-template.html" class="prism-btn gold trust-zone">Acceso Privado (Vault)</a>
+            <div class="prism-nav" style="
+                display: flex; 
+                gap: 20px; 
+                justify-content: center; 
+                flex-wrap: wrap;
+                margin-top: 10px; 
+                margin-bottom: 40px; 
+                padding-bottom: 10px;">
+                <a href="#hubs" class="prism-btn success-element" style="
+                    min-width: 200px; 
+                    text-align: center; 
+                    padding: 14px 32px; 
+                    display: inline-block;">
+                    Explorar Ecosistema
+                </a>
+                <a href="vault-project-template.html" class="prism-btn gold trust-zone" style="
+                    min-width: 200px; 
+                    text-align: center; 
+                    padding: 14px 32px; 
+                    display: inline-block;">
+                    Acceso Privado (Vault)
+                </a>
             </div>
         </div>
 
@@ -2666,69 +2754,112 @@
         </div>
     </footer>
 
-    <!-- CORE THREE.JS DIGITAL VOID ENGINE (GEMINI PRO HIGH - VIDEO AS CODE) -->
+    <!-- CORE THREE.JS DIGITAL VOID ENGINE (ESFERA ARMILAR GIROSCÓPICA v2.0) -->
     <script>
         (function() {
             if (!window.isThreeReady) return;
 
-            // FASE 1: Inicialización de Élite
+            // ── SETUP ──────────────────────────────────────────────
+            const isMobile = window.innerWidth < 768;
             const container = document.getElementById('digital-void-canvas');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            camera.position.z = 25;
+            camera.position.z = isMobile ? 22 : 18;
 
-            const renderer = new THREE.WebGLRenderer({ 
-                alpha: true, 
-                antialias: true, 
-                powerPreference: "high-performance" 
+            const renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: true,
+                powerPreference: 'high-performance'
             });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
             container.appendChild(renderer.domElement);
 
-            // LOD & Parametría
-            let detail = window.innerWidth > 768 ? 1 : 0;
+            // Gestión de pérdida de contexto WebGL
+            renderer.domElement.addEventListener('webglcontextlost', (e) => {
+                e.preventDefault();
+                console.warn('[GB-ARMILAR] WebGL context lost.');
+            }, false);
+            renderer.domElement.addEventListener('webglcontextrestored', () => {
+                console.log('[GB-ARMILAR] WebGL context restored.');
+                animate();
+            }, false);
+
             const GOLD = 0xE4A837;
             const CYAN = 0x24A8E1;
+            const VOID = 0x050B16;
 
-            // NÚCLEO DE SOBERANÍA: DODECAEDRO HUD
-            const coreGroup = new THREE.Group();
-            
-            // 1. Geometría Base
-            const dodecaGeo = new THREE.DodecahedronGeometry(8, detail);
-            
-            // 2. Material Glassmorphism (Neon Glow Azul Cian)
-            const glassMat = new THREE.MeshPhysicalMaterial({
-                color: CYAN,
-                metalness: 0.1,
-                roughness: 0.05,
-                transmission: 0.7, // 70% Transparencia
-                thickness: 4,
-                transparent: true,
-                opacity: 0.85,
+            // Parámetros responsive
+            const ringRadius      = isMobile ? 4.5 : 5.5;
+            const ringTube        = isMobile ? 0.10 : 0.12;
+            const nodeCount       = isMobile ? 8 : 20;
+            const particleCount   = isMobile ? 150 : 300;
+            const nodeSpreadBase  = 18;
+
+            // ── GRUPO CENTRAL ──────────────────────────────────────
+            const armillaryGroup = new THREE.Group();
+            scene.add(armillaryGroup);
+
+            // 1. ESFERA SÓLIDA INTERIOR
+            const sphereGeo = new THREE.SphereGeometry(4, 48, 48);
+            const sphereMat = new THREE.MeshPhysicalMaterial({
+                color: VOID,
+                metalness: 0.9,
+                roughness: 0.1,
+                transmission: 0.3,
+                thickness: 2.0,
                 emissive: CYAN,
-                emissiveIntensity: 0.8,
-                ior: 1.5,
-                reflectivity: 0.9
+                emissiveIntensity: 0.3
             });
-            const body = new THREE.Mesh(dodecaGeo, glassMat);
-            coreGroup.add(body);
+            const innerSphere = new THREE.Mesh(sphereGeo, sphereMat);
+            armillaryGroup.add(innerSphere);
 
-            // 3. Bordes Físicos (Ocre Dorado) style HUD
-            const edgesGeo = new THREE.EdgesGeometry(dodecaGeo);
-            const edgeMat = new THREE.LineBasicMaterial({ 
-                color: GOLD, 
-                linewidth: 2,
-                transparent: true,
-                opacity: 0.6
+            // 2. ANILLOS ORBITALES (TorusGeometry)
+            const ringMat = new THREE.MeshPhysicalMaterial({
+                color: GOLD,
+                metalness: 1.0,
+                roughness: 0.1,
+                emissive: GOLD,
+                emissiveIntensity: 0.4
             });
-            const wireframe = new THREE.LineSegments(edgesGeo, edgeMat);
-            coreGroup.add(wireframe);
 
-            scene.add(coreGroup);
+            const ring1 = new THREE.Mesh(new THREE.TorusGeometry(ringRadius, ringTube, 24, 128), ringMat.clone());
+            ring1.rotation.x = Math.PI / 2; // eje X (horizontal)
+            armillaryGroup.add(ring1);
 
-            // RED NEURONAL: Nodos Satélite y Pulsos de Datos
-            const nodeCount = window.innerWidth > 768 ? 20 : 12;
+            const ring2 = new THREE.Mesh(new THREE.TorusGeometry(ringRadius, ringTube, 24, 128), ringMat.clone());
+            ring2.rotation.y = Math.PI * 60 / 180; // 60°
+            armillaryGroup.add(ring2);
+
+            const ring3 = new THREE.Mesh(new THREE.TorusGeometry(ringRadius, ringTube, 24, 128), ringMat.clone());
+            ring3.rotation.z = Math.PI * 120 / 180; // 120°
+            armillaryGroup.add(ring3);
+
+            // 3. CONECTORES ESTRUCTURALES
+            const connectorMat = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.6 });
+            const connectorPairs = [
+                [new THREE.Vector3(0, ringRadius, 0),  new THREE.Vector3(0, -ringRadius, 0)],
+                [new THREE.Vector3(ringRadius, 0, 0),  new THREE.Vector3(-ringRadius, 0, 0)],
+                [new THREE.Vector3(0, 0, ringRadius),  new THREE.Vector3(0, 0, -ringRadius)],
+                [new THREE.Vector3(ringRadius * 0.7, ringRadius * 0.7, 0), new THREE.Vector3(-ringRadius * 0.7, -ringRadius * 0.7, 0)]
+            ];
+            connectorPairs.forEach(([a, b]) => {
+                const geo = new THREE.BufferGeometry().setFromPoints([a, b]);
+                armillaryGroup.add(new THREE.LineSegments(geo, connectorMat));
+            });
+
+            // ── LUCES ──────────────────────────────────────────────
+            const innerLight = new THREE.PointLight(CYAN, 8, 20);
+            innerLight.position.set(0, 0, 0);
+            scene.add(innerLight);
+
+            const outerLight = new THREE.PointLight(GOLD, 15, 50);
+            outerLight.position.set(15, 15, 15);
+            scene.add(outerLight);
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.05));
+
+            // ── RED NEURONAL: NODOS SATÉLITE ──────────────────────
             const nodes = [];
             const pulses = [];
             const nodeGeo = new THREE.SphereGeometry(0.2, 12, 12);
@@ -2736,88 +2867,93 @@
 
             for (let i = 0; i < nodeCount; i++) {
                 const node = new THREE.Mesh(nodeGeo, nodeMat);
-                const phi = Math.random() * Math.PI * 2;
+                const phi   = Math.random() * Math.PI * 2;
                 const theta = Math.random() * Math.PI;
-                const radius = 12 + Math.random() * 8;
-                node.position.setFromSphericalCoords(radius, phi, theta);
-                node.userData = { 
+                const radius = nodeSpreadBase + Math.random() * 10;
+                node.position.setFromSphericalCoords(radius, theta, phi);
+                node.userData = {
                     originalPos: node.position.clone(),
                     phase: Math.random() * Math.PI * 2
                 };
                 scene.add(node);
                 nodes.push(node);
 
-                // Líneas de Conexión (Pulsos)
-                const linePoints = [new THREE.Vector3(0,0,0), node.position];
-                const lineGeo = new THREE.BufferGeometry().setFromPoints(linePoints);
-                const lineMat = new THREE.LineBasicMaterial({ 
-                    color: CYAN, 
-                    transparent: true, 
-                    opacity: 0.1 
-                });
+                const linePts = [new THREE.Vector3(0,0,0), node.position.clone()];
+                const lineGeo = new THREE.BufferGeometry().setFromPoints(linePts);
+                const lineMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.12 });
                 const line = new THREE.Line(lineGeo, lineMat);
                 scene.add(line);
                 pulses.push(line);
             }
 
-            // Iluminación Focalizada
-            const light = new THREE.PointLight(GOLD, 10, 100);
-            light.position.set(15, 15, 15);
-            scene.add(light);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.1));
+            // ── PARTÍCULAS DE ATMÓSFERA (300 / 150 mobile) ────────
+            const partGroup = new THREE.Group();
+            const partGeo   = new THREE.SphereGeometry(0.05, 6, 6);
+            const partMat   = new THREE.MeshBasicMaterial({ color: CYAN, transparent: true, opacity: 0.4 });
+            for (let i = 0; i < particleCount; i++) {
+                const p = new THREE.Mesh(partGeo, partMat.clone());
+                const phi   = Math.random() * Math.PI * 2;
+                const theta = Math.random() * Math.PI;
+                const r     = 20 + Math.random() * 5;
+                p.position.setFromSphericalCoords(r, theta, phi);
+                p.userData = { phase: Math.random() * Math.PI * 2, speed: 0.002 + Math.random() * 0.003 };
+                partGroup.add(p);
+            }
+            scene.add(partGroup);
 
-            // FÍSICA DE RESORTE (Spring Physics) Y TELEMETRÍA
-            const physics = {
-                scale: 1,
-                targetScale: 1,
-                velScale: 0,
-                k: 0.08, // Stiffness
-                d: 0.75  // Damping
-            };
-
+            // ── SPRING PHYSICS ─────────────────────────────────────
+            const physics = { scale: 1, targetScale: 1, velScale: 0, k: 0.08, d: 0.75 };
             let mouseX = 0, mouseY = 0;
+
             document.addEventListener('mousemove', (e) => {
                 mouseX = (e.clientX / window.innerWidth) * 2 - 1;
                 mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
-                physics.targetScale = 1.15; // Reacción elástica al movimiento
             });
 
+            // ── ANIMATE ───────────────────────────────────────────
             const clock = new THREE.Clock();
-            const PHI_RATIO = 1.618;
 
             function animate() {
                 requestAnimationFrame(animate);
                 const t = clock.getElapsedTime();
 
-                // 1. Dinámica Orgánica (Breathing)
-                physics.targetScale = 1.0 + Math.sin(t * 1.5) * 0.05;
-                if (Math.abs(mouseX) > 0.1) physics.targetScale += 0.1;
-
-                // Solver de Resorte
+                // Breathing scale
+                physics.targetScale = 0.95 + (Math.sin(t * 0.8) * 0.5 + 0.5) * 0.1;
                 const acc = (physics.targetScale - physics.scale) * physics.k;
                 physics.velScale += acc;
                 physics.velScale *= physics.d;
                 physics.scale += physics.velScale;
-                coreGroup.scale.set(physics.scale, physics.scale, physics.scale);
+                armillaryGroup.scale.setScalar(physics.scale);
 
-                // 2. Rotación Asimétrica (Fibonacci)
-                coreGroup.rotation.y += 0.002 * PHI_RATIO;
-                coreGroup.rotation.z += 0.001 * (1 / PHI_RATIO);
-                
-                // Interactividad Agéntica (Elastic Lag)
-                coreGroup.rotation.y += (mouseX * 0.2 - coreGroup.rotation.y) * 0.05;
-                coreGroup.rotation.x += (-mouseY * 0.2 - coreGroup.rotation.x) * 0.05;
+                // Rotación continua de la esfera
+                armillaryGroup.rotation.y += 0.003;
+                armillaryGroup.rotation.x += 0.001;
 
-                // 3. Pulsos Neon Glow
-                glassMat.emissiveIntensity = 0.5 + Math.abs(Math.sin(t * 2)) * 0.5;
-                edgeMat.opacity = 0.4 + Math.abs(Math.sin(t * 3)) * 0.4;
+                // Elastic lag mouse
+                armillaryGroup.rotation.y += (mouseX * 0.15 - armillaryGroup.rotation.y) * 0.05;
+                armillaryGroup.rotation.x += (-mouseY * 0.15 - armillaryGroup.rotation.x) * 0.05;
 
-                // 4. Animación de Nodos y Líneas
+                // Anillos individuales
+                ring1.rotation.z += 0.008;
+                ring2.rotation.x += 0.006;
+                ring3.rotation.y += 0.005;
+
+                // Pulso del material esfera
+                sphereMat.emissiveIntensity = 0.2 + Math.sin(t * 1.2) * 0.15;
+
+                // Nodos satélite
                 nodes.forEach((n, idx) => {
-                    n.position.x = n.userData.originalPos.x + Math.sin(t + n.userData.phase) * 0.5;
-                    n.position.y = n.userData.originalPos.y + Math.cos(t * 0.8 + n.userData.phase) * 0.5;
+                    n.position.x = n.userData.originalPos.x + Math.sin(t + n.userData.phase) * 0.6;
+                    n.position.y = n.userData.originalPos.y + Math.cos(t * 0.8 + n.userData.phase) * 0.6;
                     pulses[idx].geometry.setFromPoints([new THREE.Vector3(0,0,0), n.position]);
-                    pulses[idx].material.opacity = 0.05 + Math.abs(Math.sin(t * 2 + idx)) * 0.2;
+                    pulses[idx].material.opacity = 0.08 + Math.abs(Math.sin(t * 2 + idx)) * 0.10;
+                });
+
+                // Partículas drift
+                partGroup.children.forEach((p) => {
+                    p.position.y += p.userData.speed;
+                    if (p.position.y > 26) p.position.y = -26;
+                    p.material.opacity = 0.2 + Math.abs(Math.sin(t + p.userData.phase)) * 0.3;
                 });
 
                 renderer.render(scene, camera);
@@ -2829,6 +2965,8 @@
                 camera.aspect = window.innerWidth / window.innerHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                camera.position.z = window.innerWidth < 768 ? 22 : 18;
             });
         })();
     </script>
