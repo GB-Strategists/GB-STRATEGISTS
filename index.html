@@ -310,6 +310,35 @@
                 font-size: clamp(3rem, 6vw, 5rem) !important;
             }
         }
+
+        /* FIX RESPONSIVE HERO - Navbar overlap */
+        @media (max-width: 480px) {
+            #hero-sovereignty .hero-content {
+                padding-top: 85px !important;
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                padding-bottom: 30px !important;
+            }
+            #hero-sovereignty .prism-nav {
+                flex-direction: column !important;
+                align-items: center !important;
+                padding-bottom: 40px !important;
+            }
+            #hero-sovereignty .prism-btn {
+                width: 88% !important;
+                max-width: 300px !important;
+            }
+        }
+        @media (min-width: 481px) and (max-width: 1024px) {
+            #hero-sovereignty .hero-content {
+                padding-top: 95px !important;
+                padding-left: 30px !important;
+                padding-right: 30px !important;
+            }
+            #hero-sovereignty .prism-nav {
+                padding-bottom: 45px !important;
+            }
+        }
     </style>
 <script type="application/ld+json">
 {
@@ -476,21 +505,22 @@
 
             <p class="hero-lead" style="
                 font-family: 'Montserrat', sans-serif;
-                line-height: 1.8; 
+                font-size: clamp(1.05rem, 1.6vw, 1.35rem);
+                line-height: 1.9; 
                 font-weight: 400; 
                 color: #F0F4F8; 
-                max-width: 680px; 
+                max-width: 750px; 
                 margin: 0 auto 40px;
-                font-size: clamp(0.9rem, 1.3vw, 1.1rem);
                 text-align: center;
                 text-shadow: 0 2px 20px rgba(5,11,22,0.95);">
                 <strong style="color: #ffffff; font-weight: 700;">TRANSFORMAMOS</strong> 
                 su autoridad corporativa en un activo inexpugnable.<br><br>
                 Orquestamos la simbiosis entre 
-                <strong style="color: #24A8E1;">IA Agéntica Radical</strong> y 
-                <strong style="color: #24A8E1;">Decision Intelligence</strong><br>
-                para transmutar la incertidumbre del mercado en una arquitectura de 
-                <strong style="color: #E4A837;">SOBERANÍA ESTRATÉGICA</strong>.
+                <strong style="color: #24A8E1; font-weight: 600;">IA Agéntica Radical</strong> 
+                y 
+                <strong style="color: #24A8E1; font-weight: 600;">Decision Intelligence</strong>
+                <br>para transmutar la incertidumbre del mercado en una arquitectura de 
+                <strong style="color: #E4A837; font-weight: 700;">SOBERANÍA ESTRATÉGICA</strong>.
             </p>
 
             <div class="prism-nav" style="
@@ -499,20 +529,21 @@
                 justify-content: center; 
                 flex-wrap: wrap;
                 margin-top: 10px; 
-                margin-bottom: 40px; 
-                padding-bottom: 10px;">
+                padding-bottom: 50px;">
                 <a href="#hubs" class="prism-btn success-element" style="
-                    min-width: 200px; 
+                    min-width: 220px; 
                     text-align: center; 
-                    padding: 14px 32px; 
-                    display: inline-block;">
+                    padding: 16px 36px; 
+                    display: inline-block;
+                    font-size: clamp(0.85rem, 1.2vw, 1rem);">
                     Explorar Ecosistema
                 </a>
                 <a href="vault-project-template.html" class="prism-btn gold trust-zone" style="
-                    min-width: 200px; 
+                    min-width: 220px; 
                     text-align: center; 
-                    padding: 14px 32px; 
-                    display: inline-block;">
+                    padding: 16px 36px; 
+                    display: inline-block;
+                    font-size: clamp(0.85rem, 1.2vw, 1rem);">
                     Acceso Privado (Vault)
                 </a>
             </div>
