@@ -3218,228 +3218,17 @@
             initFn(scene, camera, renderer);
         }
 
-        // --- ICONOS NEXUS (TARJETAS SUPERIORES) ---
-
-        createIconEngine('canvas-agentica', (scene, camera, renderer) => {
-            // EL MONOLITO ROI (Visual del Impacto Estratégico en Simbiosis)
-            const prismGeom = new THREE.CylinderGeometry(0.8, 0.8, 2.5, 6);
-            const prismMat = new THREE.MeshPhysicalMaterial({
-                color: 0x0A192F,
-                transmission: 0.85,
-                transparent: true,
-                opacity: 0.4,
-                roughness: 0.05,
-                metalness: 0.1,
-                thickness: 2.0,
-                clearcoat: 0.8,
-                clearcoatRoughness: 0.1,
-                emissive: 0x0A192F,
-                emissiveIntensity: 0.1
-            });
-            const prism = new THREE.Mesh(prismGeom, prismMat);
-            const prismEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(prismGeom),
-                new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 })
-            );
-            prism.add(prismEdges);
-            scene.add(prism);
-
-            const baseLight = new THREE.PointLight(0xF0F4F8, 2, 6);
-            baseLight.position.set(0, -1.5, 0);
-            scene.add(baseLight);
-
-            const topLight = new THREE.PointLight(0xE4A837, 2.5, 6);
-            topLight.position.set(0, 1.5, 0);
-            scene.add(topLight);
-
-            const dataParts = new THREE.Group();
-            for (let i = 0; i < 20; i++) {
-                const isCyan = Math.random() > 0.4;
-                const p = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.02, 6, 6),
-                    new THREE.MeshBasicMaterial({ color: isCyan ? 0x24A8E1 : 0xF0F4F8, transparent: true, opacity: 0.8 })
-                );
-                p.userData = {
-                    startY: -2 - Math.random() * 1.5,
-                    x: (Math.random() - 0.5) * 1.2,
-                    z: (Math.random() - 0.5) * 1.2,
-                    speed: 0.005 + Math.random() * 0.01
-                };
-                p.position.set(p.userData.x, p.userData.startY, p.userData.z);
-                dataParts.add(p);
-            }
-            scene.add(dataParts);
-
-            const clock = new THREE.Clock();
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-                prism.rotation.y += 0.005;
-                baseLight.intensity = 2 + Math.sin(t * 3) * 0.5;
-                topLight.intensity = 2.5 + Math.sin(t * 2) * 0.8;
-                dataParts.children.forEach(p => {
-                    p.position.y += p.userData.speed;
-                    if (p.position.y > 1.8) {
-                        p.position.y = p.userData.startY;
-                    }
-                });
-                renderer.render(scene, camera);
-            }
-            animate();
-        });
-
-        createIconEngine('canvas-impacto', (scene, camera, renderer) => {
-            const prismaGeometry = new THREE.OctahedronGeometry(1.2, 0);
-            prismaGeometry.scale(1, 1.8, 1);
-            const prisma = new THREE.Mesh(
-                prismaGeometry,
-                new THREE.MeshPhysicalMaterial({
-                    color: 0x000814,
-                    transmission: 0.7,
-                    transparent: true,
-                    opacity: 0.3,
-                    roughness: 0.1,
-                    ior: 1.5,
-                    thickness: 2,
-                    emissive: 0x24A8E1,
-                    emissiveIntensity: 0.2
-                })
-            );
-            const prismaEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(prismaGeometry),
-                new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 })
-            );
-            prisma.add(prismaEdges);
-            scene.add(prisma);
-
-            const laserGeometry = new THREE.CylinderGeometry(0.05, 0.05, 10, 32);
-            const laserMaterial = new THREE.MeshBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.9 });
-            const laser = new THREE.Mesh(laserGeometry, laserMaterial);
-            laser.position.y = 5;
-            scene.add(laser);
-
-            const particles = [];
-            for (let i = 0; i < 40; i++) {
-                const isCyan = Math.random() > 0.5;
-                const pColor = isCyan ? 0x24A8E1 : 0xffffff;
-                const p = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.03, 8, 8),
-                    new THREE.MeshStandardMaterial({ color: pColor, emissive: pColor, emissiveIntensity: 1 })
-                );
-                p.position.set((Math.random() - 0.5) * 1.5, -4 - Math.random() * 2, (Math.random() - 0.5) * 1.5);
-                scene.add(p);
-                particles.push(p);
-            }
-
-            const light = new THREE.PointLight(0x24A8E1, 2, 10);
-            scene.add(light);
-            function animate() {
-                requestAnimationFrame(animate);
-                prisma.rotation.y += 0.01;
-                particles.forEach(p => {
-                    p.position.y += 0.05;
-                    p.position.x *= 0.98;
-                    p.position.z *= 0.98;
-                    if (p.position.y > -0.5) {
-                        p.position.y = -4 - Math.random() * 2;
-                        p.position.x = (Math.random() - 0.5) * 1.5;
-                        p.position.z = (Math.random() - 0.5) * 1.5;
-                    }
-                });
-                renderer.render(scene, camera);
-            }
-            animate();
-        });
-
-        createIconEngine('canvas-soberania', (scene, camera, renderer) => {
-            const coreGeom = new THREE.DodecahedronGeometry(0.8);
-            const core = new THREE.Mesh(
-                coreGeom,
-                new THREE.MeshPhysicalMaterial({
-                    color: 0xE4A837,
-                    transmission: 0.7,
-                    transparent: true,
-                    opacity: 0.3,
-                    emissive: 0xE4A837,
-                    emissiveIntensity: 0.5
-                })
-            );
-            const coreEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(coreGeom),
-                new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.9 })
-            );
-            core.add(coreEdges);
-            scene.add(core);
-
-            const nodesCount = 8;
-            const nodes = new THREE.Group();
-            const linesGroup = new THREE.Group();
-            const pulses = [];
-
-            for (let i = 0; i < nodesCount; i++) {
-                const node = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.15, 16, 16),
-                    new THREE.MeshStandardMaterial({ color: 0x24A8E1, emissive: 0x24A8E1, emissiveIntensity: 0.8, transparent: true, opacity: 0.7 })
-                );
-                const nodeEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(node.geometry),
-                    new THREE.LineBasicMaterial({ color: 0xE4A837 })
-                );
-                node.add(nodeEdges);
-
-                const phi = Math.acos(-1 + (2 * i) / nodesCount);
-                const theta = Math.sqrt(nodesCount * Math.PI) * phi;
-                node.position.setFromSphericalCoords(2.2, phi, theta);
-                nodes.add(node);
-
-                const lineGeom = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), node.position]);
-                const line = new THREE.Line(lineGeom, new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.4 }));
-                linesGroup.add(line);
-
-                const pulse = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.05, 8, 8),
-                    new THREE.MeshBasicMaterial({ color: 0x24A8E1 })
-                );
-                pulse.userData = { endPos: node.position.clone(), progress: Math.random() };
-                linesGroup.add(pulse);
-                pulses.push(pulse);
-            }
-            scene.add(nodes);
-            scene.add(linesGroup);
-
-            const light = new THREE.PointLight(0x24A8E1, 1, 10);
-            scene.add(light);
-
-            function animate() {
-                requestAnimationFrame(animate);
-                core.rotation.y += 0.01;
-                core.rotation.x += 0.005;
-                nodes.rotation.y -= 0.005;
-                linesGroup.rotation.y -= 0.005;
-
-                pulses.forEach(p => {
-                    p.userData.progress += 0.015;
-                    if (p.userData.progress > 1) p.userData.progress = 0;
-                    p.position.copy(p.userData.endPos).multiplyScalar(p.userData.progress);
-                });
-                renderer.render(scene, camera);
-            }
-            animate();
-        });
-
-        createIconEngine('canvas-gobernanza', (scene, camera, renderer) => {
-            // La Bóveda Soberana: Poliedro complejo cristalino (Icosaedro)
+        // --- MOTOR UNIFICADO DE CORE NEXUS (GEMINI PRO HIGH) ---
+        function createUnifiedNexusCore(scene, camera, renderer, geom, primaryColor, secondaryColor) {
             const vaultGroup = new THREE.Group();
             scene.add(vaultGroup);
 
-            // Bóveda - Cristal de Zafiro y Obsidiana pulida
-            const coreGeom = new THREE.IcosahedronGeometry(0.6, 1);
             const coreMat = new THREE.MeshPhysicalMaterial({
-                color: 0x0A192F,       // Obsidiana oscura/Zafiro
-                emissive: 0x0A192F,
+                color: 0x050B16,
+                emissive: 0x050B16,
                 metalness: 0.9,
                 roughness: 0.05,
-                transmission: 0.9,     // Cristalino
+                transmission: 0.9,
                 transparent: true,
                 opacity: 0.8,
                 clearcoat: 1.0,
@@ -3447,34 +3236,31 @@
                 ior: 1.5,
                 thickness: 0.5
             });
-            const core = new THREE.Mesh(coreGeom, coreMat);
-            // Edges for definition
+            const core = new THREE.Mesh(geom, coreMat);
             const coreEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(coreGeom),
-                new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.5 })
+                new THREE.EdgesGeometry(geom),
+                new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.6 })
             );
             core.add(coreEdges);
             vaultGroup.add(core);
 
-            // Gobernanza Etica: Punto de luz blanca pura y fija en el corazón
             const pureLight = new THREE.Mesh(
                 new THREE.SphereGeometry(0.08, 16, 16),
-                new THREE.MeshBasicMaterial({ color: 0xffffff })
+                new THREE.MeshBasicMaterial({ color: secondaryColor })
             );
             vaultGroup.add(pureLight);
 
-            const internalLight = new THREE.PointLight(0xffffff, 2, 5);
+            const internalLight = new THREE.PointLight(secondaryColor, 2, 5);
             vaultGroup.add(internalLight);
 
-            // Generador de textura hexadecimal (Hash) para anillos
-            function createHexTexture(colorDec) {
+            function createHexTexture(colorStr) {
                 const canvas = document.createElement('canvas');
                 canvas.width = 512;
                 canvas.height = 64;
                 const ctx = canvas.getContext('2d');
                 ctx.fillStyle = 'black';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = colorDec;
+                ctx.fillStyle = colorStr;
                 ctx.font = 'bold 28px "Fira Code", monospace';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -3489,51 +3275,41 @@
                 return tex;
             }
 
-            const hexTexCyan = createHexTexture('#24A8E1');
-            const hexTexWhite = createHexTexture('#ffffff');
+            const hexTex1 = createHexTexture('#E4A837');
+            const hexTex2 = createHexTexture('#24A8E1');
 
-            // 3 Anillos concéntricos flotantes (Torus)
             const rings = [];
             for (let i = 0; i < 3; i++) {
-                const ringGeom = new THREE.TorusGeometry(1.2 + (i * 0.4), 0.08, 16, 64);
-
-                // Textura platino con brillo cobalto oscuro
+                const ringGeom = new THREE.TorusGeometry(1.2 + (i * 0.4), 0.06, 16, 64);
+                const isCyan = i % 2 === 0;
                 const ringMat = new THREE.MeshPhysicalMaterial({
-                    color: 0x8892b0,
+                    color: 0x050B16,
                     metalness: 1.0,
                     roughness: 0.2,
-                    emissiveMap: i % 2 === 0 ? hexTexCyan : hexTexWhite,
+                    emissiveMap: isCyan ? hexTex2 : hexTex1,
                     emissive: 0xffffff,
                     emissiveIntensity: 0.8
                 });
-
                 const ring = new THREE.Mesh(ringGeom, ringMat);
-
                 ring.userData = {
                     baseRadius: 1.2 + (i * 0.4),
-                    speedX: (0.005 + Math.random() * 0.005) * (i % 2 === 0 ? 1 : -1),
-                    speedY: (0.005 + Math.random() * 0.005) * (i % 2 === 0 ? -1 : 1),
+                    speedX: (0.005 + Math.random() * 0.005) * (isCyan ? 1 : -1),
+                    speedY: (0.005 + Math.random() * 0.005) * (isCyan ? -1 : 1),
                     speedZ: (0.005 + Math.random() * 0.005),
-                    texSpeed: (0.005 + Math.random() * 0.01) * (i % 2 === 0 ? 1 : -1)
+                    texSpeed: (0.005 + Math.random() * 0.01) * (isCyan ? 1 : -1)
                 };
-
-                // Orientación inicial variada
                 ring.rotation.x = Math.random() * Math.PI;
                 ring.rotation.y = Math.random() * Math.PI;
-
                 rings.push(ring);
                 vaultGroup.add(ring);
             }
 
-            // Iluminación externa (reflejos)
             const ambLight = new THREE.AmbientLight(0xffffff, 0.3);
             scene.add(ambLight);
-
             const pointL1 = new THREE.PointLight(0x24A8E1, 3, 10);
             pointL1.position.set(3, 3, 3);
             scene.add(pointL1);
-
-            const pointL2 = new THREE.PointLight(0x0A192F, 4, 10);
+            const pointL2 = new THREE.PointLight(0xE4A837, 3, 10);
             pointL2.position.set(-3, -3, -3);
             scene.add(pointL2);
 
@@ -3546,28 +3322,18 @@
                 requestAnimationFrame(animate);
                 const t = clock.getElapsedTime();
 
-                // Rotación lenta central (majestuosa)
                 core.rotation.y += 0.002;
                 core.rotation.x += 0.001;
 
-                // Anillos
                 const targetScale = mouseOver ? 0.75 : 1.0;
-
-                rings.forEach((ring) => {
-                    // Contracción (Hover)
+                rings.forEach(ring => {
                     ring.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.05);
-
-                    // Rotación opuesta
                     ring.rotation.x += ring.userData.speedX;
                     ring.rotation.y += ring.userData.speedY;
                     ring.rotation.z += ring.userData.speedZ;
-
-                    // Flujo hexadecimal
                     if (ring.material.emissiveMap) {
                         ring.material.emissiveMap.offset.x -= ring.userData.texSpeed * (mouseOver ? 4 : 1);
                     }
-
-                    // Aumentar luminosidad si hover
                     ring.material.emissiveIntensity = THREE.MathUtils.lerp(
                         ring.material.emissiveIntensity,
                         mouseOver ? 2.5 : 0.8,
@@ -3575,148 +3341,39 @@
                     );
                 });
 
-                // Luz interna aumenta drásticamente
                 internalLight.intensity = THREE.MathUtils.lerp(internalLight.intensity, mouseOver ? 8 : 2, 0.05);
-
-                // Colorización y brillo del núcleo en Hover
-                coreEdges.material.opacity = mouseOver ? 1.0 : 0.5;
-
+                coreEdges.material.opacity = mouseOver ? 1.0 : 0.6;
                 renderer.render(scene, camera);
             }
             animate();
+        }
+
+        // --- ICONOS NEXUS (TARJETAS SUPERIORES) UNIFICADOS ---
+
+        createIconEngine('canvas-agentica', (scene, camera, renderer) => {
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.CylinderGeometry(0.7, 0.7, 2.0, 6), 0x24A8E1, 0xE4A837);
         });
 
-        // --- ICONO NEXUS 5: GEMINI PRO HIGH (Diamante Cristal OctahedronGeometry) ---
+        createIconEngine('canvas-impacto', (scene, camera, renderer) => {
+            const geom = new THREE.OctahedronGeometry(1.0, 0);
+            geom.scale(1, 1.5, 1);
+            createUnifiedNexusCore(scene, camera, renderer, geom, 0xE4A837, 0x24A8E1);
+        });
+
+        createIconEngine('canvas-soberania', (scene, camera, renderer) => {
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.DodecahedronGeometry(0.8), 0x24A8E1, 0xE4A837);
+        });
+
+        createIconEngine('canvas-gobernanza', (scene, camera, renderer) => {
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.IcosahedronGeometry(0.7, 1), 0xE4A837, 0x24A8E1);
+        });
+
         createIconEngine('canvas-gemini-pro', (scene, camera, renderer) => {
-            // DIAMANTE DE EJECUCIÓN: OctahedronGeometry cristalino
-            const gemGeom = new THREE.OctahedronGeometry(1.3, 0);
-            const gem = new THREE.Mesh(
-                gemGeom,
-                new THREE.MeshPhysicalMaterial({
-                    color: 0xffffff,
-                    metalness: 0.0,
-                    roughness: 0.0,
-                    transmission: 1.0,
-                    transparent: true,
-                    opacity: 1.0,
-                    thickness: 2.0,
-                    clearcoat: 1.0,
-                    clearcoatRoughness: 0.0,
-                    ior: 1.5
-                })
-            );
-            const gemEdges = new THREE.LineSegments(
-                new THREE.EdgesGeometry(gemGeom),
-                new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.7 })
-            );
-            gem.add(gemEdges);
-            scene.add(gem);
-
-            // Destello interior dorado
-            const innerGlow = new THREE.Mesh(
-                new THREE.SphereGeometry(0.15, 12, 12),
-                new THREE.MeshBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.7 })
-            );
-            scene.add(innerGlow);
-
-            // Luces cinematográficas orbitando
-            const lightCyan = new THREE.PointLight(0x24A8E1, 2.5, 8);
-            lightCyan.position.set(3, 1, 2);
-            const lightGold = new THREE.PointLight(0xE4A837, 2.5, 8);
-            lightGold.position.set(-3, -1, -2);
-            scene.add(lightCyan, lightGold);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-
-            const clock = new THREE.Clock();
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-                // Rotación fluida del diamante
-                gem.rotation.y += 0.008;
-                gem.rotation.x += 0.004;
-                // Luces orbitando para reflejos dinámicos
-                lightCyan.position.x = Math.cos(t * 1.5) * 3;
-                lightCyan.position.z = Math.sin(t * 1.5) * 3;
-                lightGold.position.x = Math.cos(t * 1.2 + Math.PI) * 3;
-                lightGold.position.z = Math.sin(t * 1.2 + Math.PI) * 3;
-                // Destello palpitante
-                innerGlow.scale.setScalar(0.8 + Math.sin(t * 4) * 0.3);
-                innerGlow.material.opacity = 0.5 + Math.sin(t * 4) * 0.3;
-                renderer.render(scene, camera);
-            }
-            animate();
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.OctahedronGeometry(1.0, 0), 0x24A8E1, 0xE4A837);
         });
 
-        // --- ICONO NEXUS 6: AGÉNTICO Y DISRUPTIVO (Enjambre Disruptor) ---
         createIconEngine('canvas-agentico-disruptivo', (scene, camera, renderer) => {
-            // STATUS QUO: Esfera wireframe Azul Medianoche
-            const statusQuo = new THREE.Mesh(
-                new THREE.SphereGeometry(1.2, 16, 16),
-                new THREE.MeshBasicMaterial({
-                    color: 0x0A192F,
-                    wireframe: true,
-                    transparent: true,
-                    opacity: 0.4
-                })
-            );
-            scene.add(statusQuo);
-
-            // ENJAMBRE: Tetraedros agentes Azul Cian
-            const tetras = [];
-            for (let i = 0; i < 18; i++) {
-                const tetra = new THREE.Mesh(
-                    new THREE.TetrahedronGeometry(0.12 + Math.random() * 0.08, 0),
-                    new THREE.MeshStandardMaterial({
-                        color: 0x24A8E1,
-                        emissive: 0x24A8E1,
-                        emissiveIntensity: 1.2,
-                        metalness: 0.3,
-                        roughness: 0.2
-                    })
-                );
-                const phi = Math.acos(2 * Math.random() - 1);
-                const theta = Math.random() * Math.PI * 2;
-                const radius = 0.8 + Math.random() * 1.2;
-                tetra.position.setFromSphericalCoords(radius, phi, theta);
-                tetra.userData = {
-                    orbitAxis: new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize(),
-                    orbitSpeed: 0.008 + Math.random() * 0.02,
-                    spinSpeed: 0.03 + Math.random() * 0.05,
-                    pulsePhase: Math.random() * Math.PI * 2
-                };
-                scene.add(tetra);
-                tetras.push(tetra);
-            }
-
-            // DESTELLO DORADO central
-            const coreStar = new THREE.Mesh(
-                new THREE.OctahedronGeometry(0.18, 0),
-                new THREE.MeshBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.9 })
-            );
-            scene.add(coreStar);
-            const coreLight = new THREE.PointLight(0xE4A837, 2.5, 5);
-            scene.add(coreLight);
-            scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-
-            const clock = new THREE.Clock();
-            function animate() {
-                requestAnimationFrame(animate);
-                const t = clock.getElapsedTime();
-                statusQuo.rotation.y += 0.002;
-                // Tetraedros orbitando agresivamente
-                tetras.forEach(tetra => {
-                    tetra.position.applyAxisAngle(tetra.userData.orbitAxis, tetra.userData.orbitSpeed);
-                    tetra.rotation.x += tetra.userData.spinSpeed;
-                    tetra.rotation.z += tetra.userData.spinSpeed * 0.7;
-                    tetra.scale.setScalar(1 + Math.sin(t * 3 + tetra.userData.pulsePhase) * 0.15);
-                });
-                // Destello central
-                coreStar.rotation.y += 0.02;
-                coreStar.scale.setScalar(1 + Math.sin(t * 5) * 0.3);
-                coreLight.intensity = 2.5 + Math.sin(t * 4) * 1.5;
-                renderer.render(scene, camera);
-            }
-            animate();
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.TetrahedronGeometry(1.0, 0), 0xE4A837, 0x24A8E1);
         });
 
         // --- SIMULADORES HUB (VISUALIZACIÓN DE ALTO NIVEL) ---
@@ -3737,7 +3394,7 @@
             const shield = new THREE.Mesh(
                 shieldGeom,
                 new THREE.MeshPhysicalMaterial({
-                    color: 0x0A192F,
+                    color: 0x050B16,
                     transmission: 0.8,
                     transparent: true,
                     opacity: 0.2,
@@ -4375,345 +4032,50 @@
             // 1. SIMBIOSIS AGÉNTICA 🧠🤝
             //    Icosahedron (Gold Core) + TorusKnot (Cyan IA)
             // ═══════════════════════════════════════════════
-            if (type === 'nexus_agentica') {
-                // 1. EL NÚCLEO BIOTÉCNICO: Esfera Multifacetada Cristalina
-                const coreGeometry = new THREE.IcosahedronGeometry(1.0, 2); 
-                const coreMaterial = new THREE.MeshPhysicalMaterial({
-                    color: 0x24A8E1,
-                    metalness: 0.9,
-                    roughness: 0.05,
-                    transmission: 0.5,
-                    thickness: 2.0,
-                    emissive: 0x24A8E1,
-                    emissiveIntensity: 0.8,
-                    clearcoat: 1.0
-                });
-                const core = new THREE.Mesh(coreGeometry, coreMaterial);
-                core.name = "core";
-                
-                // Aristas de Circuitería Dorada
-                const circuitEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(coreGeometry),
-                    new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 })
-                );
-                core.add(circuitEdges);
-                modalObject.add(core);
-
-                // 1.1 FILAMENTOS DE LUZ (Neural Connections)
-                const filamentGroup = new THREE.Group();
-                filamentGroup.name = "filaments";
-                for(let i=0; i<40; i++){
-                    const points = [];
-                    const start = new THREE.Vector3().setFromSphericalCoords(1.0, Math.random()*Math.PI, Math.random()*Math.PI*2);
-                    const end = start.clone().multiplyScalar(1.5 + Math.random()*1.5);
-                    const mid = start.clone().multiplyScalar(1.2 + Math.random()*0.5).add(new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5));
-                    
-                    const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-                    const filamentGeom = new THREE.BufferGeometry().setFromPoints(curve.getPoints(10));
-                    const filament = new THREE.Line(filamentGeom, new THREE.LineBasicMaterial({
-                        color: Math.random() > 0.5 ? 0x24A8E1 : 0xE4A837,
-                        transparent: true,
-                        opacity: 0.4
-                    }));
-                    filamentGroup.add(filament);
-                }
-                modalObject.add(filamentGroup);
-
-                const corePulseLight = new THREE.PointLight(0x24A8E1, 5, 15);
-                corePulseLight.name = "corePulseLight";
-                modalObject.add(corePulseLight);
-
-                const swarmGroup = new THREE.Group();
-                swarmGroup.name = "swarmGroup";
-                modalObject.add(swarmGroup);
-
-                const layers = 4;
-                const particlesLayer = [];
-
-                for (let layer = 0; layer < layers; layer++) {
-                    const particleCount = 1200 + (layer * 600);
-                    const geometry = new THREE.BufferGeometry();
-                    const positions = new Float32Array(particleCount * 3);
-                    const colors = new Float32Array(particleCount * 3);
-                    const sizes = new Float32Array(particleCount);
-
-                    const colorCian = new THREE.Color(0x24A8E1).multiplyScalar(1.2);
-                    const colorOro = new THREE.Color(0xE4A837).multiplyScalar(1.5);
-                    const currentLayerParticles = [];
-
-                    for (let i = 0; i < particleCount; i++) {
-                        const baseRadius = 1.2 + (layer * 0.7);
-                        const radius = baseRadius + (Math.random() * 0.3 - 0.15);
-                        const phi = Math.acos(-1 + (2 * i) / particleCount);
-                        const theta = Math.sqrt(particleCount * Math.PI) * phi;
-                        const x = radius * Math.cos(theta) * Math.sin(phi);
-                        const y = radius * Math.sin(theta) * Math.sin(phi);
-                        const z = radius * Math.cos(phi);
-                        
-                        positions[i * 3] = x;
-                        positions[i * 3 + 1] = y;
-                        positions[i * 3 + 2] = z;
-                        const mixRatio = Math.random();
-                        const color = mixRatio > 0.85 ? colorOro : colorCian;
-                        colors[i * 3] = color.r;
-                        colors[i * 3 + 1] = color.g;
-                        colors[i * 3 + 2] = color.b;
-                        sizes[i] = Math.random();
-                        
-                        currentLayerParticles.push({
-                            origX: x, origY: y, origZ: z,
-                            baseRadius: baseRadius,
-                            angle: Math.random() * Math.PI * 2,
-                            speed: (0.001 + Math.random() * 0.003) * (layer % 2 === 0 ? 1 : -1),
-                            hoverOffset: new THREE.Vector3(x, y, z).normalize().multiplyScalar(0.7 + (Math.random() * 0.15))
-                        });
-                    }
-                    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-                    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-                    const material = new THREE.ShaderMaterial({
-                        uniforms: {
-                            uTime: { value: 0 },
-                            uPulseWave: { value: 0 },
-                            uHover: { value: 0 }
-                        },
-                        vertexShader: `
-                            uniform float uTime;
-                            uniform float uPulseWave;
-                            uniform float uHover;
-                            attribute vec3 color;
-                            attribute float size;
-                            varying vec3 vColor;
-                            void main() {
-                                vColor = color;
-                                vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-                                float dist = length(position);
-                                float pulseDist = abs(dist - uPulseWave);
-                                float pulseGlow = 1.0;
-                                if (pulseDist < 0.3) {
-                                    pulseGlow = 1.0 + (1.0 - (pulseDist / 0.3)) * 4.0; 
-                                }
-                                float finalSize = (size * 30.0 + 15.0 + (sin(uTime * 3.0 + size * 10.0) * 12.0)) * pulseGlow * (1.0 + uHover * 2.5);
-                                gl_PointSize = finalSize * (1.0 / -mvPosition.z);
-                                gl_Position = projectionMatrix * mvPosition;
-                            }
-                        `,
-                        fragmentShader: `
-                            varying vec3 vColor;
-                            void main() {
-                                vec2 xy = gl_PointCoord.xy - vec2(0.5);
-                                float ll = length(xy);
-                                if(ll > 0.5) discard;
-                                float alpha = pow(1.0 - (ll * 2.0), 1.5);
-                                gl_FragColor = vec4(vColor, alpha * 0.95);
-                            }
-                        `,
-                        transparent: true,
-                        blending: THREE.AdditiveBlending,
-                        depthWrite: false
-                    });
-
-                    const pointCloud = new THREE.Points(geometry, material);
-                    swarmGroup.add(pointCloud);
-                    particlesLayer.push({ mesh: pointCloud, data: currentLayerParticles });
-                }
-                swarmGroup.userData.particlesLayer = particlesLayer;
-                swarmGroup.userData.pulseTimer = 0;
-                swarmGroup.userData.renderMouseOver = 0;
-
-                // ═══════════════════════════════════════════════
-                // 2. IMPACTO ESTRATÉGICO 📈💰
-                //    Prisma hexagonal monolítico con refracción
-                // ═══════════════════════════════════════════════
-            } else if (type === 'nexus_impacto') {
-                // EL MONOLITO DE ROI: Cristal Negro con Bordes de Oro
-                const monoGroup = new THREE.Group();
-                monoGroup.name = "monolithGroup";
-
-                const monoGeom = new THREE.BoxGeometry(1.2, 4.5, 1.2);
-                const monoMat = new THREE.MeshPhysicalMaterial({
-                    color: 0x050B16,
-                    metalness: 0.9,
-                    roughness: 0.05,
-                    clearcoat: 1.0,
-                    reflectivity: 1.0
-                });
-                const monolith = new THREE.Mesh(monoGeom, monoMat);
-                monolith.name = "monolith";
-                
-                // Bordes de Oro Vibrante
-                const monoEdges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(monoGeom),
-                    new THREE.LineBasicMaterial({ color: 0xE4A837, linewidth: 2 })
-                );
-                monolith.add(monoEdges);
-                monoGroup.add(monolith);
-
-                // PROYECCIONES DE DATOS (Upwards)
-                const dataGroup = new THREE.Group();
-                dataGroup.name = "dataProjections";
-                for(let i=0; i<15; i++){
-                    const planeGeom = new THREE.PlaneGeometry(0.8, 0.05);
-                    const planeMat = new THREE.MeshBasicMaterial({
-                        color: 0x24A8E1,
-                        transparent: true,
-                        opacity: 0.6,
-                        side: THREE.DoubleSide
-                    });
-                    const p = new THREE.Mesh(planeGeom, planeMat);
-                    p.position.set((Math.random()-0.5)*2, -2 + Math.random()*4, 0.61);
-                    p.userData = { speed: 0.01 + Math.random()*0.02 };
-                    dataGroup.add(p);
-                }
-                monolith.add(dataGroup);
-
-                // Luces Espectaculares (Uplighting)
-                const upLight = new THREE.SpotLight(0x24A8E1, 10, 10, Math.PI/6, 0.5);
-                upLight.position.set(0, -5, 2);
-                upLight.target = monolith;
-                monoGroup.add(upLight);
-
-                modalObject.add(monoGroup);
-                
-                // REJILLA TÉCNICA
-                const gridI = new THREE.GridHelper(10, 25, 0x24A8E1, 0x24A8E1);
-                gridI.position.y = -3.5;
-                gridI.material.opacity = 0.05;
-                gridI.material.transparent = true;
-                modalObject.add(gridI);
-
-                // POLVO DE DATOS
-                const dustGroupI = new THREE.Group();
-                dustGroupI.name = "dust";
-                for(let i=0; i<60; i++){
-                    const dust = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.015, 4, 4), 
-                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.4 })
-                    );
-                    const dist = 3 + Math.random() * 4;
-                    dust.position.setFromSphericalCoords(dist, Math.random()*Math.PI, Math.random()*Math.PI*2);
-                    dust.userData = { orbitSpeed: 0.002, axis: new THREE.Vector3(0,1,0) };
-                    dustGroupI.add(dust);
-                }
-                modalObject.add(dustGroupI);
-                modalRenderer.setClearColor(0x050B16, 1);
-
-                // ═══════════════════════════════════════════════
-            } else if (type === 'nexus_soberania') {
-                // EL MAPA GLOBAL GEO (Soberanía Digital)
-                const geoGroup = new THREE.Group();
-                geoGroup.name = "geoGroup";
-
-                // 1. EL GLOBO: Esfera de Datos (Malla de Nitidez Táctil)
-                const globeGeom = new THREE.SphereGeometry(2.0, 64, 64);
-                const globeMat = new THREE.MeshStandardMaterial({
-                    color: 0x050B16,
-                    metalness: 0.1,
-                    roughness: 0.8,
-                    wireframe: false
-                });
-                const globe = new THREE.Mesh(globeGeom, globeMat);
-                globe.name = "globe";
-                geoGroup.add(globe);
-
-                // 2. RED DESCENTRALIZADA: Nodos Polyhedrales (Oro/Cian)
-                const networkGroup = new THREE.Group();
-                networkGroup.name = "network";
-                const nodeCount = 50;
-                for(let i=0; i<nodeCount; i++){
-                    const isGold = Math.random() > 0.8;
-                    const nodeGeom = new THREE.IcosahedronGeometry(0.08, 0);
-                    const nodeMat = new THREE.MeshStandardMaterial({
-                        color: isGold ? 0xE4A837 : 0x24A8E1,
-                        emissive: isGold ? 0xE4A837 : 0x24A8E1,
-                        emissiveIntensity: 1.5
-                    });
-                    const node = new THREE.Mesh(nodeGeom, nodeMat);
-                    const theta = Math.random() * Math.PI * 2;
-                    const phi = Math.acos(2 * Math.random() - 1);
-                    node.position.setFromSphericalCoords(2.05, phi, theta);
-                    networkGroup.add(node);
-                }
-                geoGroup.add(networkGroup);
-
-                // 3. CONEXIONES GLOBALES (Líneas de Datos)
-                const linesGroup = new THREE.Group();
-                linesGroup.name = "connections";
-                const lineMat = new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.15 });
-                const nodes = networkGroup.children;
-                for(let i=0; i<nodes.length; i++){
-                    for(let j=i+1; j<nodes.length; j++){
-                        if(nodes[i].position.distanceTo(nodes[j].position) < 1.2){
-                            const lineGeom = new THREE.BufferGeometry().setFromPoints([nodes[i].position, nodes[j].position]);
-                            const line = new THREE.Line(lineGeom, lineMat);
-                            linesGroup.add(line);
-                        }
-                    }
-                }
-                geoGroup.add(linesGroup);
-
-                modalObject.add(geoGroup);
-                
-                // ATMÓSFERA GEO
-                const grid = new THREE.GridHelper(10, 25, 0x24A8E1, 0x24A8E1);
-                grid.position.y = -3.5;
-                grid.material.opacity = 0.03;
-                grid.material.transparent = true;
-                modalObject.add(grid);
-
-                const dustGroup = new THREE.Group();
-                dustGroup.name = "dust";
-                for(let i=0; i<80; i++){
-                    const dust = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.015, 4, 4), 
-                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.4 })
-                    );
-                    const dist = 3.5 + Math.random() * 4;
-                    dust.position.setFromSphericalCoords(dist, Math.random()*Math.PI, Math.random()*Math.PI*2);
-                    dust.userData = { orbitSpeed: 0.001, axis: new THREE.Vector3(0,1,0) };
-                    dustGroup.add(dust);
-                }
-                modalObject.add(dustGroup);
-                modalRenderer.setClearColor(0x050B16, 1);
-
-            } else if (type === 'nexus_gobernanza') {
-                // LA BÓVEDA DE CONFIANZA (Trust Vault) - GB Elite Edition v5.0
+            if (type === 'nexus_agentica' || type === 'nexus_impacto' || type === 'nexus_soberania' || type === 'nexus_gobernanza' || type === 'nexus_gemini_pro' || type === 'nexus_agentico_disruptivo') {
                 const vaultGroup = new THREE.Group();
                 vaultGroup.name = "vaultGroup";
 
-                // 1. EL NÚCLEO: SOBERANÍA DE DATOS (Icosaedro de Oro Cristalino Multifacetado)
-                const coreGeom = new THREE.IcosahedronGeometry(1.0, 1);
+                let coreGeom;
+                if (type === 'nexus_agentica') coreGeom = new THREE.CylinderGeometry(0.8, 0.8, 2.0, 6);
+                else if (type === 'nexus_impacto') { coreGeom = new THREE.OctahedronGeometry(1.0, 0); coreGeom.scale(1, 1.5, 1); }
+                else if (type === 'nexus_soberania') coreGeom = new THREE.DodecahedronGeometry(0.8);
+                else if (type === 'nexus_gobernanza') coreGeom = new THREE.IcosahedronGeometry(1.0, 1);
+                else if (type === 'nexus_gemini_pro') coreGeom = new THREE.OctahedronGeometry(1.0, 0);
+                else coreGeom = new THREE.TetrahedronGeometry(1.0, 0);
+
+                const primaryColor = (type === 'nexus_gobernanza' || type === 'nexus_impacto' || type === 'nexus_gemini_pro') ? 0xE4A837 : 0x24A8E1;
+                const secondaryColor = primaryColor === 0xE4A837 ? 0x24A8E1 : 0xE4A837;
+
                 const coreMat = new THREE.MeshPhysicalMaterial({
-                    color: 0xE4A837,
-                    metalness: 1.0,
+                    color: 0x050B16,
+                    metalness: 0.9,
                     roughness: 0.05,
-                    transmission: 0.1,
-                    thickness: 2.0,
-                    emissive: 0xE4A837,
-                    emissiveIntensity: 0.6,
+                    transmission: 0.9,
+                    transparent: true,
+                    opacity: 0.8,
                     clearcoat: 1.0,
-                    reflectivity: 1.0
+                    clearcoatRoughness: 0.1,
+                    ior: 1.5,
+                    thickness: 0.5
                 });
                 const goldCore = new THREE.Mesh(coreGeom, coreMat);
                 goldCore.name = "goldCore";
                 
-                // Aristas de Oro Puro Reforzadas
                 const coreEdges = new THREE.LineSegments(
                     new THREE.EdgesGeometry(coreGeom),
-                    new THREE.LineBasicMaterial({ color: 0xFFD700, transparent: true, opacity: 0.9 })
+                    new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.9 })
                 );
                 goldCore.add(coreEdges);
                 vaultGroup.add(goldCore);
 
-                // 2. ESCUDO SECUNDARIO: CRYPTEX ORBITAL (Torus Knot Gold/Cyan)
                 const cryptoGeom = new THREE.TorusKnotGeometry(1.6, 0.06, 120, 20);
                 const cryptoMat = new THREE.MeshStandardMaterial({
-                    color: 0xE4A837,
+                    color: 0x050B16,
                     metalness: 0.9,
                     roughness: 0.1,
-                    emissive: 0x24A8E1,
-                    emissiveIntensity: 0.4,
+                    emissive: secondaryColor,
+                    emissiveIntensity: 0.8,
                     transparent: true,
                     opacity: 0.7
                 });
@@ -4721,17 +4083,17 @@
                 cryptoRing.name = "cryptoRing";
                 vaultGroup.add(cryptoRing);
 
-                // 3. CAPA DE SEGURIDAD RLS (Nube de cubos de datos de alta densidad)
                 const rlsGroup = new THREE.Group();
                 rlsGroup.name = "rlsShield";
                 const cubeCount = 60;
                 for(let i=0; i<cubeCount; i++) {
                     const cubeSize = 0.04 + Math.random() * 0.12;
+                    const cColor = i % 2 === 0 ? 0xE4A837 : 0x24A8E1;
                     const cube = new THREE.Mesh(
                         new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize),
                         new THREE.MeshStandardMaterial({ 
-                            color: i % 3 === 0 ? 0xE4A837 : 0x24A8E1, 
-                            emissive: i % 3 === 0 ? 0xE4A837 : 0x24A8E1, 
+                            color: cColor, 
+                            emissive: cColor, 
                             emissiveIntensity: 0.8 
                         })
                     );
@@ -4747,10 +4109,9 @@
                 }
                 vaultGroup.add(rlsGroup);
 
-                // 4. CAMPO DE FUERZA EXTERIOR (Esfera de Vidrio Diamante AAA)
                 const shieldGeom = new THREE.SphereGeometry(3.0, 48, 48);
                 const shieldMat = new THREE.MeshPhysicalMaterial({
-                    color: 0x24A8E1,
+                    color: secondaryColor,
                     metalness: 0.2,
                     roughness: 0.0,
                     transmission: 0.95,
@@ -4766,14 +4127,13 @@
                 
                 const shieldWire = new THREE.Mesh(
                     shieldGeom,
-                    new THREE.MeshBasicMaterial({ color: 0x24A8E1, wireframe: true, transparent: true, opacity: 0.05 })
+                    new THREE.LineBasicMaterial({ color: secondaryColor, transparent: true, opacity: 0.05 })
                 );
                 outerShield.add(shieldWire);
                 vaultGroup.add(outerShield);
 
-                // 5. BARRIDO DE VALIDACIÓN (Anillo Laser de Alta Intensidad)
                 const laserGeom = new THREE.TorusGeometry(3.1, 0.03, 16, 100);
-                const laserMat = new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 1.0 });
+                const laserMat = new THREE.MeshBasicMaterial({ color: primaryColor, transparent: true, opacity: 1.0 });
                 const laserRing = new THREE.Mesh(laserGeom, laserMat);
                 laserRing.rotation.x = Math.PI / 2;
                 laserRing.name = "laserRing";
@@ -4781,8 +4141,7 @@
 
                 modalObject.add(vaultGroup);
 
-                // ATMÓSFERA TRUST VAULT
-                const grid2 = new THREE.GridHelper(10, 20, 0x24A8E1, 0x24A8E1);
+                const grid2 = new THREE.GridHelper(10, 20, primaryColor, secondaryColor);
                 grid2.position.y = -3.5;
                 grid2.material.opacity = 0.04;
                 grid2.material.transparent = true;
@@ -4802,274 +4161,6 @@
                 }
                 modalObject.add(dustGroup2);
                 modalRenderer.setClearColor(0x050B16, 1);
-
-                // ═══════════════════════════════════════════════
-                // 5. NIVEL GEMINI PRO HIGH 💎⚡
-                //    Diamante OctahedronGeometry cristal hiperrealista
-                // ═══════════════════════════════════════════════
-            } else if (type === 'nexus_gemini_pro') {
-                // EL PILAR TÉCNICO (Stellated Pillar)
-                const techGroup = new THREE.Group();
-                techGroup.name = "techGroup";
-
-                // Geometría: Icosaedro Estrellado (Aproximación por Dodec-G)
-                // Utilizamos una geometría compleja para representar la agudeza técnica
-                const starGeom = new THREE.IcosahedronGeometry(1.8, 0); 
-                // Para el efecto de estrella, creamos picos en cada cara
-                const stellatedGroup = new THREE.Group();
-                stellatedGroup.name = "stellatedMain";
-                
-                const crystalMat = new THREE.MeshPhysicalMaterial({
-                    color: 0xffffff,
-                    metalness: 0.1,
-                    roughness: 0.05,
-                    transmission: 0.95,
-                    transparent: true,
-                    opacity: 0.9,
-                    thickness: 2.0,
-                    ior: 1.8,
-                    clearcoat: 1.0,
-                    attenuationColor: 0x24A8E1,
-                    attenuationDistance: 1.0
-                });
-
-                // Cuerpo central
-                const centerMesh = new THREE.Mesh(starGeom, crystalMat);
-                stellatedGroup.add(centerMesh);
-
-                // Picos (Stellation)
-                const pos = starGeom.attributes.position;
-                for(let i=0; i<pos.count; i+=3){
-                    const v1 = new THREE.Vector3(pos.getX(i), pos.getY(i), pos.getZ(i));
-                    const v2 = new THREE.Vector3(pos.getX(i+1), pos.getY(i+1), pos.getZ(i+1));
-                    const v3 = new THREE.Vector3(pos.getX(i+2), pos.getY(i+2), pos.getZ(i+2));
-                    const center = new THREE.Vector3().add(v1).add(v2).add(v3).divideScalar(3);
-                    const apex = center.clone().multiplyScalar(2.2);
-                    
-                    const pyrGeom = new THREE.BufferGeometry().setFromPoints([v1, v2, v3, apex]);
-                    pyrGeom.setIndex([0,1,3, 1,2,3, 2,0,3, 0,1,2]);
-                    pyrGeom.computeVertexNormals();
-                    const spike = new THREE.Mesh(pyrGeom, crystalMat);
-                    stellatedGroup.add(spike);
-                }
-                techGroup.add(stellatedGroup);
-
-                // Aristas de Oro con Glow
-                const edgesGeom = new THREE.IcosahedronGeometry(1.82, 0); 
-                const edges = new THREE.LineSegments(
-                    new THREE.EdgesGeometry(edgesGeom),
-                    new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 })
-                );
-                edges.name = "goldenEdges";
-                techGroup.add(edges);
-
-                // Vértices "Lighthouse"
-                const vertexGroup = new THREE.Group();
-                vertexGroup.name = "lighthouses";
-                const vArr = starGeom.attributes.position;
-                for(let i=0; i<vArr.count; i++){
-                    const v = new THREE.Vector3(vArr.getX(i), vArr.getY(i), vArr.getZ(i)).multiplyScalar(2.25);
-                    const lh = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.04, 8, 8),
-                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8 })
-                    );
-                    lh.position.copy(v);
-                    vertexGroup.add(lh);
-                }
-                techGroup.add(vertexGroup);
-
-                // Núcleo de Energía Azul
-                const coreEnergy = new THREE.Mesh(
-                    new THREE.SphereGeometry(0.5, 32, 32),
-                    new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.8 })
-                );
-                coreEnergy.name = "coreEnergy";
-                techGroup.add(coreEnergy);
-
-                modalObject.add(techGroup);
-
-                // ATMÓSFERA TÉCNICA (Nítida y Veloz)
-                const grid = new THREE.GridHelper(10, 30, 0x24A8E1, 0x24A8E1);
-                grid.position.y = -3.5;
-                grid.material.opacity = 0.06; // Más nítido
-                grid.material.transparent = true;
-                modalObject.add(grid);
-
-                const dustGroup = new THREE.Group();
-                dustGroup.name = "dust";
-                for(let i=0; i<100; i++){
-                    const dust = new THREE.Mesh(
-                        new THREE.SphereGeometry(0.012, 4, 4), 
-                        new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.6 })
-                    );
-                    const dist = 3 + Math.random() * 5;
-                    dust.position.setFromSphericalCoords(dist, Math.random()*Math.PI, Math.random()*Math.PI*2);
-                    dust.userData = { orbitSpeed: 0.003 + Math.random()*0.004, axis: new THREE.Vector3(Math.random(),1,Math.random()).normalize() };
-                    dustGroup.add(dust);
-                }
-                modalObject.add(dustGroup);
-                modalRenderer.setClearColor(0x050B16, 1);
-
-                // ═══════════════════════════════════════════════
-            } else if (type === 'nexus_agentico_disruptivo') {
-                // EL ARMA ESTRATÉGICA (The Neural Swarm) - GB Elite Edition v5.0
-                const disruptionGroup = new THREE.Group();
-                disruptionGroup.name = "disruptionGroup";
-
-                // 1. EL GIROSCOPIO DE ORO (Núcleo Orquestador)
-                const gyroGroup = new THREE.Group();
-                gyroGroup.name = "gyroGroup";
-                
-                const goldMat = new THREE.MeshPhysicalMaterial({
-                    color: 0xE4A837,
-                    metalness: 1.0,
-                    roughness: 0.1,
-                    emissive: 0xE4A837,
-                    emissiveIntensity: 0.4,
-                    clearcoat: 1.0,
-                    reflectivity: 1.0
-                });
-
-                // 3 Anillos concéntricos en diferentes ejes
-                for(let i=0; i<3; i++) {
-                    const ringGeom = new THREE.TorusGeometry(1.0 + (i*0.25), 0.04 - (i*0.01), 32, 100);
-                    const ring = new THREE.Mesh(ringGeom, goldMat);
-                    ring.rotation.x = Math.random() * Math.PI;
-                    ring.rotation.y = Math.random() * Math.PI;
-                    ring.userData = { axis: new THREE.Vector3(Math.random(), Math.random(), Math.random()).normalize(), speed: 0.01 + (i*0.005) };
-                    gyroGroup.add(ring);
-                }
-                
-                // Orbe Central
-                const centralOrbe = new THREE.Mesh(new THREE.IcosahedronGeometry(0.6, 2), goldMat);
-                centralOrbe.name = "centralOrbe";
-                gyroGroup.add(centralOrbe);
-                disruptionGroup.add(gyroGroup);
-
-                // 2. ENJAMBRE DE DATOS (Shader System) - 2000 Agentes
-                const agentCount = 2000;
-                const posArray = new Float32Array(agentCount * 3);
-                const colorArray = new Float32Array(agentCount * 3);
-                const dataArray = new Float32Array(agentCount * 4); // [speed, phase, radius, id]
-
-                const palette = [
-                    new THREE.Color(0x24A8E1), // Cian
-                    new THREE.Color(0xFFD700), // Oro
-                    new THREE.Color(0xFF00FF), // Fucsia
-                    new THREE.Color(0x008080), // Teal
-                    new THREE.Color(0x00FF00)  // Verde
-                ];
-
-                for(let i=0; i<agentCount; i++) {
-                    const r = 2.0 + Math.random() * 2.5;
-                    const theta = Math.random() * Math.PI * 2;
-                    const phi = Math.acos(2 * Math.random() - 1);
-                    
-                    posArray[i*3] = r * Math.sin(phi) * Math.cos(theta);
-                    posArray[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-                    posArray[i*3+2] = r * Math.cos(phi);
-
-                    const color = palette[Math.floor(Math.random() * palette.length)];
-                    colorArray[i*3] = color.r;
-                    colorArray[i*3+1] = color.g;
-                    colorArray[i*3+2] = color.b;
-
-                    dataArray[i*4] = 0.01 + Math.random() * 0.02; // speed
-                    dataArray[i*4+1] = Math.random() * Math.PI * 2; // phase
-                    dataArray[i*4+2] = r; // base radius
-                    dataArray[i*4+3] = Math.random(); // variation
-                }
-
-                const swarmGeom = new THREE.BufferGeometry();
-                swarmGeom.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-                swarmGeom.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-                swarmGeom.setAttribute('aData', new THREE.BufferAttribute(dataArray, 4));
-
-                const swarmMat = new THREE.ShaderMaterial({
-                    uniforms: {
-                        uTime: { value: 0 },
-                        uPulse: { value: 0 },
-                        uPulseOrigin: { value: new THREE.Vector3(0,0,0) }
-                    },
-                    vertexShader: `
-                        uniform float uTime;
-                        uniform float uPulse;
-                        attribute vec3 color;
-                        attribute vec4 aData;
-                        varying vec3 vColor;
-                        varying float vAlpha;
-                        
-                        void main() {
-                            float speed = aData.x;
-                            float phase = aData.y;
-                            float baseR = aData.z;
-                            float variation = aData.w;
-                            
-                            // Movimiento Agéntico: Caos orquestado
-                            float dynamicR = baseR + sin(uTime * 1.5 + phase) * 0.8;
-                            
-                            // Rotación Enjambre (Antihorario)
-                            float angle = uTime * -0.5 + phase;
-                            vec3 pos = position;
-                            float x = cos(angle) * dynamicR;
-                            float z = sin(angle) * dynamicR;
-                            pos.x = x;
-                            pos.z = z;
-                            pos.y += sin(uTime * 2.0 + variation * 10.0) * 0.3;
-                            
-                            // Inyección de Autoridad: Flash Ocre
-                            float dist = length(pos);
-                            float pulseEffect = smoothstep(0.5, 0.0, abs(dist - uPulse));
-                            vColor = mix(color, vec3(0.89, 0.66, 0.22), pulseEffect * 0.9);
-                            vAlpha = 0.6 + pulseEffect * 0.4;
-                            
-                            vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-                            gl_PointSize = (variation * 8.0 + 4.0) * (20.0 / -mvPosition.z);
-                            gl_Position = projectionMatrix * mvPosition;
-                        }
-                    `,
-                    fragmentShader: `
-                        varying vec3 vColor;
-                        varying float vAlpha;
-                        void main() {
-                            float dist = length(gl_PointCoord - vec2(0.5));
-                            if (dist > 0.5) discard;
-                            float glow = pow(1.0 - dist * 2.0, 2.0);
-                            gl_FragColor = vec4(vColor, vAlpha * glow);
-                        }
-                    `,
-                    transparent: true,
-                    blending: THREE.AdditiveBlending,
-                    depthWrite: false
-                });
-
-                const swarmPoints = new THREE.Points(swarmGeom, swarmMat);
-                swarmPoints.name = "swarmPoints";
-                disruptionGroup.add(swarmPoints);
-
-                // 3. PULSE TIMER
-                disruptionGroup.userData.pulseTimer = 0;
-
-                modalObject.add(disruptionGroup);
-
-                // AMBIENTE
-                const grid = new THREE.GridHelper(10, 30, 0x24A8E1, 0x24A8E1);
-                grid.position.y = -3.5;
-                grid.material.opacity = 0.05;
-                grid.material.transparent = true;
-                modalObject.add(grid);
-
-                modalRenderer.setClearColor(0x050B16, 1);
-                
-                if (modalVisualCol) {
-                    modalVisualCol.classList.add('modal-disruption-active');
-                }
-
-                // Activación de Efecto CSS
-                if (modalVisualCol) {
-                    modalVisualCol.classList.remove('modal-sweep-active');
-                    modalVisualCol.classList.add('modal-disruption-active');
-                }
 
             } else if (type === 'brand_dna_visual') {
                 const dnaGroup = new THREE.Group();
@@ -5110,7 +4201,7 @@
                         for (let z = 0; z < size; z++) {
                             const box = new THREE.Mesh(
                                 new THREE.BoxGeometry(0.4, 0.4, 0.4),
-                                new THREE.MeshPhysicalMaterial({ color: 0x0A192F, transmission: 0.5, transparent: true, opacity: 0.8, metalness: 0.8, emissive: 0x0A192F, emissiveIntensity: 0.2 })
+                                new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.5, transparent: true, opacity: 0.8, metalness: 0.8, emissive: 0x050B16, emissiveIntensity: 0.2 })
                             );
                             const edges = new THREE.LineSegments(
                                 new THREE.EdgesGeometry(box.geometry),
@@ -5360,7 +4451,7 @@
                 for (let i = 0; i < 3; i++) {
                     const shield = new THREE.Mesh(
                         new THREE.IcosahedronGeometry(1.2 + i * 0.4, 2),
-                        new THREE.MeshPhysicalMaterial({ color: 0x0A192F, transmission: 0.9, transparent: true, opacity: 0.3 - i * 0.1, wireframe: true, emissive: 0x24A8E1, emissiveIntensity: 0.2 })
+                        new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.9, transparent: true, opacity: 0.3 - i * 0.1, wireframe: true, emissive: 0x24A8E1, emissiveIntensity: 0.2 })
                     );
                     shield.userData = { speed: (i % 2 === 0 ? 1 : -1) * (0.005 + i * 0.002) };
                     shields.add(shield);
@@ -5535,7 +4626,7 @@
 
                 if (type === 'jit_assembly') {
                     for (let i = 0; i < 8; i++) {
-                        const box = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x333333 }));
+                        const box = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: 0x050B16 }));
                         box.position.set((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10, (Math.random() - 0.5) * 10);
                         box.userData.target = new THREE.Vector3((i % 2 - 0.5) * 1.6, (Math.floor(i / 2) % 2 - 0.5) * 1.6, (Math.floor(i / 4) - 0.5) * 1.6);
                         modalObject.add(box);
@@ -5575,204 +4666,45 @@
                 // ANIMATION LOOPS PER TYPE
                 // ════════════════════════════════════════
 
-                if (type === 'nexus_agentica') {
-                    const core = modalObject.getObjectByName("core");
-                    const swarmGroup = modalObject.getObjectByName("swarmGroup");
-                    const corePulseLight = modalObject.getObjectByName("corePulseLight");
-                    
-                    if (swarmGroup && swarmGroup.userData.particlesLayer) {
-                        // Simular 'hover' rítmico o basado en proximidad del mouse en el modal
-                        const targetMouseOver = (Math.abs(modalMouse.x) < 0.5 && Math.abs(modalMouse.y) < 0.5) ? 1.0 : 0.0;
-                        swarmGroup.userData.renderMouseOver += (targetMouseOver - swarmGroup.userData.renderMouseOver) * 0.05;
-                        const renderMouseOver = swarmGroup.userData.renderMouseOver;
-                        
-                        swarmGroup.userData.pulseTimer += 0.04 + (renderMouseOver * 0.04);
-                        if (swarmGroup.userData.pulseTimer > 5.0) swarmGroup.userData.pulseTimer = 0;
-                        const pulseTimer = swarmGroup.userData.pulseTimer;
+                if (type === 'nexus_agentica' || type === 'nexus_impacto' || type === 'nexus_soberania' || type === 'nexus_gobernanza' || type === 'nexus_gemini_pro' || type === 'nexus_agentico_disruptivo') {
+                    const vaultGroup = modalObject.getObjectByName("vaultGroup");
+                    if (vaultGroup) {
+                        const goldCore = vaultGroup.getObjectByName("goldCore");
+                        const cryptoRing = vaultGroup.getObjectByName("cryptoRing");
+                        const rlsShield = vaultGroup.getObjectByName("rlsShield");
+                        const outerShield = vaultGroup.getObjectByName("outerShield");
+                        const laserRing = vaultGroup.getObjectByName("laserRing");
 
-                        if (core) {
-                            core.rotation.y += 0.005 + (renderMouseOver * 0.02);
-                            const corePulse = pulseTimer < 0.6 ? Math.sin(pulseTimer * Math.PI * 1.6) : 0;
-                            core.scale.setScalar(1.0 + (corePulse * 0.08));
-                            if (corePulseLight) corePulseLight.intensity = Math.max(0, corePulse * 8.0) + (renderMouseOver * 5.0);
+                        if (goldCore) {
+                            goldCore.rotation.y += 0.005;
+                            goldCore.rotation.x += 0.002;
                         }
-
-                        const filaments = modalObject.getObjectByName("filaments");
-                        if(filaments){
-                            filaments.children.forEach((f, i) => {
-                                f.material.opacity = 0.2 + Math.sin(t * 2 + i) * 0.2;
+                        if (cryptoRing) {
+                            cryptoRing.rotation.z += 0.01;
+                            cryptoRing.rotation.x += 0.005;
+                        }
+                        if (rlsShield) {
+                            rlsShield.children.forEach(cube => {
+                                cube.position.applyAxisAngle(cube.userData.orbitAxis, cube.userData.orbitSpeed);
+                                cube.rotation.x += 0.02;
                             });
                         }
-
-                        swarmGroup.userData.particlesLayer.forEach((layerData) => {
-                            const positions = layerData.mesh.geometry.attributes.position.array;
-                            layerData.mesh.material.uniforms.uTime.value = t;
-                            layerData.mesh.material.uniforms.uPulseWave.value = pulseTimer;
-                            layerData.mesh.material.uniforms.uHover.value = renderMouseOver;
-
-                            for (let i = 0; i < layerData.data.length; i++) {
-                                const p = layerData.data[i];
-                                p.angle += p.speed * (1.0 + renderMouseOver * 2.5);
-                                const distXZ = Math.sqrt(p.origX * p.origX + p.origZ * p.origZ);
-                                const newAngle = Math.atan2(p.origZ, p.origX) + p.angle;
-                                
-                                let nx = Math.cos(newAngle) * distXZ + Math.sin(t * 2.0 + p.origY * 5.0) * 0.06;
-                                let ny = p.origY + Math.cos(t * 1.5 + p.origX * 5.0) * 0.06;
-                                let nz = Math.sin(newAngle) * distXZ;
-
-                                positions[i * 3] = nx * (1.0 - renderMouseOver) + (p.hoverOffset.x * renderMouseOver);
-                                positions[i * 3 + 1] = ny * (1.0 - renderMouseOver) + (p.hoverOffset.y * renderMouseOver);
-                                positions[i * 3 + 2] = nz * (1.0 - renderMouseOver) + (p.hoverOffset.z * renderMouseOver);
-                            }
-                            layerData.mesh.geometry.attributes.position.needsUpdate = true;
-                        });
+                        if (outerShield) {
+                            outerShield.rotation.y -= 0.003;
+                            // Respiración del Escudo
+                            const pulseScale = 1.0 + Math.sin(t * 2) * 0.05;
+                            outerShield.scale.setScalar(pulseScale);
+                        }
+                        if (laserRing) {
+                            // Movimiento de escaneo vertical
+                            laserRing.position.y = Math.sin(t * 1.5) * 2.5;
+                            laserRing.material.opacity = 0.3 + Math.abs(Math.cos(t * 1.5)) * 0.5;
+                        }
                     }
-
-                } else if (type === 'nexus_impacto') {
-                    const monolith = modalObject.getObjectByName("monolith");
-                    const dataProjections = modalObject.getObjectByName("dataProjections");
                     const dust = modalObject.getObjectByName("dust");
-                    
-                    if (monolith) {
-                        monolith.rotation.y += 0.005;
-                    }
-                    if (dataProjections) {
-                        dataProjections.children.forEach(p => {
-                            p.position.y += p.userData.speed;
-                            p.material.opacity = 0.6 * (1.0 - (p.position.y / 2));
-                            if(p.position.y > 2) p.position.y = -2;
-                        });
-                    }
                     if (dust) {
                         dust.children.forEach(p => p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed));
                     }
-
-                } else if (type === 'nexus_soberania') {
-                    const globe = modalObject.getObjectByName("globe");
-                    const network = modalObject.getObjectByName("network");
-                    const connections = modalObject.getObjectByName("connections");
-                    const dust = modalObject.getObjectByName("dust");
-
-                    if (globe) globe.rotation.y -= 0.002;
-                    if (network) network.rotation.y += 0.005;
-                    if (connections) connections.rotation.y += 0.005;
-
-                    if (dust) {
-                        dust.children.forEach(p => p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed));
-                    }
-
-                } else if (type === 'nexus_gobernanza') {
-                    const goldCore = modalObject.getObjectByName("goldCore");
-                    const cryptoRing = modalObject.getObjectByName("cryptoRing");
-                    const rlsShield = modalObject.getObjectByName("rlsShield");
-                    const outerShield = modalObject.getObjectByName("outerShield");
-                    const laserRing = modalObject.getObjectByName("laserRing");
-                    const dust = modalObject.getObjectByName("dust");
-
-                    if (goldCore) {
-                        goldCore.rotation.y += 0.005;
-                        goldCore.rotation.x += 0.002;
-                    }
-                    if (cryptoRing) {
-                        cryptoRing.rotation.z += 0.01;
-                        cryptoRing.rotation.x += 0.005;
-                    }
-                    if (rlsShield) {
-                        rlsShield.children.forEach(cube => {
-                            cube.position.applyAxisAngle(cube.userData.orbitAxis, cube.userData.orbitSpeed);
-                            cube.rotation.x += 0.02;
-                        });
-                    }
-                    if (outerShield) {
-                        outerShield.rotation.y -= 0.003;
-                        // Respiración del Escudo
-                        const pulseScale = 1.0 + Math.sin(t * 2) * 0.05;
-                        outerShield.scale.setScalar(pulseScale);
-                    }
-                    if (laserRing) {
-                        // Movimiento de escaneo vertical
-                        laserRing.position.y = Math.sin(t * 1.5) * 2.5;
-                        laserRing.material.opacity = 0.3 + Math.abs(Math.cos(t * 1.5)) * 0.5;
-                    }
-
-                    if (dust) {
-                        dust.children.forEach(p => p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed));
-                    }
-
-                } else if (type === 'nexus_gemini_pro') {
-                    const techGroup = modalObject.getObjectByName("techGroup");
-                    const edges = modalObject.getObjectByName("goldenEdges");
-                    const coreEnergy = modalObject.getObjectByName("coreEnergy");
-                    const dust = modalObject.getObjectByName("dust");
-
-                    if (techGroup) {
-                        techGroup.rotation.y += 0.01;
-                        techGroup.rotation.z += 0.005;
-                    }
-
-                    // Escaneo de Nitidez (Ciclo de 4 segundos)
-                    const scanPos = Math.sin(t * (Math.PI * 2 / 4)) * 3.5;
-                    if (edges) {
-                        edges.children.forEach(line => {
-                            // Simulamos el escaneo iluminando si está cerca de scanPos
-                            const dist = Math.abs(line.position.y - scanPos);
-                            if(dist < 0.5) {
-                                line.material.emissiveIntensity = 2.0;
-                                line.material.color.set(0xE4A837);
-                            } else {
-                                line.material.emissiveIntensity = 0.5;
-                            }
-                        });
-                    }
-
-                    // Núcleo palpitante
-                    if (coreEnergy) {
-                        coreEnergy.scale.setScalar(0.8 + Math.sin(t * 3) * 0.2);
-                        coreEnergy.material.opacity = 0.5 + Math.sin(t * 3) * 0.3;
-                    }
-
-                    if (dust) {
-                        dust.children.forEach(p => p.position.applyAxisAngle(p.userData.axis, p.userData.orbitSpeed));
-                    }
-
-                } else if (type === 'nexus_agentico_disruptivo') {
-                    const gyroGroup = modalObject.getObjectByName("gyroGroup");
-                    const swarmPoints = modalObject.getObjectByName("swarmPoints");
-                    const centralOrbe = modalObject.getObjectByName("centralOrbe");
-
-                    if (gyroGroup) {
-                        gyroGroup.children.forEach(ring => {
-                            if (ring.userData.axis) {
-                                ring.position.applyAxisAngle(ring.userData.axis, ring.userData.speed * (1.0 + renderMouseOver * 2));
-                                ring.rotation.x += ring.userData.speed * 0.5;
-                                ring.rotation.y += ring.userData.speed;
-                            }
-                        });
-                    }
-                    if (centralOrbe) {
-                        centralOrbe.rotation.y += 0.02;
-                        centralOrbe.scale.setScalar(1.0 + Math.sin(t * 5.0) * 0.05);
-                    }
-
-                    if (swarmPoints) {
-                        swarmPoints.material.uniforms.uTime.value = t;
-                        
-                        // Lógica de Pulso de Autoridad (cada 3 segundos)
-                        let pTimer = disruptionGroup.userData.pulseTimer || 0;
-                        pTimer += 0.016;
-                        if (pTimer > 3.0) pTimer = 0;
-                        disruptionGroup.userData.pulseTimer = pTimer;
-
-                        // El pulso viaja del centro (0) hacia afuera (5.0)
-                        swarmPoints.material.uniforms.uPulse.value = pTimer * 1.8; 
-                    }
-
-                    // Dinámica de Interfaz (CSS toggle de intensidad)
-                    if (modalVisualCol) {
-                        const intensity = 0.4 + Math.sin(t * 3) * 0.2;
-                        modalVisualCol.style.setProperty('--refraction-intensity', intensity);
-                    }
-
                 } else if (type === 'brand_dna_visual') {
                     const dnaGroup = modalObject.getObjectByName("dnaGroup");
                     const dnaLight = modalObject.getObjectByName("dnaLight");
