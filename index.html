@@ -351,6 +351,40 @@
                 padding-bottom: 45px !important;
             }
         }
+
+        /* STAGGER NEXUS — Aparición cinematográfica */
+        .nexus-grid .nexus-card:nth-child(1){transition-delay:0.05s}
+        .nexus-grid .nexus-card:nth-child(2){transition-delay:0.15s}
+        .nexus-grid .nexus-card:nth-child(3){transition-delay:0.25s}
+        .nexus-grid .nexus-card:nth-child(4){transition-delay:0.35s}
+        .nexus-grid .nexus-card:nth-child(5){transition-delay:0.45s}
+        .nexus-grid .nexus-card:nth-child(6){transition-delay:0.55s}
+
+        /* CEO RESPONSIVE */
+        @media (max-width: 768px) {
+          .ceo-layout {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .ceo-photo-frame {
+            height: clamp(300px, 70vw, 420px) !important;
+            min-width: unset !important;
+            width: 100% !important;
+          }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .ceo-photo-frame {
+            height: clamp(380px, 40vw, 500px) !important;
+            min-width: 300px !important;
+          }
+        }
+
+        /* TICKER PAUSE ON HOVER */
+        .scrolling-terms:hover span,
+        .scrolling-manifesto:hover span {
+          animation-play-state: paused;
+        }
     </style>
 <script type="application/ld+json">
 {
@@ -639,7 +673,7 @@
         </div>
 
         <div class="nexus-section-unified">
-            <div class="nexus-grid">
+            <div class="nexus-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; padding: 0 20px; max-width: 1400px; margin: 40px auto 0;">
             <!-- TARJETA 1: SIMBIOSIS AGÉNTICA -->
             <div class="nexus-card reveal" data-key="nexus_agentica">
                 <div id="canvas-agentica" class="icon-neural"></div>
@@ -959,7 +993,7 @@
             .ceo-photo-frame {
                 position: relative;
                 width: 100%;
-                height: 580px;
+                height: clamp(350px, 45vw, 580px);
                 overflow: hidden;
                 flex: 1;
                 min-width: 350px;
@@ -973,7 +1007,7 @@
                 height: 100%;
                 object-fit: cover;
                 object-position: center top;
-                filter: brightness(0.9) contrast(1.1) saturate(0.85);
+                filter: brightness(1.0) contrast(1.05) saturate(1.0);
                 transition: filter 0.8s var(--ease-gb), transform 0.1s linear;
                 will-change: transform;
                 display: block;
@@ -1276,7 +1310,7 @@
             }
         </style>
 
-        <div class="ceo-layout reveal">
+        <div class="ceo-layout reveal" style="align-items: flex-start;">
 
             <!-- ══════════════════════════════════════════════════
                  FOTO CEO: EFECTO GEMINI PRO CINEMATOGRÁFICO v4.0
@@ -3129,15 +3163,17 @@
             // GEOMETRÍA: OCTAEDRO ESTILIZADO (DIAMANTE)
             const geometry = new THREE.OctahedronGeometry(1.5, 0);
             const material = new THREE.MeshPhysicalMaterial({
-                color: 0xffffff,
-                metalness: 0.1,
-                roughness: 0.1,
-                transmission: 0.7, // Glassmorphism
-                thickness: 1.0,
+                color: 0x050B16,
+                metalness: 1.0,
+                roughness: 0.02,
+                transmission: 0.1,
+                transparent: true,
+                opacity: 0.95,
+                thickness: 2.0,
                 clearcoat: 1.0,
-                clearcoatRoughness: 0.1,
+                clearcoatRoughness: 0.0,
                 emissive: 0xE4A837,
-                emissiveIntensity: 0.2
+                emissiveIntensity: 0.8
             });
             const diamond = new THREE.Mesh(geometry, material);
             scene.add(diamond);
@@ -3213,17 +3249,17 @@
                 preserveDrawingBuffer: true
             });
             renderer.setSize(width, height);
-            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
             initFn(scene, camera, renderer);
         }
 
         // --- MOTOR UNIFICADO DE CORE NEXUS (GEMINI PRO HIGH) ---
-        function createUnifiedNexusCore(scene, camera, renderer, geom, primaryColor, secondaryColor) {
+        function createUnifiedNexusCore(scene, camera, renderer, geom, primaryColor, secondaryColor, customConfig = {}) {
             const vaultGroup = new THREE.Group();
             scene.add(vaultGroup);
 
-            const coreMat = new THREE.MeshPhysicalMaterial({
+            const coreMat = customConfig.coreMat || new THREE.MeshPhysicalMaterial({
                 color: 0x050B16,
                 emissive: 0x050B16,
                 metalness: 0.9,
@@ -3246,11 +3282,12 @@
 
             const pureLight = new THREE.Mesh(
                 new THREE.SphereGeometry(0.08, 16, 16),
-                new THREE.MeshBasicMaterial({ color: secondaryColor })
+                customConfig.pureLightMat || new THREE.MeshBasicMaterial({ color: secondaryColor })
             );
             vaultGroup.add(pureLight);
 
-            const internalLight = new THREE.PointLight(secondaryColor, 2, 5);
+            const lightColor = customConfig.pointLightColor || secondaryColor;
+            const internalLight = new THREE.PointLight(lightColor, customConfig.pointLightIntensity || 2, customConfig.pointLightDistance || 5);
             vaultGroup.add(internalLight);
 
             function createHexTexture(colorStr) {
@@ -3351,13 +3388,38 @@
         // --- ICONOS NEXUS (TARJETAS SUPERIORES) UNIFICADOS ---
 
         createIconEngine('canvas-agentica', (scene, camera, renderer) => {
-            createUnifiedNexusCore(scene, camera, renderer, new THREE.CylinderGeometry(0.7, 0.7, 2.0, 6), 0x24A8E1, 0xE4A837);
+            const customMat = new THREE.MeshPhysicalMaterial({
+                color: 0x050B16,
+                transmission: 0.3,
+                transparent: true,
+                opacity: 0.9,
+                roughness: 0.05,
+                metalness: 1.0,
+                thickness: 2.0,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.0,
+                emissive: 0xE4A837,
+                emissiveIntensity: 0.7
+            });
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.CylinderGeometry(0.7, 0.7, 2.0, 6), 0x24A8E1, 0xE4A837, { coreMat: customMat });
         });
 
         createIconEngine('canvas-impacto', (scene, camera, renderer) => {
             const geom = new THREE.OctahedronGeometry(1.0, 0);
             geom.scale(1, 1.5, 1);
-            createUnifiedNexusCore(scene, camera, renderer, geom, 0xE4A837, 0x24A8E1);
+            const customMat = new THREE.MeshPhysicalMaterial({
+                color: 0x050B16,
+                transmission: 0.3,
+                transparent: true,
+                opacity: 0.9,
+                roughness: 0.05,
+                metalness: 1.0,
+                ior: 1.5,
+                thickness: 2,
+                emissive: 0xE4A837,
+                emissiveIntensity: 0.6
+            });
+            createUnifiedNexusCore(scene, camera, renderer, geom, 0xE4A837, 0x24A8E1, { coreMat: customMat });
         });
 
         createIconEngine('canvas-soberania', (scene, camera, renderer) => {
@@ -3365,11 +3427,40 @@
         });
 
         createIconEngine('canvas-gobernanza', (scene, camera, renderer) => {
-            createUnifiedNexusCore(scene, camera, renderer, new THREE.IcosahedronGeometry(0.7, 1), 0xE4A837, 0x24A8E1);
+            const customMat = new THREE.MeshPhysicalMaterial({
+                color: 0xE4A837,
+                metalness: 1.0,
+                roughness: 0.03,
+                emissive: 0xE4A837,
+                emissiveIntensity: 0.6,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.0
+            });
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.IcosahedronGeometry(0.7, 1), 0xE4A837, 0x24A8E1, {
+                coreMat: customMat,
+                pointLightColor: 0xE4A837,
+                pointLightIntensity: 4,
+                pointLightDistance: 10,
+                pureLightMat: new THREE.MeshBasicMaterial({ color: 0xE4A837 })
+            });
         });
 
         createIconEngine('canvas-gemini-pro', (scene, camera, renderer) => {
-            createUnifiedNexusCore(scene, camera, renderer, new THREE.OctahedronGeometry(1.0, 0), 0x24A8E1, 0xE4A837);
+            const customMat = new THREE.MeshPhysicalMaterial({
+                color: 0x050B16,
+                metalness: 1.0,
+                roughness: 0.0,
+                transmission: 0.2,
+                transparent: true,
+                opacity: 0.95,
+                thickness: 2.0,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.0,
+                ior: 2.4,
+                emissive: 0x24A8E1,
+                emissiveIntensity: 0.4
+            });
+            createUnifiedNexusCore(scene, camera, renderer, new THREE.OctahedronGeometry(1.0, 0), 0x24A8E1, 0xE4A837, { coreMat: customMat });
         });
 
         createIconEngine('canvas-agentico-disruptivo', (scene, camera, renderer) => {

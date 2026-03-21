@@ -1,0 +1,35 @@
+246:         .nexus-grid {
+277:     </style>
+354:     </style>
+472:     </style>
+584:         <div class="ceo-layout reveal">
+642:             <div class="nexus-grid">
+645:                 <div id="canvas-agentica" class="icon-neural"></div>
+656:                 <div id="canvas-impacto" class="icon-neural"></div>
+668:                 <div id="canvas-soberania" class="icon-neural"></div>
+679:                 <div id="canvas-gobernanza" class="icon-neural"></div>
+690:                 <div id="canvas-gemini-pro" class="icon-neural"></div>
+701:                 <div id="canvas-agentico-disruptivo" class="icon-neural"></div>
+959:             .ceo-photo-frame {
+971:             .ceo-photo-frame img.ceo-main-photo {
+983:             .ceo-photo-frame::before {
+995:             .ceo-photo-frame::after {
+1259:             .ceo-photo-frame:hover img.ceo-main-photo {
+1274:             .ceo-photo-frame:hover .ceo-gemini-glow {
+1277:         </style>
+1279:         <div class="ceo-layout reveal">
+1285:             <div class="ceo-photo-frame" id="ceoPhotoFrame">
+1662:                 </style>
+1958:                 </style>
+2338:                 </style>
+3115:     <!-- ELITE DIAMOND CORE ENGINE (THREE.JS) -->
+3190:         function createIconEngine(elementId, initFn) {
+3353:         createIconEngine('canvas-agentica', (scene, camera, renderer) => {
+3357:         createIconEngine('canvas-impacto', (scene, camera, renderer) => {
+3363:         createIconEngine('canvas-soberania', (scene, camera, renderer) => {
+3367:         createIconEngine('canvas-gobernanza', (scene, camera, renderer) => {
+3371:         createIconEngine('canvas-gemini-pro', (scene, camera, renderer) => {
+3375:         createIconEngine('canvas-agentico-disruptivo', (scene, camera, renderer) => {
+3381:         createIconEngine('aegis-canvas', (scene, camera, renderer) => {
+3468:         createIconEngine('geo-canvas', (scene, camera, renderer) => {
+3558:         createIconEngine('metatron-canvas', (scene, camera, renderer) => {
