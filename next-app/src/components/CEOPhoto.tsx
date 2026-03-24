@@ -6,6 +6,7 @@ import Image from 'next/image';
 /**
  * CEOPhoto Component - GB STRATEGISTS
  * Efecto fotográfico cinemático con HUD y partículas.
+ * Fixed: className string concatenation for build stability.
  */
 export const CEOPhoto = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -84,10 +85,10 @@ export const CEOPhoto = () => {
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#050B16] via-[#050B16]/40 to-transparent pointer-events-none" />
       <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#050B16] to-transparent w-1/3 pointer-events-none" />
 
-      {/* DINAMIC BORDER */}
-      <div className="absolute inset-0 z-20 border border-transparent pointer-events-none opacity-50 
+      {/* DINAMIC BORDER - Fixed String */}
+      <div className={`absolute inset-0 z-20 border border-transparent pointer-events-none opacity-50 
         [background:linear-gradient(#050B16,#050B16)_padding-box,linear-gradient(135deg,#E4A837,#24A8E1,#E4A837,transparent)_border-box]
-        group-hover:opacity-100 transition-opacity" 
+        group-hover:opacity-100 transition-opacity`} 
       />
 
       {/* HUD SCANNER LINE */}
@@ -129,6 +130,7 @@ export const CEOPhoto = () => {
           0%, 90%, 100% { opacity: 1; }
           92% { opacity: 0.1; }
           95% { opacity: 1; }
+          100% { opacity: 1; }
         }
       `}</style>
     </div>

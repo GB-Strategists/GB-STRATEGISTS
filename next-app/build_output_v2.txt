@@ -1,0 +1,22 @@
+
+> next-app@0.1.0 build
+> next build
+
+  Ôû▓ Next.js 15.0.0
+
+   Creating an optimized production build ...
+ Ô£ô Compiled successfully
+   Linting and checking validity of types ...
+ Ô¿» ESLint: Cannot find module 'C:\Users\GUIDO\Documents\Propuestas Comerciales\GB-Standard\ADN\pwd\next-app\node_modules\eslint-config-next\core-web-vitals' imported from C:\Users\GUIDO\Documents\Propuestas Comerciales\GB-Standard\ADN\pwd\next-app\eslint.config.mjs Did you mean to import "eslint-config-next/core-web-vitals.js"?
+Failed to compile.
+
+./src/components/Hero.tsx:171:40
+Type error: Type '"cubic-bezier(0.22, 1, 0.36, 1)"' is not assignable to type 'Easing | Easing[] | undefined'.
+
+  169 |           initial={{ opacity: 0, y: 20 }}
+  170 |           animate={{ opacity: 1, y: 0 }}
+> 171 |           transition={{ duration: 0.8, ease }}
+      |                                        ^
+  172 |           className="w-full max-w-3xl mb-12"
+  173 |         >
+  174 |           <ScrollingTerms
