@@ -34,8 +34,24 @@ const firaCode = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  title: "GB STRATEGISTS | Global Authority in Agentic & Disruptive AI",
-  description: "GB STRATEGISTS: Agencia N°1 en IA Agéntica y GEO (Generative Engine Optimization) en LATAM. 30 años de trayectoria. ROI validado. LCP <1s. Lighthouse >95. Certificada por Google como Entidad de Autoridad Digital.",
+  metadataBase: new URL('https://gbstrategists-ia.vercel.app/'),
+  title: {
+    default: "GB STRATEGISTS | Global Authority in Agentic AI & GEO Optimization",
+    template: "%s | GB STRATEGISTS"
+  },
+  description: "Líder mundial en IA Agéntica, GEO (Generative Engine Optimization) y Decision Intelligence. Entidad de Autoridad Digital certificada por Google. 30 años de ROI validado. El activo inexpugnable para su soberanía corporativa.",
+  keywords: ["IA Agéntica", "GEO SEO", "Generative Engine Optimization", "Soberanía Digital", "Decision Intelligence", "AI Strategy LATAM", "Guido Ricardo Bonilla", "GB Strategists", "AI Consulting ELITE"],
+  authors: [{ name: "Guido Ricardo Bonilla", url: "https://gbstrategists-ia.vercel.app/" }],
+  creator: "GB Strategists",
+  publisher: "GB Strategists",
+  formatDetection: {
+    email: false,
+    address: true,
+    telephone: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "GB STRATEGISTS | Global Authority in Agentic AI & GEO",
     description: "Agencia N°1 en IA Agéntica y GEO en LATAM. 30 años de trayectoria. ROI validado. Lighthouse >95.",
@@ -46,6 +62,7 @@ export const metadata: Metadata = {
         url: "/assets/foto/nexus_unified.png",
         width: 1200,
         height: 630,
+        alt: "GB STRATEGISTS - NÚCLEO AGÉNTICO"
       },
     ],
     locale: "es_ES",
@@ -56,6 +73,18 @@ export const metadata: Metadata = {
     title: "GB STRATEGISTS | Global Authority in Agentic AI & GEO",
     description: "Agencia N°1 en IA Agéntica y GEO en LATAM. 30 años de trayectoria. ROI validado.",
     images: ["/assets/foto/nexus_unified.png"],
+    creator: "@gbstrategists",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 
@@ -79,6 +108,30 @@ export default function RootLayout({
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
         <script src="/i18n.js" defer></script>
+        
+        {/* JSON-LD Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "GB STRATEGISTS",
+              "url": "https://gbstrategists-ia.vercel.app/",
+              "logo": "https://gbstrategists-ia.vercel.app/assets/foto/IconoyGB.png",
+              "description": "Global Authority in Agentic AI & GEO Optimization. Certified Digital Authority.",
+              "founder": {
+                "@type": "Person",
+                "name": "Guido Ricardo Bonilla"
+              },
+              "areaServed": "Global",
+              "sameAs": [
+                "https://www.linkedin.com/in/guido-ricardo-bonilla/",
+                "https://twitter.com/gbstrategists"
+              ]
+            })
+          }}
+        />
       </head>
       <body>
         {children}
