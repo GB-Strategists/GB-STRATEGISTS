@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 /**
  * CEOPhoto Component - GB STRATEGISTS
@@ -68,11 +69,16 @@ export const CEOPhoto = () => {
     <div className="relative w-full h-[clamp(350px,45vw,580px)] overflow-hidden flex-1 min-w-[350px] bg-[#050B16] cursor-crosshair group border border-white/5">
       
       {/* IMAGEN PRINCIPAL */}
-      <img 
-        src="/assets/foto/Firefly_GeminiFlash.png" 
-        alt="MBA. Guido Ricardo Bonilla"
-        className="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
-      />
+      <div className="absolute inset-0 grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105">
+        <Image 
+          src="/assets/foto/Firefly_GeminiFlash.png" 
+          alt="MBA. Guido Ricardo Bonilla"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          style={{ objectFit: 'cover', objectPosition: 'top' }}
+          className="transition-transform duration-700"
+        />
+      </div>
 
       {/* GRADIENT OVERLAY */}
       <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#050B16] via-[#050B16]/40 to-transparent pointer-events-none" />

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import NextImage from 'next/image';
 
 interface NexusCardData {
   id: string;
@@ -156,10 +157,16 @@ export const Nexus = () => {
               {/* VISUAL COL */}
               <div className="lg:w-[45%] h-[300px] lg:h-auto min-h-[400px] relative bg-black flex flex-col">
                 {/* CINEMATIC HEADER IMG */}
-                <div 
-                  className="absolute inset-x-0 top-0 h-48 bg-cover bg-center grayscale hover:grayscale-0 transition-all duration-700"
-                  style={{ backgroundImage: `url('${selectedCard.headerImg}')` }}
-                />
+                <div className="absolute inset-x-0 top-0 h-48 grayscale hover:grayscale-0 transition-all duration-700 overflow-hidden">
+                  <NextImage 
+                    src={`/${selectedCard.headerImg}`} 
+                    alt={selectedCard.title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 45vw"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#050B16] via-transparent to-transparent" />
+                </div>
                 
                 {/* THREE JS DIADEMA - Placeholder for now */}
                 <div className="flex-1 flex flex-col items-center justify-center relative mt-40">

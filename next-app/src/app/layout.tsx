@@ -5,27 +5,32 @@ import "./globals.css";
 const orbitron = Orbitron({
   variable: "--font-orbitron",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 const rajdhani = Rajdhani({
   variable: "--font-rajdhani",
   weight: ["300", "500", "700"],
   subsets: ["latin"],
+  display: 'swap',
 });
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 const firaCode = Fira_Code({
   variable: "--font-fira-code",
   subsets: ["latin"],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -65,6 +70,11 @@ export default function RootLayout({
         <meta name="theme-color" content="#050b16" />
         <link rel="icon" type="image/png" href="/assets/foto/IconoyGB.png" />
         <link rel="apple-touch-icon" href="/assets/foto/IconoyGB.png" />
+        
+        {/* Performance Preconnects */}
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+        <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
         {/* eslint-disable-next-line @next/next/no-sync-scripts */}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
