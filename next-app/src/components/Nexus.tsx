@@ -138,11 +138,11 @@ export const Nexus = () => {
       {/* MODAL ELITE */}
       {selectedCard && (
         <div 
-          className="fixed inset-0 z-[1000] flex items-center justify-center p-6 bg-[#050B16]/95 backdrop-blur-3xl transition-all duration-500 animate-[fadeIn_0.3s_ease-out]"
+          className="fixed inset-0 z-[1000] flex items-center justify-center lg:p-6 bg-[#050B16] lg:bg-[#050B16]/95 backdrop-blur-3xl transition-all duration-500 animate-[fadeIn_0.3s_ease-out]"
           onClick={closeModal}
         >
           <div 
-            className="relative w-full max-w-6xl bg-[#050B16] border border-[#E4A837]/30 shadow-[0_0_100px_rgba(36,168,225,0.15)] overflow-hidden"
+            className="relative w-full h-full lg:h-auto lg:max-h-[90vh] lg:max-w-6xl bg-[#050B16] border-none lg:border lg:border-[#E4A837]/30 shadow-none lg:shadow-[0_0_100px_rgba(36,168,225,0.15)] overflow-y-auto lg:overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             {/* CLOSE BTN */}

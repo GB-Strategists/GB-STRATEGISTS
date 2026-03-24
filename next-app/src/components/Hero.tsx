@@ -143,7 +143,7 @@ export const Hero = () => {
   }, []);
 
   return (
-    <header className="relative min-h-[70vh] flex items-center bg-[#050B16] overflow-hidden pb-20" id="hero-sovereignty">
+    <header className="relative min-h-screen flex flex-col lg:flex-row items-center bg-[#050B16] overflow-hidden" id="hero-sovereignty">
       {/* Background Atmosphere */}
       <div className="absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_#0A192F_0%,_#050B16_65%,_#050B16_100%)]" />
       
@@ -151,11 +151,11 @@ export const Hero = () => {
       <div className="absolute inset-0 z-1 opacity-10 mix-blend-overlay bg-[size:50px_50px] 
         bg-[linear-gradient(rgba(36,168,225,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(36,168,225,0.1)_1px,transparent_1px)]" />
 
-      {/* Three.js Canvas Container */}
-      <div ref={containerRef} className="absolute inset-0 z-2 pointer-events-none" />
+      {/* Three.js Canvas Container - Desktop side */}
+      <div ref={containerRef} className="relative z-2 w-full h-[50vh] lg:h-full lg:w-2/5 lg:order-2 pointer-events-none" />
 
       {/* Hero Content Layer */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-32 flex flex-col items-center text-center">
+      <div className="relative z-10 w-full lg:w-3/5 lg:order-1 max-w-7xl mx-auto px-6 pt-32 lg:pt-0 lg:pl-16 xl:pl-32 flex flex-col items-center lg:items-start text-center lg:text-left">
         
         <ScrollingTerms 
           terms="PTRE-2026 // SOBERANÍA DIGITAL // AUTORIDAD ALGORÍTMICA VALIDADA // PTRE-2026 // SOBERANÍA DIGITAL // AUTORIDAD ALGORÍTMICA VALIDADA //"
@@ -163,10 +163,12 @@ export const Hero = () => {
           className="mb-12"
         />
 
-        <h1 className="font-sans font-black leading-[1.05] tracking-tight mb-8 text-[clamp(2.5rem,8vw,6.5rem)] drop-shadow-[0_0_50px_rgba(5,11,22,0.95)]">
-          <span className="text-[#E4A837] block">ORQUESTACIÓN</span>
-          <span className="text-[#24A8E1] block">DE LA SOBERANÍA</span>
-          <span className="text-[#24A8E1] block">ALGORÍTMICA</span>
+        <h1 className="font-sans font-black leading-[1.05] tracking-tight mb-8 text-[clamp(2.5rem,7vw,5.5rem)] drop-shadow-[0_0_50px_rgba(5,11,22,0.95)]">
+          <span className="text-[#E4A837] block lg:inline">ORQUESTACIÓN</span>
+          <br className="lg:hidden" />
+          <span className="text-[#24A8E1] block lg:inline"> DE LA SOBERANÍA </span>
+          <br className="lg:hidden" />
+          <span className="text-[#24A8E1] block lg:inline"> ALGORÍTMICA</span>
         </h1>
 
         <p className="font-sans text-[clamp(1rem,1.8vw,1.35rem)] leading-relaxed text-[#F0F4F8] max-w-3xl mb-14 drop-shadow-[0_2px_15px_rgba(5,11,22,0.9)]">
