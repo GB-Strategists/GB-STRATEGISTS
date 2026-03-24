@@ -1,0 +1,101 @@
+:root {
+    /* GB STRATEGISTS - PALETA OFICIAL PROTOCOLO 2.3 */
+    --gold: #E4A837;
+    /* Poder, Lujo, Énfasis */
+    --cyan: #24A8E1;
+    /* Tecnología, Futuro, Claridad */
+    --void: #050B16;
+    /* Negro Void: Protocol v3.1 WCAG AAA */
+    --midnight: #0A192F;
+    --white: #F0F4F8;
+
+    /* VARIANTES TRANSLÚCIDAS (GLASSMORPHISM) */
+    --glass-bg: rgba(5, 11, 22, 0.8);
+    --glass-border: rgba(36, 168, 225, 0.2);
+    --gold-glow: rgba(228, 168, 55, 0.3);
+    --cyan-glow: rgba(36, 168, 225, 0.4);
+
+    /* GRAMÁTICA CINEMÁTICA v3.1: Organic 60 FPS Curves */
+    --ease-gb: cubic-bezier(0.19, 1, 0.22, 1);
+
+    /* TIPOGRAFÍA */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-subheading: 'Rajdhani', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+    /* Para el cursor cinético adaptativo */
+}
+
+body {
+    background-color: var(--void);
+    color: var(--white);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* PROTOCOLO v3.1: 60 FPS Kinetic Revelations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.reveal {
+    opacity: 0;
+}
+
+.reveal.active {
+    animation: fadeInUp 1s var(--ease-gb) forwards;
+}
+
+/* TYPOGRAPHY STANDARDS */
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.gold-text {
+    color: var(--gold);
+}
+
+.cyan-text {
+    color: var(--cyan);
+}
+
+/* SCROLLBAR CUSTOM */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--midnight);
+    border-radius: 10px;
+    border: 1px solid var(--glass-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--cyan);
+}
