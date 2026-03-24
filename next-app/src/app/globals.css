@@ -16,6 +16,30 @@
   --font-mono: var(--font-fira-code), ui-monospace, SFMono-Regular;
   --font-head: var(--font-orbitron);
   --font-body: var(--font-rajdhani);
+
+  /* Animation: scrolling marquee */
+  --animate-scroll-text: scrollText 30s linear infinite;
+  
+  @keyframes scrollText {
+    0%   { transform: translateX(0%); }
+    100% { transform: translateX(-33.333%); }
+  }
+
+  /* Animation: fade-up entry */
+  --animate-fade-up: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Animation: glow pulse */
+  --animate-glow-pulse: glowPulse 2.5s ease-in-out infinite;
+  
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(228,168,55,0.3); }
+    50%       { box-shadow: 0 0 60px rgba(228,168,55,0.7); }
+  }
 }
 
 :root {
