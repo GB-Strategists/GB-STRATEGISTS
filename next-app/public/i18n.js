@@ -1,4 +1,5 @@
 const enTranslations = {
+  "GB STRATEGISTS | Orquestación de Soberanía Algorítmica": "GB STRATEGISTS | Orchestration of Algorithmic Sovereignty",
   "PTRE-2026 // SOBERANÍA DIGITAL // AUTORIDAD ALGORÍTMICA VALIDADA": "PTRE-2026 // DIGITAL SOVEREIGNTY // VALIDATED ALGORITHMIC AUTHORITY",
   "TRANSFORMAMOS": "WE TRANSFORM",
   "su autoridad corporativa en un activo inexpugnable.": "your corporate authority into an impregnable asset.",
@@ -150,6 +151,12 @@ const enTranslations = {
   "OPERATIONS & TRUST": "OPERATIONS & TRUST",
   "ORQUESTACIÓN": "ORCHESTRATION",
   "ORQUESTACIÓN AGÉNTICA: ACTIVAR PROTOCOLO": "AGENTIC ORCHESTRATION: ACTIVATE PROTOCOL",
+  "Navegación principal": "Main navigation",
+  "Ir a sección de Manifiesto": "Go to Manifesto section",
+  "Ir a sección de Intelligence Hubs": "Go to Intelligence Hubs section",
+  "Ir a sección de Autoridad y Liderazgo": "Go to Authority and Leadership section",
+  "Acceder al Vault de clientes": "Access Client Vault",
+  "https://wa.me/593995173861?text=Hola+Guido,+solicito+intervención+de+élite+bajo+el+protocolo+PTRE-2026.+Mi+operación+requiere+orquestación+agéntica+inmediata.": "https://wa.me/593995173861?text=Hello+Guido,+I+request+elite+intervention+under+protocol+PTRE-2026.+My+operation+requires+immediate+agentic+orchestration.",
   "Oportunidad en \"Cacao Premium\"": "Opportunity in \"Premium Cocoa\"",
   "Orquestación de": "Orchestration of",
   "Orquestamos sistemas que automatizan el": "We orchestrate systems that automate the",
@@ -419,10 +426,49 @@ class I18nContext {
   }
 
   applyLang() {
+    // Translate text nodes
     this.textNodes.forEach(item => {
       item.node.nodeValue = this.currentLang === 'en' ? item.en : item.es;
     });
     
+    // Translate attributes (aria-label, title, href, alt)
+    const elementsToTranslate = document.querySelectorAll('[aria-label], [title], [href], [alt]');
+    elementsToTranslate.forEach(el => {
+      ['aria-label', 'title', 'href', 'alt'].forEach(attr => {
+        if (el.hasAttribute(attr)) {
+          const originalVal = el.getAttribute('data-i18n-orig-' + attr) || el.getAttribute(attr);
+          // Store original value for later switching
+          if (!el.hasAttribute('data-i18n-orig-' + attr)) {
+            el.setAttribute('data-i18n-orig-' + attr, originalVal);
+          }
+          
+          if (this.currentLang === 'en') {
+            const lookupKey = originalVal.trim();
+            const matchKey = Object.keys(this.langs.en).find(k => k === lookupKey || k === originalVal);
+            if (matchKey) {
+              el.setAttribute(attr, this.langs.en[matchKey]);
+            }
+          } else {
+            el.setAttribute(attr, originalVal);
+          }
+        }
+      });
+    });
+
+    // Translate document title
+    const origTitle = document.getAttribute?.('data-i18n-orig-title') || document.title;
+    if (!document.getAttribute?.('data-i18n-orig-title')) {
+      // Small hack to store original title since document isn't an Element in the same way
+      window._origTitle = origTitle;
+    }
+    const currentTitleOrig = window._origTitle || origTitle;
+    if (this.currentLang === 'en') {
+        const matchKey = Object.keys(this.langs.en).find(k => k === currentTitleOrig.trim() || k === currentTitleOrig);
+        if (matchKey) document.title = this.langs.en[matchKey];
+    } else {
+        document.title = currentTitleOrig;
+    }
+
     // Support translated modal data!
     if(window.i18nModalTranslate) {
       window.i18nModalTranslate(this.currentLang);
