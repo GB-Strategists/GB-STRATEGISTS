@@ -109,25 +109,44 @@ export default function RootLayout({
         <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
         <script src="/i18n.js" defer></script>
         
-        {/* JSON-LD Structured Data */}
+        {/* JSON-LD Structured Data - Advanced AI Service Graph */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
-              "name": "GB STRATEGISTS",
-              "url": "https://gbstrategists-ia.vercel.app/",
-              "logo": "https://gbstrategists-ia.vercel.app/assets/foto/IconoyGB.png",
-              "description": "Global Authority in Agentic AI & GEO Optimization. Certified Digital Authority.",
-              "founder": {
-                "@type": "Person",
-                "name": "Guido Ricardo Bonilla"
-              },
-              "areaServed": "Global",
-              "sameAs": [
-                "https://www.linkedin.com/in/guido-ricardo-bonilla/",
-                "https://twitter.com/gbstrategists"
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://gbstrategists-ia.vercel.app/#organization",
+                  "name": "GB STRATEGISTS",
+                  "url": "https://gbstrategists-ia.vercel.app/",
+                  "logo": "https://gbstrategists-ia.vercel.app/assets/foto/IconoyGB.png",
+                  "description": "Global Authority in Agentic AI & GEO Optimization. Certified Digital Authority.",
+                  "founder": {
+                    "@type": "Person",
+                    "name": "Guido Ricardo Bonilla"
+                  },
+                  "areaServed": "Global",
+                  "sameAs": [
+                    "https://www.linkedin.com/in/guido-ricardo-bonilla/",
+                    "https://twitter.com/gbstrategists"
+                  ]
+                },
+                {
+                  "@type": "Service",
+                  "name": "IA Agéntica de Élite",
+                  "provider": { "@id": "https://gbstrategists-ia.vercel.app/#organization" },
+                  "description": "Orquestación de workflows autónomos impulsados por IA para soberanía corporativa.",
+                  "serviceType": "Agentic AI Consulting"
+                },
+                {
+                  "@type": "Service",
+                  "name": "Generative Engine Optimization (GEO)",
+                  "provider": { "@id": "https://gbstrategists-ia.vercel.app/#organization" },
+                  "description": "Optimización de presencia digital para motores de respuesta generativa (SearchGPT, Perplexity, Gemini).",
+                  "serviceType": "GEO SEO"
+                }
               ]
             })
           }}

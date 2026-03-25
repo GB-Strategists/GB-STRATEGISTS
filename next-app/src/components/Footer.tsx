@@ -36,7 +36,14 @@ export const Footer = () => {
         <div className="flex flex-col gap-6">
           <h4 className="font-mono text-[11px] text-[#E4A837] font-bold tracking-[0.3em] uppercase mb-4">NAVEGACIÓN</h4>
           {['INICIO', 'NOSOTROS', 'GB NEXUS', 'ECOSISTEMA'].map(link => (
-            <a key={link} href={`#${link.toLowerCase().replace(' ', '')}`} className="text-[#ccd6f6] hover:text-[#24A8E1] text-[15px] transition-colors">{link}</a>
+            <a 
+              key={link} 
+              href={`#${link.toLowerCase().replace(' ', '')}`} 
+              aria-label={`Navegar a la sección ${link}`}
+              className="text-[#ccd6f6] hover:text-[#24A8E1] text-[15px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#24A8E1]"
+            >
+              {link}
+            </a>
           ))}
         </div>
 
@@ -48,7 +55,16 @@ export const Footer = () => {
             { label: 'Instagram (Visual Case Studies)', url: 'https://www.instagram.com/haciendasanjoseec/' },
             { label: 'Soto Architecture', url: 'https://www.sotopllc.com/' }
           ].map(social => (
-            <a key={social.label} href={social.url} target="_blank" className="text-[#ccd6f6] hover:text-[#24A8E1] text-[15px] transition-colors">{social.label}</a>
+            <a 
+              key={social.label} 
+              href={social.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label={`Ver caso de estudio externo: ${social.label}`}
+              className="text-[#ccd6f6] hover:text-[#24A8E1] text-[15px] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#24A8E1]"
+            >
+              {social.label}
+            </a>
           ))}
         </div>
 
@@ -62,7 +78,8 @@ export const Footer = () => {
       {/* BOTÓN DE RESCATE ESTRATÉGICO */}
       <a 
         href="https://wa.me/593995173861?text=Hola+Guido,+solicito+intervención+de+élite+bajo+el+protocolo+PTRE-2026.+Mi+operación+requiere+orquestación+agéntica+inmediata." 
-        className="fixed bottom-10 right-10 z-[5000] flex items-center gap-4 bg-[#E4A837] text-black px-6 py-4 font-black tracking-tighter uppercase text-xs hover:scale-105 transition-all shadow-[0_20px_40px_rgba(228,168,55,0.4)] group"
+        aria-label="Activar protocolo de rescate estratégico mediante WhatsApp"
+        className="fixed bottom-10 right-10 z-[5000] flex items-center gap-4 bg-[#E4A837] text-black px-6 py-4 font-black tracking-tighter uppercase text-xs hover:scale-105 transition-all shadow-[0_20px_40px_rgba(228,168,55,0.4)] group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
       >
         <span className="hidden sm:inline">ORQUESTACIÓN AGÉNTICA: ACTIVAR PROTOCOLO</span>
         <div className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center animate-pulse">

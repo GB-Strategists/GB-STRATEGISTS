@@ -258,10 +258,11 @@ export const Hero = () => {
         >
           <a
             href="#hubs"
+            aria-label="Explorar el Ecosistema de Hubs de Inteligencia"
             className="group relative overflow-hidden px-14 py-6 border border-[#24A8E1]/30 text-[#24A8E1] uppercase font-bold tracking-[0.3em] text-[11px] flex-1 text-center
               transition-all duration-500 bg-[#24A8E1]/5 backdrop-blur-md
               hover:bg-[#24A8E1]/10 hover:border-[#24A8E1]/60 hover:shadow-[0_0_50px_rgba(36,168,225,0.3)]
-              hover:-translate-y-1"
+              hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#24A8E1]"
           >
             <span className="relative z-10">Ecosistema Hubs</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
@@ -269,11 +270,12 @@ export const Hero = () => {
 
           <a
             href="#nexus"
+            aria-label="Activar el protocolo de comunicación Nexus"
             className="group relative overflow-hidden px-14 py-6 border border-[#E4A837] text-black uppercase font-black tracking-[0.3em] text-[11px] flex-1 text-center
               bg-[#E4A837] hover:bg-[#f2b94a] transition-all duration-500
               shadow-[0_0_40px_rgba(228,168,55,0.3)]
               hover:shadow-[0_0_80px_rgba(228,168,55,1)]
-              hover:-translate-y-1 hover:scale-[1.03]"
+              hover:-translate-y-1 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E4A837]"
           >
             <span className="relative z-10">Activar Nexus</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />

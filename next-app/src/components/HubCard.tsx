@@ -109,8 +109,10 @@ export const HubCard = ({
             <button
               key={tag.modalId}
               onClick={() => (window as any).openEliteModal?.(tag.modalId)}
+              aria-label={`Abrir detalles técnicos de ${tag.label}`}
               className="px-4 py-1.5 bg-white/[0.03] border border-white/10 text-[10px] text-[#24A8E1] font-mono tracking-tighter uppercase 
-                         hover:bg-[#24A8E1]/10 hover:border-[#24A8E1]/50 hover:text-white transition-all relative overflow-hidden group/btn"
+                         hover:bg-[#24A8E1]/10 hover:border-[#24A8E1]/50 hover:text-white transition-all relative overflow-hidden group/btn
+                         focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#24A8E1]"
             >
               <span className="relative z-10">{tag.label}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#24A8E1]/10 to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
