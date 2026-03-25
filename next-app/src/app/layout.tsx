@@ -88,6 +88,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -152,8 +155,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body>
+      <body className="antialiased">
         {children}
+        <SpeedInsights />
+        <Analytics />
         <script src="/migration-scripts.js" defer></script>
       </body>
     </html>
