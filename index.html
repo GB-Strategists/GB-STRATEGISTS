@@ -136,16 +136,22 @@
             min-height: 100vh;
         }
 
-        /* Bloque de texto desciende hasta el 60 % inferior de la pantalla */
-        #hero-sovereignty .hero-content {
-            padding-top: clamp(52vh, 58vh, 64vh) !important;
-            margin-top: 0 !important;
+        /* Bloque de texto — centrado base (aplica en todo contexto) */
+        .hero-content {
+            margin: 0 auto;
             width: 100%;
-            max-width: 960px;
+            max-width: 900px;
+            text-align: center;         /* asegura que los <span> del título se centren */
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
+        }
+
+        /* Override específico: baja el bloque bajo la esfera 3D */
+        #hero-sovereignty .hero-content {
+            padding-top: clamp(52vh, 58vh, 64vh) !important;
+            margin-top: 0 !important;
+            max-width: 900px;           /* sincronizado con regla genérica */
         }
 
         /* Fuerza centrado en el título principal */
