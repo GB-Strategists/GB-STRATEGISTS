@@ -16,11 +16,11 @@ export const Navbar = () => {
     >
       <div className="nav-logo">
         <Image 
-          src="/assets/foto/IconoyGB.png" 
+          src="/assets/foto/Logo GB.png" 
           alt="GB Strategists Logo - Ir al inicio" 
-          width={48}
-          height={48}
-          className="h-12 w-auto drop-shadow-[0_0_10px_rgba(228,168,55,0.3)]"
+          width={64}
+          height={64}
+          className="h-16 w-auto drop-shadow-[0_0_10px_rgba(228,168,55,0.3)]"
           priority
         />
       </div>

@@ -173,7 +173,7 @@ export const Hero = () => {
 
       {/* === HERO CONTENT — Premium Alignment === */}
       <motion.div
-        className="relative z-10 w-full max-w-7xl px-6 pt-[38vh] pb-16 flex flex-col items-center text-center"
+        className="relative z-10 w-full max-w-7xl px-6 pt-[45vh] pb-16 flex flex-col items-center text-center"
         style={{ y: titleY, opacity: titleOpacity }}
       >
         {/* Top scrolling badge - Identity Layer */}
