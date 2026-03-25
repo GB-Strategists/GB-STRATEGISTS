@@ -173,7 +173,7 @@ export const Hero = () => {
 
       {/* === HERO CONTENT — Premium Alignment === */}
       <motion.div
-        className="relative z-10 w-full max-w-7xl px-6 pt-[45vh] pb-16 flex flex-col items-center text-center"
+        className="relative z-10 w-full px-6 pt-[60vh] pb-16 flex flex-col items-center text-center mx-auto"
         style={{ y: titleY, opacity: titleOpacity }}
       >
         {/* Top scrolling badge - Identity Layer */}
@@ -196,7 +196,7 @@ export const Hero = () => {
         </motion.div>
 
         {/* H1 — Kinetic Typography with Golden Gradient */}
-        <h1 className="font-sans font-black leading-[0.95] tracking-tighter mb-12 text-[clamp(2.8rem,9vw,6rem)] uppercase">
+        <h1 className="font-sans font-black leading-[0.95] tracking-tighter mb-12 text-[clamp(2.8rem,9vw,6rem)] uppercase text-center w-full">
           <motion.span
             initial={{ opacity: 0, filter: 'blur(20px)', y: 40 }}
             animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
