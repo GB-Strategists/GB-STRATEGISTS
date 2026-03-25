@@ -154,7 +154,15 @@
             max-width: 900px;           /* sincronizado con regla genérica */
         }
 
-        /* Fuerza centrado en el título principal */
+        /* Centrado base global del título principal */
+        .mega-title {
+            margin: 0 auto;         /* centrado horizontal garantizado */
+            display: block;
+            text-align: center;     /* por si alguna regla lo sobrescribe */
+            width: 100%;
+        }
+
+        /* Especificidad máxima dentro del hero */
         #hero-sovereignty .mega-title {
             text-align: center !important;
             width: 100%;
