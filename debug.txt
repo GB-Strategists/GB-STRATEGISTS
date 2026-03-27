@@ -1,0 +1,115 @@
+﻿--- DISPLAY NONE / OPACITY 0 ---
+12:     <link rel="icon" type="image/png" href="assets/foto/IconoyGB.png">
+13:     <link rel="apple-touch-icon" href="assets/foto/IconoyGB.png">
+26:         content="https://gbstrategists-ia.vercel.app/assets/foto/nexus_unified.png">
+37:         content="https://gbstrategists-ia.vercel.app/assets/foto/nexus_unified.png">
+48:           "logo": "https://gbstrategists-ia.vercel.app/assets/foto/IconoyGB.png",
+91:     <link rel="preload" as="image" href="assets/foto/nexus_unified.png">
+179:             opacity: 0.6;
+191:             opacity: 0.8;
+252:             opacity: 0.7;
+311:             opacity: 0.25;
+320:             background: url('assets/foto/simbiosis.png') no-repeat center center;
+354:             display: none; /* Hidden by default, shown via JS */
+516:                 display: none !important;
+523:                 display: none !important;
+528:                 display: none !important;
+639:             <img src="assets/foto/Logo GB.png"
+687:         <div class="overlay-grid" style="opacity: 0.03; z-index: 1; background-size: 50px 50px; background-image: linear-gradient(rgba(36, 168, 225, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(36, 168, 225, 0.1) 1px, transparent 1px);"></div>
+800:                 <canvas id="diamondCanvas"></canvas>
+854:                 <canvas id="neuralCoreCanvas" style="width: 100%; height: 100%;"></canvas>
+946:                             <canvas id="modal-canvas"></canvas>
+978:                         poster="assets/foto/nexus_unified.png"
+1032:                         poster="assets/foto/nexus_unified.png"
+1072:                         poster="assets/foto/nexus_unified.png"
+1118:                         poster="assets/foto/nexus_unified.png"
+1159:                         poster="assets/foto/nexus_unified.png"
+1231:                 opacity: 0.7;
+1278:                     opacity: 0;
+1291:                     opacity: 0;
+1341:                     opacity: 0.4;
+1388:                     opacity: 0.1;
+1396:                     opacity: 0.2;
+1427:                     opacity: 0;
+1482:                 opacity: 0.6;
+1497:                 opacity: 0;
+1515:                 <img id="ceoMainPhoto" class="ceo-main-photo" src="assets/foto/Firefly_GeminiFlash.png"
+1537:                 <canvas class="ceo-particles-canvas" id="ceoParticlesCanvas"></canvas>
+1619:                         opacity: 0;
+1679:                             opacity: 0.6;
+1684:                             opacity: 0;
+1710:                         opacity: 0;
+2024:                         opacity: 0;
+2182:                             display: none;
+2505:                         opacity: 0.85;
+2561:                             opacity: 0.4;
+2570:                         <canvas id="qsParticles"></canvas>
+2572:                         <img src="firma-ceo%20A4.png" class="qs-img" id="ceoSignatureImg" alt="Firma Autorizada CEO"
+2658:             <canvas id="agenticCoreCanvas" style="width:100%;height:100%;"></canvas>
+2660:                 style="position:absolute; top:18px; left:24px; font-family:var(--font-mono); font-size:10px; color:var(--gold); letter-spacing:2px; opacity:0.7;">
+2663:                 style="position:absolute; bottom:18px; right:24px; font-family:var(--font-mono); font-size:10px; color:var(--cyan); letter-spacing:1.5px; opacity:0.6;">
+2702:                     opacity: 0.22,
+2709:                     opacity: 0.55
+2720:                     transparent: true, opacity: 0.07
+2732:                     opacity: 0.72,
+2758:                     opacity: 0.85, blending: THREE.AdditiveBlending, depthWrite: false
+3042:             const connectorMat = new THREE.LineBasicMaterial({ color: GOLD, transparent: true, opacity: 0.6 });
+3086:                 const lineMat = new THREE.LineBasicMaterial({ color: CYAN, transparent: true, opacity: 0.12 });
+3095:             const partMat   = new THREE.MeshBasicMaterial({ color: CYAN, transparent: true, opacity: 0.4 });
+3197:                 opacity: 0.2,
+3227:                     opacity: 0.3
+3294:                 opacity: 0.95,
+3306:             const lineMaterial = new THREE.LineBasicMaterial({ color: 0xE4A837, opacity: 0.8, transparent: true });
+3392:                 opacity: 0.8,
+3401:                 new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.6 })
+3518:                 opacity: 0.9,
+3537:                 opacity: 0.9,
+3578:                 opacity: 0.95,
+3614:                     opacity: 0.2,
+3624:                 new THREE.MeshBasicMaterial({ color: 0x24A8E1, wireframe: true, transparent: true, opacity: 0.15 })
+3634:                     new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0, side: THREE.DoubleSide })
+3638:                     new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.4 })
+3695:                 opacity: 0.9,
+3703:                 new THREE.MeshBasicMaterial({ color: 0x24A8E1, wireframe: true, transparent: true, opacity: 0.15 })
+3728:                     new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.4 })
+3802:                         opacity: 0.8,
+3813:                     new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.5 })
+4104:                 let headerImg = 'assets/foto/nexus_unified.png'; // Unified Default
+4107:                     headerImg = 'assets/foto/nexus_gobernanza.png';
+4109:                     headerImg = 'assets/foto/nexus_roi_monolith_v5.png';
+4111:                     headerImg = 'assets/foto/nexus_neural_core_v5.png';
+4113:                     headerImg = 'assets/foto/nexus_geo_sovereignty_v5.png';
+4115:                     headerImg = 'assets/foto/nexus_gemini_engine_v5.png';
+4117:                     headerImg = 'assets/foto/nexus_disruptive_swarm_v5.png';
+4141:                     <p style="color: var(--gold); font-family: var(--font-mono); font-size: 0.8rem; margin-top: 5px; opacity: 0.8;">${data.subtitle}</p>
+4270:                     opacity: 0.8,
+4281:                     new THREE.LineBasicMaterial({ color: primaryColor, transparent: true, opacity: 0.9 })
+4294:                     opacity: 0.7
+4333:                     opacity: 0.15,
+4344:                     new THREE.LineBasicMaterial({ color: secondaryColor, transparent: true, opacity: 0.05 })
+4369:                         new THREE.MeshBasicMaterial({ color: 0xF0F4F8, transparent: true, opacity: 0.4 })
+4399:                     const linkMat = new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.5 });
+4418:                                 new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.5, transparent: true, opacity: 0.8, metalness: 0.8, emissive: 0x050B16, emissiveIntensity: 0.2 })
+4422:                                 new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.6 })
+4479:                     new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.3 })
+4507:                         new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.6 })
+4515:                     new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.1, side: THREE.DoubleSide })
+4537:                     new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.9, transparent: true, opacity: 0.6, metalness: 0.5, roughness: 0.1, side: THREE.DoubleSide })
+4543:                     new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.4 })
+4577:                     new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.9, transparent: true, opacity: 0.8, roughness: 0.2, envMapIntensity: 1, clearcoat: 1 })
+4582:                     new THREE.MeshBasicMaterial({ color: 0x24A8E1, wireframe: true, transparent: true, opacity: 0.15 })
+4598:                         new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.3 })
+4610:                         new THREE.MeshBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.3 })
+4639:                         new THREE.MeshPhysicalMaterial({ color: 0x24A8E1, transmission: 0.6, transparent: true, opacity: 0.9, roughness: 0.1 })
+4646:                     const linkMat = new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.2 });
+4668:                         new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.9, transparent: true, opacity: 0.3 - i * 0.1, wireframe: true, emissive: 0x24A8E1, emissiveIntensity: 0.2 })
+4687:                         new THREE.MeshBasicMaterial({ color: 0xff3333, transparent: true, opacity: 0 })
+4713:                         new THREE.LineBasicMaterial({ color: 0x24A8E1, transparent: true, opacity: 0.5 })
+4724:                     new THREE.MeshBasicMaterial({ color: 0xE4A837, wireframe: true, transparent: true, opacity: 0.8 })
+4762:                     const material = new THREE.LineBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8 });
+4783:                     new THREE.MeshBasicMaterial({ color: 0x24A8E1, wireframe: true, transparent: true, opacity: 0.2, side: THREE.DoubleSide })
+4794:                         new THREE.MeshPhysicalMaterial({ color: 0x050B16, transmission: 0.5, transparent: true, opacity: 0.9, emissive: (i % 2 === 0) ? 0xE4A837 : 0x24A8E1, emissiveIntensity: 0.2 })
+4798:                         new THREE.LineBasicMaterial({ color: 0xFFFFFF, transparent: true, opacity: 0.3 })
+4813:                     new THREE.MeshBasicMaterial({ color: 0xE4A837, transparent: true, opacity: 0.8, side: THREE.DoubleSide })
+4839:                 let mat = new THREE.MeshPhysicalMaterial({ color: isCyan ? 0x24A8E1 : 0xE4A837, transmission: 0.6, transparent: true, opacity: 0.8 });
+4850:                     m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo), new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 })));

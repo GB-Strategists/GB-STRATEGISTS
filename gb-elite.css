@@ -473,7 +473,7 @@ footer {
     opacity: 0;
     transform: translateY(40px);
     filter: blur(10px);
-    transition: 1s var(--ease-out);
+    transition: 1s var(--ease-gb);
 }
 
 .reveal.active {
@@ -1336,7 +1336,7 @@ footer {
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: 0.4s var(--ease-out);
+    transition: 0.4s var(--ease-gb);
 }
 
 .elite-modal.active {
@@ -1415,7 +1415,7 @@ footer {
     font-size: 12px;
     opacity: 0;
     transform: scale(0.5);
-    transition: 0.4s var(--ease-out);
+    transition: 0.4s var(--ease-gb);
 }
 
 .signature-box:hover .verified-shield {
