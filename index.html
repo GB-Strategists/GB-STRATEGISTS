@@ -487,6 +487,75 @@
         a, button {
           cursor: pointer;
         }
+
+        /* ═══════════════════════════════════════════════════
+           ACCESSIBILITY: PREFERS REDUCED MOTION (WCAG AAA)
+           Protocol: GB-DNA 15.0 - Vestibular Disorder Support
+        ═══════════════════════════════════════════════════ */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            /* Desactivar animaciones THREE.js */
+            #digital-void-canvas,
+            #neuralCoreCanvas,
+            #agenticCoreCanvas,
+            #diamondCanvas,
+            #ceoParticlesCanvas,
+            #aegis-canvas,
+            #geo-canvas,
+            #metatron-canvas,
+            #qsParticles,
+            #modal-canvas {
+                display: none !important;
+            }
+
+            /* Desactivar scanner line */
+            .ceo-scanner-line,
+            .ceo-hud-corner {
+                animation: none !important;
+                display: none !important;
+            }
+
+            /* Desactivar shimmer particles */
+            .ceo-particles-canvas {
+                display: none !important;
+            }
+
+            /* Desactivar scrolling text */
+            .scrolling-terms span,
+            .scrolling-manifesto span {
+                animation: none !important;
+            }
+
+            /* Desactivar pulse glow */
+            .comp-icon-wrap::after,
+            .loc-flag-container {
+                animation: none !important;
+            }
+
+            /* Desactivar floating animations */
+            .anim-float,
+            .anim-floatB,
+            .anim-pulse,
+            .anim-spin,
+            .anim-orbit,
+            .anim-radar,
+            .anim-peace {
+                animation: none !important;
+            }
+
+            /* Static borders for reduced motion */
+            .ceo-photo-frame::after {
+                animation: none !important;
+            }
+        }
     </style>
 <script type="application/ld+json">
 {
