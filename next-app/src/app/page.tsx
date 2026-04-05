@@ -1,4 +1,5 @@
 import { Navbar } from '@/components/Navbar';
+import { StrategicPlan } from '@/components/StrategicPlan';
 import { Hero } from '@/components/Hero';
 import { Manifesto } from '@/components/Manifesto';
 import { Nexus } from '@/components/Nexus';
@@ -17,6 +18,9 @@ export default function Home() {
     <main className="bg-[#050B16] text-white overflow-hidden selection:bg-[#E4A837]/30">
       {/* CAPA DE NAVEGACIÓN SUPERIOR */}
       <Navbar />
+
+      {/* SECCIÓN 0: PLAN ESTRATÉGICO DE GOBERNANZA TÉCNICA (NUEVO) */}
+      <StrategicPlan />
 
       {/* BLOQUE DINÁMICO: HERO EXPERIENCE (THREE.JS) */}
       <Hero />
